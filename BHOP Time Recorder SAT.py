@@ -305,6 +305,13 @@ def delete():
     entry4.grid(row=1, column=0, padx=(37,0))
     allList.append(entry4)
 
+    MapList_button2 = tk.Button(content, text='Map List', command=hide)
+    MapList_button2.grid(row=2, column=0, padx=(40, 76))
+    allList.append(MapList_button2)
+    MapConfirm_button6 = tk.Button(content, text="Confirm", command=hide)
+    MapConfirm_button6.grid(row=2, column=0, padx=(116, 0))
+    allList.append(MapConfirm_button6)
+
 
 
 
