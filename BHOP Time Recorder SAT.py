@@ -14,7 +14,12 @@ Style = ["AUTO-BHOP   ",
 
 ###
 
+StyleSelect_list = ["Choose a Style"]
+TimeSelect_list = ["Select Time"]
+
 MapSearchList = ["Select A Map"]
+MapSearchList1 = ["Select A Map"]
+
 
 ###
 ##################################################################################################################
@@ -122,8 +127,9 @@ gider = tk.Frame(root, bg="white")
 
 
 def MainPage():
+
     title = Label(header, text="BHOP Time Recorder", fg="White", bg="grey", font="Verdana 17 bold", )
-    title.grid(row=0, column=1, padx=30)
+    title.grid(row=0, column=0, padx=(25,30))
     allList.append(title)
     packer = Label(content, text="                   ")
     packer.grid(row=0, column=0)
@@ -171,6 +177,9 @@ def MainPage():
     settings_button.grid(row=4, column=0)
     allList.append(settings_button)
 
+    quit_button = tk.Button(Footer, text='Quit', width=15, command=root.destroy)
+    quit_button.grid(row=5, column=0)
+    allList.append(quit_button)
 ##################################################################################################################
 
 
@@ -279,7 +288,7 @@ def allremove():
 ##################################################################################################################
 
 def delete():
-    root.geometry('250x340')
+    root.geometry('250x385')
     hide()
     root.columnconfigure(0, weight=1)
     root.rowconfigure(0, pad=1)
@@ -306,14 +315,55 @@ def delete():
     allList.append(entry4)
 
     MapList_button2 = tk.Button(content, text='Map List', command=hide)
-    MapList_button2.grid(row=2, column=0, padx=(40, 76))
+    MapList_button2.grid(row=2, column=0, padx=(40, 80))
     allList.append(MapList_button2)
     MapConfirm_button6 = tk.Button(content, text="Confirm", command=hide)
     MapConfirm_button6.grid(row=2, column=0, padx=(116, 0))
     allList.append(MapConfirm_button6)
 
+    Label17 = Label(content, text="Map Select", font="Arial 15 bold")
+    Label17.grid(row=3, column=0, pady=(10, 0), padx=(40, 0))
+    allList.append(Label17)
 
+    Mapselect = StringVar()
+    Mapselect.set(MapSearchList1[0])  # default value
+    DropdownMapSelect = OptionMenu(content, Mapselect, *MapSearchList1)
+    DropdownMapSelect.grid(row=4, column=0, padx=(40,0))
+    allList.append(DropdownMapSelect)
 
+    delete1_button = tk.Button(content, text='Delete Map', command=home)
+    delete1_button.grid(row=5, column=0, padx=(40, 80))
+    allList.append(delete1_button)
+    select_button = tk.Button(content, text="Select", command=home)
+    select_button.grid(row=5, column=0, padx=(130, 0))
+    allList.append(select_button)
+
+    Label18 = Label(content, text="Style Select", font="Arial 15 bold")
+    Label18.grid(row=6, column=0, pady=(10, 0), padx=(40, 0))
+    allList.append(Label18)
+
+    StyleSelect = StringVar()
+    StyleSelect.set(StyleSelect_list[0])  # default value
+    DropdownStyleSelect = OptionMenu(content, StyleSelect, *StyleSelect_list)
+    DropdownStyleSelect.grid(row=7, column=0, padx=(35, 0))
+    allList.append(DropdownStyleSelect)
+
+    Label19 = Label(content, text="Time Select", font="Arial 15 bold")
+    Label19.grid(row=8, column=0, pady=(10, 0), padx=(40, 0))
+    allList.append(Label19)
+
+    TimeSelect = StringVar()
+    TimeSelect.set(TimeSelect_list[0])  # default value
+    DropdownTimeSelect = OptionMenu(content, TimeSelect, *TimeSelect_list)
+    DropdownTimeSelect.grid(row=9, column=0, padx=(35, 0))
+    allList.append(DropdownTimeSelect)
+
+    delete2_button = tk.Button(content, text="Delete", command=home)
+    delete2_button.grid(row=10, column=0, padx=(30, 0))
+    allList.append(delete2_button)
+    Home_button4 = tk.Button(content, text='Home', command=home)
+    Home_button4.grid(row=11, column=0, padx=(0, 140), pady=(0, 10))
+    allList.append(Home_button4)
 
 ##################################################################################################################
 
@@ -325,7 +375,7 @@ def home():
 ##################################################################################################################
 
 def MainWindowLayout():
-    root.geometry('250x300')
+    root.geometry('250x320')
     root.columnconfigure(0, weight=1) # 100%
 
     root.rowconfigure(0, pad=3) # 10%
