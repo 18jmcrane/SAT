@@ -44,9 +44,22 @@ def hide():
     allremove()
 ##################################################################################################################
 
+def mapdisplay():
+    root.geometry('250x300')
+    root.columnconfigure(0, weight=1)
+    root.rowconfigure(0, pad=3)
+    root.rowconfigure(1, pad=10)
+    root.rowconfigure(2, pad=3)
+    header.grid(row=0, sticky='news')
+    content.grid(row=1, sticky='news')
+    Footer.grid(row=2, sticky='news')
+
 
 def view_func(SearchMap):
     mapquery = SearchMap.get()
+    searchresult = ("test")
+    hide()
+    mapdisplay()
 
     for i in maplist_list:
         if i == mapquery:
@@ -54,6 +67,28 @@ def view_func(SearchMap):
             print(searchresult)
         else:
             print("nothing found")
+
+    if searchresult != ("test"):
+        file = open('./maps/'+searchresult, "r")
+        viewmapall_list = []
+        counter = 1
+
+        for line in file:
+            line = line.strip('\n')
+            line = line.split(",")
+            viewmapall_list.append(line)
+
+
+        print(searchresult)
+        for i in viewmapall_list:
+            print("Line",counter)
+            print(i[0])
+            print(i[1])
+            print(i[2])
+            counter+=1
+
+    else:
+        print("Entered Invalid")
 
 
 
@@ -104,10 +139,17 @@ def AddFile(mapinput, styles, TimeAdd, statusSelect):
     style = styles.get()
     time = TimeAdd.get()
     tickrate = statusSelect.get()
+    k=True
     print(map)
-    file = open("maplist", "a")
-    file.write(map+",\n")
-    file.close()
+
+    for i in maplist_list:
+        if i == map:
+            k = False
+
+    if k == True:
+        file = open("maplist", "a")
+        file.write(map+",\n")
+        file.close()
 
     fi = open('./maps/'+map, "a")
     fi.write(style)
@@ -265,7 +307,7 @@ def MainPage():
 
 
 def view():
-    root.geometry('250x240')
+    root.geometry('250x305')
     hide()
     root.rowconfigure(0, pad=2)
     root.rowconfigure(1, pad=3)
@@ -290,30 +332,29 @@ def view():
     entry3.grid(row=1, column=0, padx=(28, 0))
     allList.append(entry3)
 
-    MapList_button1 = tk.Button(Footer, text='Map List', command=maplist)
-    MapList_button1.grid(row=2, column=0,padx=(40,0))
-    allList.append(MapList_button1)
-    MapConfirm_button5 = tk.Button(Footer, text= "Confirm", command=lambda: view_func(SearchMap))
-    MapConfirm_button5.grid(row=2, column=1,padx=(10,0))
-    allList.append(MapConfirm_button5)
+    listbox1 = tk.Listbox(Footer, width=20, height=10)
+    listbox1.grid(row=3, column=0, padx=(28, 0))
+    # create a vertical scrollbar to the right of the listbox
+    yscroll1 = tk.Scrollbar(Footer, command=listbox1.yview, orient=tk.VERTICAL)
+    yscroll1.grid(row=3, column=1, sticky='ns')
+    listbox1.configure(yscrollcommand=yscroll1.set)
+    listbox1.bind('<<ListboxSelect>>', select_item)
+    # now load the listbox with data
+    for item in maplist_list:
+        # insert each new item to the end of the listbox
+        listbox1.insert('end', item)
 
-    Label13 = Label(gider, text="Map Select", font="Arial 15 bold")
-    Label13.grid(row=0, column=0,pady=(10,0), padx=(55, 0))
-    allList.append(Label13)
+    allList.append(listbox1)
+    allList.append(yscroll1)
 
-    Mapselect = StringVar()
-    Mapselect.set(MapSearchList[0])  # default value
-    DropdownMapSelect = OptionMenu(gider, Mapselect, *MapSearchList)
-    DropdownMapSelect.grid(row=1, column=0,padx=(55, 0))
-    allList.append(DropdownMapSelect)
+    Home_button2 = tk.Button(gider, text="Home", command=home, width=5)
+    Home_button2.grid(row=0, column=0, padx=(32,0))
+    allList.append(Home_button2)
 
-    view_button1 = tk.Button(gider, text= "View", command=hide)
-    view_button1.grid(row=2, column=0,padx=(55,0))
+    view_button1 = tk.Button(gider, text= "View", command=lambda: view_func(SearchMap),width=5)
+    view_button1.grid(row=0, column=1,padx=(30,0))
     allList.append(view_button1)
 
-    Home_button2 = tk.Button(gider, text= "Home", command=home,width=5)
-    Home_button2.grid(row=3, column=0, padx=(0,120))
-    allList.append(Home_button2)
 
     back_list.append("View")
 ##################################################################################################################
