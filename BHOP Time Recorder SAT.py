@@ -2,6 +2,8 @@ from tkinter import *
 import tkinter as tk
 ##################################################################################################################
 maplist_list = []
+back_list = []
+
 
 f = open("maplist", "r")
 for line in f:
@@ -41,6 +43,62 @@ def hide():
     Footer.grid_remove()
     allremove()
 ##################################################################################################################
+
+
+def view_func(SearchMap):
+    mapquery = SearchMap.get()
+
+    for i in maplist_list:
+        if i == mapquery:
+            searchresult = i
+            print(searchresult)
+        else:
+            print("nothing found")
+
+
+
+def select_item(event):
+    w = event.widget
+    index = int(w.curselection()[0])
+    value = w.get(index)
+    SearchMap.set(value)
+
+    x = len(back_list)
+    y = 0
+    if x > 1:
+        y = (x - 1)
+
+    page = back_list[y]
+
+    if page == "Delete":
+        MapDeleteSearch.set(value)
+
+    elif page == "AddPage":
+        MapAddSearch.set(value)
+
+    elif page == "View":
+        SearchMap.set(value)
+
+def backbutton():
+    x = len(back_list)
+    y = 0
+    if x > 1:
+       y = (x-1)
+
+    page = back_list.pop(y)
+
+    if page == "Delete":
+        hide()
+        delete()
+
+    elif page == "AddPage":
+        hide()
+        addpage()
+
+    elif page == "View":
+        hide()
+        view()
+
 def AddFile(mapinput, styles, TimeAdd, statusSelect):
     map = mapinput.get()
     style = styles.get()
@@ -61,7 +119,7 @@ def AddFile(mapinput, styles, TimeAdd, statusSelect):
 ##################################################################################################################
 
 def addpage():
-    root.geometry('250x360')
+    root.geometry('250x300')
     hide()
     root.columnconfigure(0, weight=1)
     root.rowconfigure(0, pad=3)
@@ -79,16 +137,12 @@ def addpage():
     Label7.grid(row=0, column=0,pady=(10,0), padx=20)
     allList.append(Label7)
 
-    MapAddSearch = StringVar()
     entry1 = Entry(content, textvariable=MapAddSearch, width=16)
     entry1.grid(row=0, column=1,pady=(10,0))
     allList.append(entry1)
     MapList_button = tk.Button(content, text='Map List', command=maplist)
-    MapList_button.grid(row=1, column=1,padx=(0,78))
+    MapList_button.grid(row=1, column=1,padx=(76,0))
     allList.append(MapList_button)
-    MapConfirm_button1 = tk.Button(content, text= "Confirm", command=lambda: AddFile(MapAddSearch))
-    MapConfirm_button1.grid(row=1, column=1, padx=(78, 0))
-    allList.append(MapConfirm_button1)
 
     ###################
     ##################
@@ -102,9 +156,6 @@ def addpage():
     DropdownStyle = OptionMenu(content, Styles, *Style)
     DropdownStyle.grid(row=2, column=1,pady=(10, 0))
     allList.append(DropdownStyle)
-    MapConfirm_button2 = tk.Button(content, text= "Confirm", command=lambda: addstyle(Styles))
-    MapConfirm_button2.grid(row=3, column=1, padx=(78, 0))
-    allList.append(MapConfirm_button2)
 
     TimeAdd = StringVar()
     Label9 = Label(content, text="TIME:", font="Arial 14 bold")
@@ -113,9 +164,6 @@ def addpage():
     entry2 = Entry(content, textvariable=TimeAdd, width=16)
     entry2.grid(row=5, column=1,pady=(10,0))
     allList.append(entry2)
-    MapConfirm_button3 = tk.Button(content, text= "Confirm", command=hide)
-    MapConfirm_button3.grid(row=6, column=1, padx=(78, 0))
-    allList.append(MapConfirm_button3)
 
     Label10 = Label(content, text="TICK", font="Arial 14 bold")
     Label10.grid(row=7, column=0,pady=(10, 0))
@@ -142,6 +190,8 @@ def addpage():
     Home_button1 = tk.Button(Footer, text= "Home", command=home, width=10)
     Home_button1.grid(row=10, column=0, pady=(0,10), padx=(0,5))
     allList.append(Home_button1)
+
+    back_list.append("AddPage")
 
 
 
@@ -236,8 +286,6 @@ def view():
     Label12.grid(row=0, column=0,pady=(10,0), padx=(34, 0))
     allList.append(Label12)
 
-
-    SearchMap = StringVar()
     entry3 = Entry(content, textvariable=SearchMap, width=20)
     entry3.grid(row=1, column=0, padx=(28, 0))
     allList.append(entry3)
@@ -245,7 +293,7 @@ def view():
     MapList_button1 = tk.Button(Footer, text='Map List', command=maplist)
     MapList_button1.grid(row=2, column=0,padx=(40,0))
     allList.append(MapList_button1)
-    MapConfirm_button5 = tk.Button(Footer, text= "Confirm", command=hide)
+    MapConfirm_button5 = tk.Button(Footer, text= "Confirm", command=lambda: view_func(SearchMap))
     MapConfirm_button5.grid(row=2, column=1,padx=(10,0))
     allList.append(MapConfirm_button5)
 
@@ -266,6 +314,8 @@ def view():
     Home_button2 = tk.Button(gider, text= "Home", command=home,width=5)
     Home_button2.grid(row=3, column=0, padx=(0,120))
     allList.append(Home_button2)
+
+    back_list.append("View")
 ##################################################################################################################
 
 
@@ -340,7 +390,6 @@ def delete():
     Label16.grid(row=0, column=0, pady=(10, 0), padx=(40, 0))
     allList.append(Label16)
 
-    MapDeleteSearch = StringVar()
     entry4 = Entry(content, textvariable=MapDeleteSearch, width=18)
     entry4.grid(row=1, column=0, padx=(37,0))
     allList.append(entry4)
@@ -396,7 +445,9 @@ def delete():
     Home_button4.grid(row=11, column=0, padx=(0, 140), pady=(0, 10))
     allList.append(Home_button4)
 
+    back_list.append("Delete")
 ##################################################################################################################
+
 
 def maplist():
     root.geometry('250x300')
@@ -405,9 +456,11 @@ def maplist():
     root.rowconfigure(0, pad=1)
     root.rowconfigure(1, pad=2)
     root.rowconfigure(2, pad=1)
+    root.rowconfigure(3, pad=1)
     header.grid(row=0, sticky='news')
     content.grid(row=1, sticky='news')
     Footer.grid(row=2, sticky='news')
+    gider.grid(row=3, sticky='news')
 
 ##############################################
 
@@ -426,10 +479,23 @@ def maplist():
     yscroll = tk.Scrollbar(Footer,command=listbox.yview, orient=tk.VERTICAL)
     yscroll.grid(row=0, column=1, sticky='ns')
     listbox.configure(yscrollcommand=yscroll.set)
+    listbox.bind('<<ListboxSelect>>', select_item)
     # now load the listbox with data
     for item in maplist_list:
     # insert each new item to the end of the listbox
         listbox.insert('end', item)
+
+    allList.append(listbox)
+    allList.append(yscroll)
+
+    back_button = tk.Button(gider, text="Back", command=backbutton, width=6)
+    back_button.grid(row=0, column=0, padx=(24, 0), pady=(10,0))
+    allList.append(back_button)
+
+    home2_button = tk.Button(gider, text="Home", command=home, width=6)
+    home2_button.grid(row=0, column=1, padx=(25,0), pady=(10,0))
+    allList.append(home2_button)
+
 ##################################################################################################################
 
 
@@ -454,7 +520,9 @@ def MainWindowLayout():
     Footer.grid(row=2, sticky='news')
 ###################################################################################################################
 
-
+MapDeleteSearch = StringVar(root, value="")
+SearchMap = StringVar(root, value="")
+MapAddSearch = StringVar(root, value="")
 MainWindowLayout()
 MainPage()
 root.mainloop()
