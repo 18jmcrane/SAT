@@ -1,5 +1,6 @@
 from tkinter import *
 import tkinter as tk
+from operator import itemgetter
 ##################################################################################################################
 maplist_list = []
 back_list = []
@@ -44,7 +45,7 @@ def hide():
     allremove()
 ##################################################################################################################
 
-def mapdisplay():
+def mapdisplay(viewmapall_list, searchresult):
     root.geometry('250x300')
     root.columnconfigure(0, weight=1)
     root.rowconfigure(0, pad=3)
@@ -54,12 +55,31 @@ def mapdisplay():
     content.grid(row=1, sticky='news')
     Footer.grid(row=2, sticky='news')
 
+    title6 = Label(header, text=searchresult, fg="White", bg="grey", font="Verdana 17 bold", )
+    title6.grid(row=0, column=1, padx=(76, 0))
+    allList.append(title6)
+
+    laabel1 = Label(content, text="Personal Best Time", font="Arial 15 bold")
+    laabel1.grid(row=0, column=1, padx=(10, 0), pady=(5,0))
+    allList.append(laabel1)
+
+    laabel2 = Label(content, text="Style:", font="Arial 15 bold")
+    laabel2.grid(row=1, column=0, padx=(5, 0), pady=(10, 0))
+    allList.append(laabel2)
+
+    laabel3 = Label(content, text="Time:", font="Arial 15 bold")
+    laabel3.grid(row=2, column=0, padx=(5, 0), pady=(10, 0))
+    allList.append(laabel3)
+
+    laabel4 = Label(content, text="Tick Rate:", font="Arial 15 bold")
+    laabel4.grid(row=3, column=0, padx=(5, 0), pady=(10, 0))
+    allList.append(laabel4)
+    print(viewmapall_list)
 
 def view_func(SearchMap):
     mapquery = SearchMap.get()
     searchresult = ("test")
     hide()
-    mapdisplay()
 
     for i in maplist_list:
         if i == mapquery:
@@ -78,14 +98,18 @@ def view_func(SearchMap):
             line = line.split(",")
             viewmapall_list.append(line)
 
+        print(viewmapall_list)
+        new_list = sorted(viewmapall_list, key=lambda x: x[1])
 
-        print(searchresult)
-        for i in viewmapall_list:
-            print("Line",counter)
-            print(i[0])
-            print(i[1])
-            print(i[2])
-            counter+=1
+        mapdisplay(new_list, searchresult)
+
+        #print(searchresult)
+        #for i in viewmapall_list:
+        #    print("Line",counter)
+        #    print(i[0])
+        #    print(i[1])
+        #    print(i[2])
+        #    counter+=1
 
     else:
         print("Entered Invalid")
@@ -215,9 +239,9 @@ def addpage():
     allList.append(Label11)
 
     statusSelect = StringVar()
-    Tick124 = Radiobutton(content, text="124 Tick Rate", variable=statusSelect, value="124")
-    Tick124.grid(row=7, column=1,padx=(0,10))
-    allList.append(Tick124)
+    Tick128 = Radiobutton(content, text="128 Tick Rate", variable=statusSelect, value="128")
+    Tick128.grid(row=7, column=1,padx=(0,10))
+    allList.append(Tick128)
     Tick100 = Radiobutton(content, text="100 Tick Rate", variable=statusSelect, value="100")
     Tick100.grid(row=8, column=1,padx=(0,10))
     allList.append(Tick100)
