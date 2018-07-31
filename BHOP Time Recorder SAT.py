@@ -4,6 +4,9 @@ from operator import itemgetter
 ##################################################################################################################
 maplist_list = []
 back_list = []
+WRstyle_list = []
+WRtime_list = []
+WRtickrate_list = []
 
 
 f = open("maplist", "r")
@@ -45,8 +48,9 @@ def hide():
     allremove()
 ##################################################################################################################
 
-def mapdisplay(viewmapall_list, searchresult):
-    root.geometry('250x300')
+def mapdisplay(AUTOBHOP_list1,Sideways_list1,HalfSideways_list1,Donly_list1,AOnly_list1,WOnly_list1,ScrollNormal_list1,EasyScroll_list1,Stamina_list1,Slowmotion_list1,LowGravity_list1,searchresult):
+
+    root.geometry('270x400')
     root.columnconfigure(0, weight=1)
     root.rowconfigure(0, pad=3)
     root.rowconfigure(1, pad=10)
@@ -56,25 +60,163 @@ def mapdisplay(viewmapall_list, searchresult):
     Footer.grid(row=2, sticky='news')
 
     title6 = Label(header, text=searchresult, fg="White", bg="grey", font="Verdana 17 bold", )
-    title6.grid(row=0, column=1, padx=(76, 0))
+    title6.grid(row=0, column=1, padx=(78, 0))
     allList.append(title6)
 
     laabel1 = Label(content, text="Personal Best Time", font="Arial 15 bold")
-    laabel1.grid(row=0, column=1, padx=(10, 0), pady=(5,0))
+    laabel1.grid(row=0, column=1, padx=(10, 0), pady=(5, 0))
     allList.append(laabel1)
 
-    laabel2 = Label(content, text="Style:", font="Arial 15 bold")
-    laabel2.grid(row=1, column=0, padx=(5, 0), pady=(10, 0))
+    laabel8 = Label(content, text="________________________________", font="Arial 15 bold")
+    laabel8.grid(row=1, column=1, padx=(0, 10), pady=(0, 0))
+    allList.append(laabel1)
+
+    Styles1 = StringVar()
+    Styles1.set(Style[0])  # default value
+    DropdownStyle1 = OptionMenu(Footer, Styles1, *Style)
+    DropdownStyle1.grid(row=1, column=0, pady=(0, 0))
+    allList.append(DropdownStyle1)
+
+    PersonalBest(Styles1, AUTOBHOP_list1, Sideways_list1, HalfSideways_list1, Donly_list1, AOnly_list1, WOnly_list1,ScrollNormal_list1, EasyScroll_list1, Stamina_list1, Slowmotion_list1, LowGravity_list1)
+
+    MapList_button = tk.Button(Footer, text='Display', command=lambda: PersonalBest(Styles1, AUTOBHOP_list1, Sideways_list1, HalfSideways_list1, Donly_list1, AOnly_list1, WOnly_list1,ScrollNormal_list1, EasyScroll_list1, Stamina_list1, Slowmotion_list1, LowGravity_list1))
+    MapList_button.grid(row=1, column=1, padx=(7, 0),pady=(0, 0))
+    allList.append(MapList_button)
+
+    laabel2 = Label(Footer, text="Style:", font="Arial 15 bold")
+    laabel2.grid(row=2, column=0, padx=(6, 0), pady=(10, 0))
     allList.append(laabel2)
 
-    laabel3 = Label(content, text="Time:", font="Arial 15 bold")
-    laabel3.grid(row=2, column=0, padx=(5, 0), pady=(10, 0))
+    laabel3 = Label(Footer, text="Time:", font="Arial 15 bold")
+    laabel3.grid(row=3, column=0, padx=(6, 0), pady=(10, 0))
     allList.append(laabel3)
 
-    laabel4 = Label(content, text="Tick Rate:", font="Arial 15 bold")
-    laabel4.grid(row=3, column=0, padx=(5, 0), pady=(10, 0))
+    laabel4 = Label(Footer, text="Tick Rate:", font="Arial 15 bold")
+    laabel4.grid(row=4, column=0, padx=(0, 20), pady=(10, 0))
     allList.append(laabel4)
-    print(viewmapall_list)
+
+    WRupdate(WRstyle_list,WRtime_list,WRtickrate_list)
+
+
+def WRupdate(WRstyle_list,WRtime_list,WRtickrate_list):
+    print("test",WRstyle_list)
+    print("test",WRtime_list)
+    print("test",WRtickrate_list)
+
+    w = len(WRstyle_list)
+    w = w-1
+    print(w)
+
+    q = len(WRtime_list)
+    q = q - 1
+    print(q)
+
+    e = len(WRtickrate_list)
+    e = e - 1
+    print(e)
+
+    print(WRstyle_list)
+    print(WRtime_list)
+    print(WRtickrate_list)
+
+
+    WRstyle = WRstyle_list[w]
+    WRtime = WRtime_list[q]
+    WRtickrate = WRtickrate_list[e]
+
+
+    laabel5 = Label(Footer, text=WRstyle, font="Arial 15 bold")
+    laabel5.grid(row=2, column=1, padx=(5, 0), pady=(10, 0))
+    allList.append(laabel5)
+
+    laabel6= Label(Footer, text=WRtime, font="Arial 15 bold")
+    laabel6.grid(row=3, column=1, padx=(5, 0), pady=(10, 0))
+    allList.append(laabel6)
+
+    laabel7 = Label(Footer, text=WRtickrate, font="Arial 15 bold")
+    laabel7.grid(row=4, column=1, padx=(5, 0), pady=(10, 0))
+    allList.append(laabel7)
+
+
+def PersonalBest(Styles1,AUTOBHOP_list1,Sideways_list1,HalfSideways_list1,Donly_list1,AOnly_list1,WOnly_list1,ScrollNormal_list1,EasyScroll_list1,Stamina_list1,Slowmotion_list1,LowGravity_list1):
+
+    Style1 = Styles1.get()
+    print(Style1)
+
+    if Style1 == "AUTO-BHOP   ":
+        WRstyle = AUTOBHOP_list1[0][0]
+        WRtime =  AUTOBHOP_list1[0][1]
+        WRtickrate = AUTOBHOP_list1[0][2]
+
+    elif Style1 == "Sideways":
+        WRstyle = Sideways_list1[0][0]
+        WRtime =  Sideways_list1[0][1]
+        WRtickrate = Sideways_list1[0][2]
+
+    elif Style1 == "Half-Sideways":
+        WRstyle = HalfSideways_list1[0][0]
+        WRtime = HalfSideways_list1[0][1]
+        WRtickrate = HalfSideways_list1[0][2]
+
+    elif Style1 == "D-Only":
+        WRstyle = Donly_list1[0][0]
+        WRtime = Donly_list1[0][1]
+        WRtickrate = Donly_list1[0][2]
+
+
+    elif Style1 == "A-Only":
+        WRstyle = AOnly_list1[0][0]
+        WRtime = AOnly_list1[0][1]
+        WRtickrate = AOnly_list1[0][2]
+
+    elif Style1 == "W-Only":
+        WRstyle = WOnly_list1[0][0]
+        WRtime = WOnly_list1[0][1]
+        WRtickrate = WOnly_list1[0][2]
+
+    elif Style1 == "Scroll/Normal":
+        WRstyle = ScrollNormal_list1[0][0]
+        WRtime = ScrollNormal_list1[0][1]
+        WRtickrate = ScrollNormal_list1[0][2]
+
+    elif Style1 == "Easy Scroll":
+        WRstyle = EasyScroll_list1[0][0]
+        WRtime = EasyScroll_list1[0][1]
+        WRtickrate = EasyScroll_list1[0][2]
+
+    elif Style1 == "Stamina":
+        WRstyle = Stamina_list1[0][0]
+        WRtime = Stamina_list1[0][1]
+        WRtickrate = Stamina_list1[0][2]
+
+    elif Style1 == "Slowmotion":
+        WRstyle = Slowmotion_list1[0][0]
+        WRtime = Slowmotion_list1[0][1]
+        WRtickrate = Slowmotion_list1[0][2]
+
+    elif Style1 == "Low-Gravity":
+        WRstyle = LowGravity_list1[0][0]
+        WRtime = LowGravity_list1[0][1]
+        WRtickrate = LowGravity_list1[0][2]
+
+    print(WRstyle)
+    print(WRtime)
+    print(WRtickrate)
+
+    WRstyle_list.append(WRstyle)
+    WRtime_list.append(WRtime)
+    WRtickrate_list.append(WRtickrate)
+
+    print(WRstyle_list)
+    print(WRtime_list)
+    print(WRtickrate_list)
+
+    WRupdate(WRstyle_list, WRtime_list, WRtickrate_list)
+
+
+
+
+
 
 def view_func(SearchMap):
     mapquery = SearchMap.get()
@@ -91,7 +233,6 @@ def view_func(SearchMap):
     if searchresult != ("test"):
         file = open('./maps/'+searchresult, "r")
         viewmapall_list = []
-        counter = 1
 
         for line in file:
             line = line.strip('\n')
@@ -101,7 +242,70 @@ def view_func(SearchMap):
         print(viewmapall_list)
         new_list = sorted(viewmapall_list, key=lambda x: x[1])
 
-        mapdisplay(new_list, searchresult)
+        stylelist_list = viewmapall_list
+
+        AUTOBHOP_list = []
+        Sideways_list = []
+        HalfSideways_list = []
+        Donly_list = []
+        AOnly_list = []
+        WOnly_list = []
+        ScrollNormal_list = []
+        EasyScroll_list = []
+        Stamina_list = []
+        Slowmotion_list = []
+        LowGravity_list = []
+
+        for i in stylelist_list:
+
+            if i[0] == "AUTO-BHOP   ":
+                AUTOBHOP_list.append(i)
+
+            if i[0] == "Sideways":
+                Sideways_list.append(i)
+
+            if i[0] == "Half-Sideways":
+                HalfSideways_list.append(i)
+
+            if i[0] == "D-Only":
+                Donly_list.append(i)
+
+            if i[0] == "A-Only":
+                AOnly_list.append(i)
+
+            if i[0] == "W-Only":
+                WOnly_list.append(i)
+
+            if i[0] == "Scroll/Normal":
+                ScrollNormal_list.append(i)
+
+            if i[0] == "Easy Scroll":
+                EasyScroll_list.append(i)
+
+            if i[0] == "Stamina":
+                Stamina_list.append(i)
+
+            if i[0] == "Slowmotion":
+                Slowmotion_list.append(i)
+
+            if i[0] == "Low-Gravity":
+                LowGravity_list.append(i)
+
+        AUTOBHOP_list1 = sorted(AUTOBHOP_list, key=lambda x: x[1])
+        Sideways_list1 = sorted(Sideways_list, key=lambda x: x[1])
+        HalfSideways_list1 = sorted(HalfSideways_list, key=lambda x: x[1])
+        Donly_list1 = sorted(Donly_list, key=lambda x: x[1])
+        AOnly_list1 = sorted(AOnly_list, key=lambda x: x[1])
+        WOnly_list1 = sorted(WOnly_list, key=lambda x: x[1])
+        ScrollNormal_list1 = sorted(ScrollNormal_list, key=lambda x: x[1])
+        EasyScroll_list1 = sorted(EasyScroll_list, key=lambda x: x[1])
+        Stamina_list1 = sorted(Stamina_list, key=lambda x: x[1])
+        Slowmotion_list1 = sorted(Slowmotion_list, key=lambda x: x[1])
+        LowGravity_list1  = sorted(LowGravity_list, key=lambda x: x[1])
+
+
+
+        mapdisplay(AUTOBHOP_list1,Sideways_list1,HalfSideways_list1,Donly_list1,AOnly_list1,WOnly_list1,ScrollNormal_list1,EasyScroll_list1,Stamina_list1,Slowmotion_list1,LowGravity_list1,searchresult)
 
         #print(searchresult)
         #for i in viewmapall_list:
