@@ -1,5 +1,6 @@
 from tkinter import *
 import tkinter as tk
+import os
 from operator import itemgetter
 ##################################################################################################################
 maplist_list = []
@@ -30,7 +31,6 @@ Style = ["AUTO-BHOP   ",
 
 ###
 
-StyleSelect_list = ["Choose a Style"]
 TimeSelect_list = ["Select Time"]
 
 MapSearchList = ["Select A Map"]
@@ -50,14 +50,20 @@ def hide():
 
 def mapdisplay(AUTOBHOP_list1,Sideways_list1,HalfSideways_list1,Donly_list1,AOnly_list1,WOnly_list1,ScrollNormal_list1,EasyScroll_list1,Stamina_list1,Slowmotion_list1,LowGravity_list1,searchresult):
 
-    root.geometry('270x400')
+    root.geometry('270x420')
     root.columnconfigure(0, weight=1)
     root.rowconfigure(0, pad=3)
     root.rowconfigure(1, pad=10)
     root.rowconfigure(2, pad=3)
+    root.rowconfigure(3, pad=3)
+    root.rowconfigure(4, pad=3)
+    root.rowconfigure(5, pad=3)
     header.grid(row=0, sticky='news')
     content.grid(row=1, sticky='news')
     Footer.grid(row=2, sticky='news')
+    gider.grid(row=3, sticky='news')
+    Lower.grid(row=4, sticky='news')
+    Bottom.grid(row=5, sticky='news')
 
     title6 = Label(header, text=searchresult, fg="White", bg="grey", font="Verdana 17 bold", )
     title6.grid(row=0, column=1, padx=(78, 0))
@@ -69,7 +75,7 @@ def mapdisplay(AUTOBHOP_list1,Sideways_list1,HalfSideways_list1,Donly_list1,AOnl
 
     laabel8 = Label(content, text="________________________________", font="Arial 15 bold")
     laabel8.grid(row=1, column=1, padx=(0, 10), pady=(0, 0))
-    allList.append(laabel1)
+    allList.append(laabel8)
 
     Styles1 = StringVar()
     Styles1.set(Style[0])  # default value
@@ -77,9 +83,27 @@ def mapdisplay(AUTOBHOP_list1,Sideways_list1,HalfSideways_list1,Donly_list1,AOnl
     DropdownStyle1.grid(row=1, column=0, pady=(0, 0))
     allList.append(DropdownStyle1)
 
-    PersonalBest(Styles1, AUTOBHOP_list1, Sideways_list1, HalfSideways_list1, Donly_list1, AOnly_list1, WOnly_list1,ScrollNormal_list1, EasyScroll_list1, Stamina_list1, Slowmotion_list1, LowGravity_list1)
+    WRlabel1 = StringVar()
+    WRlabel2 = StringVar()
+    WRlabel3 = StringVar()
 
-    MapList_button = tk.Button(Footer, text='Display', command=lambda: PersonalBest(Styles1, AUTOBHOP_list1, Sideways_list1, HalfSideways_list1, Donly_list1, AOnly_list1, WOnly_list1,ScrollNormal_list1, EasyScroll_list1, Stamina_list1, Slowmotion_list1, LowGravity_list1))
+
+    PersonalBest(Styles1, AUTOBHOP_list1, Sideways_list1, HalfSideways_list1, Donly_list1, AOnly_list1, WOnly_list1,ScrollNormal_list1, EasyScroll_list1, Stamina_list1, Slowmotion_list1, LowGravity_list1, WRlabel1, WRlabel2, WRlabel3)
+
+
+    laabel5 = Label(Footer, textvariable=WRlabel1, font="Arial 15 bold")
+    laabel5.grid(row=2, column=1, padx=(5, 0), pady=(10, 0))
+    allList.append(laabel5)
+
+    laabel6 = Label(Footer, textvariable=WRlabel2, font="Arial 15 bold")
+    laabel6.grid(row=3, column=1, padx=(5, 0), pady=(10, 0))
+    allList.append(laabel6)
+
+    laabel7 = Label(Footer, textvariable=WRlabel3, font="Arial 15 bold")
+    laabel7.grid(row=4, column=1, padx=(5, 0), pady=(10, 0))
+    allList.append(laabel7)
+
+    MapList_button = tk.Button(Footer, text='Display', command=lambda: PersonalBest(Styles1, AUTOBHOP_list1, Sideways_list1, HalfSideways_list1, Donly_list1, AOnly_list1, WOnly_list1,ScrollNormal_list1, EasyScroll_list1, Stamina_list1, Slowmotion_list1, LowGravity_list1, WRlabel1, WRlabel2, WRlabel3))
     MapList_button.grid(row=1, column=1, padx=(7, 0),pady=(0, 0))
     allList.append(MapList_button)
 
@@ -95,125 +119,147 @@ def mapdisplay(AUTOBHOP_list1,Sideways_list1,HalfSideways_list1,Donly_list1,AOnl
     laabel4.grid(row=4, column=0, padx=(0, 20), pady=(10, 0))
     allList.append(laabel4)
 
-    WRupdate(WRstyle_list,WRtime_list,WRtickrate_list)
+    laabel9 = Label(gider, text="________________________________", font="Arial 15 bold")
+    laabel9.grid(row=0, column=0, padx=(0, 10), pady=(0, 0))
+    allList.append(laabel9)
+
+    laabel10 = Label(Lower, text="Style:", font="Arial 15 bold")
+    laabel10.grid(row=1, column=0, padx=(30, 0))
+    allList.append(laabel10)
+
+    laabel11 = Label(Lower, text="Time:", font="Arial 15 bold")
+    laabel11.grid(row=1, column=1, padx=(40, 0))
+    allList.append(laabel11)
+
+    laabel12 = Label(Lower, text="Tick:", font="Arial 15 bold")
+    laabel12.grid(row=1, column=2, padx=(20, 0))
+    allList.append(laabel12)
+
+    back_button1 = tk.Button(Bottom, text="Back", command=view, width=6)
+    back_button1.grid(row=3, column=0, padx=(0, 140), pady=(0, 0))
+    allList.append(back_button1)
+
+    home3_button = tk.Button(Bottom, text="Home", command=home, width=6)
+    home3_button.grid(row=3, column=0, padx=(140,0), pady=(0, 0))
+    allList.append(home3_button)
+
+    WRupdate(WRstyle_list, WRtime_list, WRtickrate_list, WRlabel1, WRlabel2, WRlabel3)
 
 
-def WRupdate(WRstyle_list,WRtime_list,WRtickrate_list):
-    print("test",WRstyle_list)
-    print("test",WRtime_list)
-    print("test",WRtickrate_list)
+def timelist(listvariable):
+    print(listvariable)
+
+    listbox2 = tk.Listbox(Bottom, width=25, height=6)
+    listbox2.grid(row=2, column=0, padx=(10, 10))
+    allList.append(listbox2)
+    # create a vertical scrollbar to the right of the listbox
+    yscroll2 = tk.Scrollbar(Bottom, command=listbox2.yview, orient=tk.VERTICAL)
+    yscroll2.grid(row=2, column=1, sticky='ns')
+    allList.append(yscroll2)
+    listbox2.configure(yscrollcommand=yscroll2.set)
+    # now load the listbox with data
+    for item in listvariable:
+        # insert each new item to the end of the listbox
+        listbox2.insert('end', item)
+
+def WRupdate(WRstyle_list, WRtime_list, WRtickrate_list, WRlabel1, WRlabel2, WRlabel3):
 
     w = len(WRstyle_list)
     w = w-1
-    print(w)
 
     q = len(WRtime_list)
     q = q - 1
-    print(q)
 
     e = len(WRtickrate_list)
     e = e - 1
-    print(e)
-
-    print(WRstyle_list)
-    print(WRtime_list)
-    print(WRtickrate_list)
-
 
     WRstyle = WRstyle_list[w]
     WRtime = WRtime_list[q]
     WRtickrate = WRtickrate_list[e]
 
-
-    laabel5 = Label(Footer, text=WRstyle, font="Arial 15 bold")
-    laabel5.grid(row=2, column=1, padx=(5, 0), pady=(10, 0))
-    allList.append(laabel5)
-
-    laabel6= Label(Footer, text=WRtime, font="Arial 15 bold")
-    laabel6.grid(row=3, column=1, padx=(5, 0), pady=(10, 0))
-    allList.append(laabel6)
-
-    laabel7 = Label(Footer, text=WRtickrate, font="Arial 15 bold")
-    laabel7.grid(row=4, column=1, padx=(5, 0), pady=(10, 0))
-    allList.append(laabel7)
+    WRlabel1.set(WRstyle)
+    WRlabel2.set(WRtime)
+    WRlabel3.set(WRtickrate)
 
 
-def PersonalBest(Styles1,AUTOBHOP_list1,Sideways_list1,HalfSideways_list1,Donly_list1,AOnly_list1,WOnly_list1,ScrollNormal_list1,EasyScroll_list1,Stamina_list1,Slowmotion_list1,LowGravity_list1):
+def PersonalBest(Styles1,AUTOBHOP_list1,Sideways_list1,HalfSideways_list1,Donly_list1,AOnly_list1,WOnly_list1,ScrollNormal_list1,EasyScroll_list1,Stamina_list1,Slowmotion_list1,LowGravity_list1, WRlabel1, WRlabel2, WRlabel3):
 
     Style1 = Styles1.get()
-    print(Style1)
 
     if Style1 == "AUTO-BHOP   ":
         WRstyle = AUTOBHOP_list1[0][0]
         WRtime =  AUTOBHOP_list1[0][1]
         WRtickrate = AUTOBHOP_list1[0][2]
+        listvariable = AUTOBHOP_list1
 
     elif Style1 == "Sideways":
         WRstyle = Sideways_list1[0][0]
         WRtime =  Sideways_list1[0][1]
         WRtickrate = Sideways_list1[0][2]
+        listvariable = Sideways_list1
 
-    elif Style1 == "Half-Sideways":
+    elif Style1 == "Half-Sideway":
         WRstyle = HalfSideways_list1[0][0]
         WRtime = HalfSideways_list1[0][1]
         WRtickrate = HalfSideways_list1[0][2]
+        listvariable = HalfSideways_list1
 
     elif Style1 == "D-Only":
         WRstyle = Donly_list1[0][0]
         WRtime = Donly_list1[0][1]
         WRtickrate = Donly_list1[0][2]
+        listvariable = Donly_list1
 
 
     elif Style1 == "A-Only":
         WRstyle = AOnly_list1[0][0]
         WRtime = AOnly_list1[0][1]
         WRtickrate = AOnly_list1[0][2]
+        listvariable = AOnly_list1
 
     elif Style1 == "W-Only":
         WRstyle = WOnly_list1[0][0]
         WRtime = WOnly_list1[0][1]
         WRtickrate = WOnly_list1[0][2]
+        listvariable = WOnly_list1
 
     elif Style1 == "Scroll/Normal":
         WRstyle = ScrollNormal_list1[0][0]
         WRtime = ScrollNormal_list1[0][1]
         WRtickrate = ScrollNormal_list1[0][2]
+        listvariable = ScrollNormal_list1
 
     elif Style1 == "Easy Scroll":
         WRstyle = EasyScroll_list1[0][0]
         WRtime = EasyScroll_list1[0][1]
         WRtickrate = EasyScroll_list1[0][2]
+        listvariable = EasyScroll_list1
 
     elif Style1 == "Stamina":
         WRstyle = Stamina_list1[0][0]
         WRtime = Stamina_list1[0][1]
         WRtickrate = Stamina_list1[0][2]
+        listvariable = Stamina_list1
 
     elif Style1 == "Slowmotion":
         WRstyle = Slowmotion_list1[0][0]
         WRtime = Slowmotion_list1[0][1]
         WRtickrate = Slowmotion_list1[0][2]
+        listvariable = Slowmotion_list1
 
     elif Style1 == "Low-Gravity":
         WRstyle = LowGravity_list1[0][0]
         WRtime = LowGravity_list1[0][1]
         WRtickrate = LowGravity_list1[0][2]
+        listvariable = LowGravity_list1
 
-    print(WRstyle)
-    print(WRtime)
-    print(WRtickrate)
 
     WRstyle_list.append(WRstyle)
     WRtime_list.append(WRtime)
     WRtickrate_list.append(WRtickrate)
 
-    print(WRstyle_list)
-    print(WRtime_list)
-    print(WRtickrate_list)
-
-    WRupdate(WRstyle_list, WRtime_list, WRtickrate_list)
-
-
+    WRupdate(WRstyle_list, WRtime_list, WRtickrate_list, WRlabel1, WRlabel2, WRlabel3)
+    timelist(listvariable)
 
 
 
@@ -226,9 +272,6 @@ def view_func(SearchMap):
     for i in maplist_list:
         if i == mapquery:
             searchresult = i
-            print(searchresult)
-        else:
-            print("nothing found")
 
     if searchresult != ("test"):
         file = open('./maps/'+searchresult, "r")
@@ -472,6 +515,8 @@ header = tk.Frame(root, bg='grey')
 content = tk.Frame(root, bg='white')
 Footer = tk.Frame(root, bg='white')
 gider = tk.Frame(root, bg="white")
+Lower = tk.Frame(root, bg="white")
+Bottom = tk.Frame(root, bg="white")
 
 
 ##################################################################################################################
@@ -637,6 +682,179 @@ def allremove():
 
 ##################################################################################################################
 
+def DeleteLine(TimeSelect, MapStyle, mapquery, TimeList_list):
+    MapName = mapquery
+    Timechoice = TimeSelect.get()
+    print(TimeList_list, "desss")
+
+    for i in TimeList_list:
+        if MapStyle == i[0] and Timechoice == i[1]:
+            deletetickrate = i[2]
+            print(deletetickrate)
+
+    f = open('./maps/' + MapName, "r+")
+    d = f.readlines()
+    print(d)
+    f.seek(0)
+    for i in d:
+        if i != MapStyle + "," + Timechoice + "," + deletetickrate + "\n":
+            f.write(i)
+    f.truncate()
+    f.close()
+
+
+
+def deleteupdate(MapDeleteSearch, StyleSelect1):
+    mapquery = MapDeleteSearch.get()
+    MapStyle = StyleSelect1.get()
+    searchresult = ("test")
+
+    for i in maplist_list:
+        if i == mapquery:
+            searchresult = i
+
+    if searchresult != ("test"):
+        file = open('./maps/' + searchresult, "r")
+        viewmapall_list = []
+
+        for line in file:
+            line = line.strip('\n')
+            line = line.split(",")
+            viewmapall_list.append(line)
+
+        stylelist_list = viewmapall_list
+
+        AUTOBHOP_list = []
+        Sideways_list = []
+        HalfSideways_list = []
+        Donly_list = []
+        AOnly_list = []
+        WOnly_list = []
+        ScrollNormal_list = []
+        EasyScroll_list = []
+        Stamina_list = []
+        Slowmotion_list = []
+        LowGravity_list = []
+
+        for i in stylelist_list:
+
+            if i[0] == "AUTO-BHOP   ":
+                AUTOBHOP_list.append(i)
+
+            if i[0] == "Sideways":
+                Sideways_list.append(i)
+
+            if i[0] == "Half-Sideways":
+                HalfSideways_list.append(i)
+
+            if i[0] == "D-Only":
+                Donly_list.append(i)
+
+            if i[0] == "A-Only":
+                AOnly_list.append(i)
+
+            if i[0] == "W-Only":
+                WOnly_list.append(i)
+
+            if i[0] == "Scroll/Normal":
+                ScrollNormal_list.append(i)
+
+            if i[0] == "Easy Scroll":
+                EasyScroll_list.append(i)
+
+            if i[0] == "Stamina":
+                Stamina_list.append(i)
+
+            if i[0] == "Slowmotion":
+                Slowmotion_list.append(i)
+
+            if i[0] == "Low-Gravity":
+                LowGravity_list.append(i)
+
+        if MapStyle == "AUTO-BHOP   ":
+            AUTOBHOP_list1 = sorted(AUTOBHOP_list, key=lambda x: x[1])
+            print(AUTOBHOP_list1)
+            TimeList_list = AUTOBHOP_list1
+
+        if MapStyle == "Sideways":
+            Sideways_list1 = sorted(Sideways_list, key=lambda x: x[1])
+            print(Sideways_list1)
+            TimeList_list = Sideways_list1
+
+        if MapStyle == "Half-Sideways":
+            HalfSideways_list1 = sorted(HalfSideways_list, key=lambda x: x[1])
+            print(HalfSideways_list1)
+            TimeList_list = HalfSideways_list1
+
+        if MapStyle == "D-Only":
+            Donly_list1 = sorted(Donly_list, key=lambda x: x[1])
+            print(Donly_list1)
+            TimeList_list = Donly_list1
+
+        if MapStyle == "A-Only":
+            AOnly_list1 = sorted(AOnly_list, key=lambda x: x[1])
+            print(AOnly_list1)
+            TimeList_list = AOnly_list1
+
+        if MapStyle == "W-Only":
+            WOnly_list1 = sorted(WOnly_list, key=lambda x: x[1])
+            print(WOnly_list1)
+            TimeList_list = WOnly_list1
+
+        if MapStyle == "Scroll/Normal":
+            ScrollNormal_list1 = sorted(ScrollNormal_list, key=lambda x: x[1])
+            print(ScrollNormal_list1)
+            TimeList_list = ScrollNormal_list1
+
+        if MapStyle == "Easy Scroll":
+            EasyScroll_list1 = sorted(EasyScroll_list, key=lambda x: x[1])
+            print(EasyScroll_list1)
+            TimeList_list = EasyScroll_list1
+
+        if MapStyle == "Stamina":
+            Stamina_list1 = sorted(Stamina_list, key=lambda x: x[1])
+            print(Stamina_list1)
+            TimeList_list = Stamina_list1
+
+        if MapStyle == "Slowmotion":
+            Slowmotion_list1 = sorted(Slowmotion_list, key=lambda x: x[1])
+            print(Slowmotion_list1)
+            TimeList_list = Slowmotion_list1
+
+        if MapStyle == "Low-Gravity":
+            LowGravity_list1 = sorted(LowGravity_list, key=lambda x: x[1])
+            print(LowGravity_list1)
+            TimeList_list = LowGravity_list1
+
+        for i in TimeList_list:
+            TimeSelect_list.append(i[1])
+
+        TimeUpdate(TimeSelect_list, MapStyle, mapquery, TimeList_list)
+
+
+
+
+
+
+def DeleteMap(MapDeleteSearch):
+    Fileinput = MapDeleteSearch.get()
+    FileDelete = "maps/"+Fileinput
+    ## Try to delete the file ##
+    try:
+        os.remove(FileDelete)
+    except OSError as e:  ## if failed, report it back to the user ##
+        print("Error: %s - %s." % (e.filename, e.strerror))
+
+    f = open("maplist", "r+")
+    d = f.readlines()
+    print(d)
+    f.seek(0)
+    for i in d:
+        if i != Fileinput+","+"\n":
+            f.write(i)
+    f.truncate()
+    f.close()
+
 def delete():
     root.geometry('250x385')
     hide()
@@ -664,52 +882,49 @@ def delete():
     allList.append(entry4)
 
     MapList_button2 = tk.Button(content, text='Map List', command=maplist)
-    MapList_button2.grid(row=2, column=0, padx=(40, 80))
+    MapList_button2.grid(row=2, column=0, padx=(20, 80))
     allList.append(MapList_button2)
-    MapConfirm_button6 = tk.Button(content, text="Confirm", command=maplist)
+    MapConfirm_button6 = tk.Button(content, text="Delete Map", command= lambda: DeleteMap(MapDeleteSearch))
     MapConfirm_button6.grid(row=2, column=0, padx=(116, 0))
     allList.append(MapConfirm_button6)
 
-    Label17 = Label(content, text="Map Select", font="Arial 15 bold")
-    Label17.grid(row=3, column=0, pady=(10, 0), padx=(40, 0))
-    allList.append(Label17)
-
-    Mapselect = StringVar()
-    Mapselect.set(MapSearchList1[0])  # default value
-    DropdownMapSelect = OptionMenu(content, Mapselect, *MapSearchList1)
-    DropdownMapSelect.grid(row=4, column=0, padx=(40,0))
-    allList.append(DropdownMapSelect)
-
-    delete1_button = tk.Button(content, text='Delete Map', command=home)
-    delete1_button.grid(row=5, column=0, padx=(40, 80))
-    allList.append(delete1_button)
-    select_button = tk.Button(content, text="Select", command=home)
-    select_button.grid(row=5, column=0, padx=(130, 0))
-    allList.append(select_button)
-
     Label18 = Label(content, text="Style Select", font="Arial 15 bold")
-    Label18.grid(row=6, column=0, pady=(10, 0), padx=(40, 0))
+    Label18.grid(row=3, column=0, pady=(10, 0), padx=(40, 0))
     allList.append(Label18)
 
-    StyleSelect = StringVar()
-    StyleSelect.set(StyleSelect_list[0])  # default value
-    DropdownStyleSelect = OptionMenu(content, StyleSelect, *StyleSelect_list)
-    DropdownStyleSelect.grid(row=7, column=0, padx=(35, 0))
-    allList.append(DropdownStyleSelect)
+    StyleSelect1 = StringVar()
+    StyleSelect1.set(Style[0])  # default value
+    DropdownStyleSelect3 = OptionMenu(content, StyleSelect1, *Style)
+    DropdownStyleSelect3.grid(row=4, column=0, padx=(35, 0))
+    allList.append(DropdownStyleSelect3)
+
+    MapConfirm_button7 = tk.Button(content, text="Confirm", command=lambda: deleteupdate(MapDeleteSearch, StyleSelect1))
+    MapConfirm_button7.grid(row=5, column=0, padx=(30, 0))
+    allList.append(MapConfirm_button7)
 
     Label19 = Label(content, text="Time Select", font="Arial 15 bold")
-    Label19.grid(row=8, column=0, pady=(10, 0), padx=(40, 0))
+    Label19.grid(row=6, column=0, pady=(10, 0), padx=(40, 0))
     allList.append(Label19)
+
+    MapStyle = "AUTO-BHOP   "
+    mapquery = ""
+    TimeList_list = []
+
+    TimeUpdate(TimeSelect_list, MapStyle, mapquery, TimeList_list)
+
+
+def TimeUpdate(TimeSelect_list, MapStyle, mapquery, TimeList_list):
 
     TimeSelect = StringVar()
     TimeSelect.set(TimeSelect_list[0])  # default value
     DropdownTimeSelect = OptionMenu(content, TimeSelect, *TimeSelect_list)
-    DropdownTimeSelect.grid(row=9, column=0, padx=(35, 0))
+    DropdownTimeSelect.grid(row=7, column=0, padx=(35, 0))
     allList.append(DropdownTimeSelect)
 
-    delete2_button = tk.Button(content, text="Delete", command=home)
+    delete2_button = tk.Button(content, text="Delete", command= lambda: DeleteLine(TimeSelect, MapStyle, mapquery, TimeList_list))
     delete2_button.grid(row=10, column=0, padx=(30, 0))
     allList.append(delete2_button)
+
     Home_button4 = tk.Button(content, text='Home', command=home)
     Home_button4.grid(row=11, column=0, padx=(0, 140), pady=(0, 10))
     allList.append(Home_button4)
@@ -794,4 +1009,5 @@ SearchMap = StringVar(root, value="")
 MapAddSearch = StringVar(root, value="")
 MainWindowLayout()
 MainPage()
+root.resizable(width=False, height=False)
 root.mainloop()
