@@ -633,6 +633,19 @@ def view():
 ##################################################################################################################
 
 
+def ClearWipe(ClearWipeQuerry):
+    ClearQuerry = ClearWipeQuerry.get()
+    if ClearQuerry == "yes":
+        for i in maplist_list:
+            try:
+                os.remove("maps/"+i)
+            except OSError as e:  ## if failed, report it back to the user ##
+                print("Error: %s - %s." % (e.filename, e.strerror))
+
+        f = open("maplist", "w")
+        f.close()
+
+
 def settings():
     root.geometry('250x187')
     hide()
@@ -664,7 +677,7 @@ def settings():
     wipeyes.grid(row=2, column=0,padx=(65,0))
     allList.append(wipeyes)
 
-    confirmwipe_button = tk.Button(Footer, text="WIPE", command=home, width=5)
+    confirmwipe_button = tk.Button(Footer, text="WIPE", command= lambda: ClearWipe(ClearWipeQuerry), width=5)
     confirmwipe_button.grid(row=4, column=0, padx=(65,0))
     allList.append(confirmwipe_button)
 
@@ -838,7 +851,7 @@ def deleteupdate(MapDeleteSearch, StyleSelect1):
 
 def DeleteMap(MapDeleteSearch):
     Fileinput = MapDeleteSearch.get()
-    FileDelete = "maps/"+Fileinput
+    FileDelete = "maps/" + Fileinput
     ## Try to delete the file ##
     try:
         os.remove(FileDelete)
@@ -850,13 +863,14 @@ def DeleteMap(MapDeleteSearch):
     print(d)
     f.seek(0)
     for i in d:
-        if i != Fileinput+","+"\n":
+        if i != Fileinput + "," + "\n":
             f.write(i)
     f.truncate()
     f.close()
 
+
 def delete():
-    root.geometry('250x385')
+    root.geometry('250x330')
     hide()
     root.columnconfigure(0, weight=1)
     root.rowconfigure(0, pad=1)
