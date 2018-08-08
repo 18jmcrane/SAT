@@ -16,8 +16,8 @@ for line in f:
     line = line.split(",")
     maplist_list.append(line[0])
 
-maplist_list.sort()
 print(maplist_list)
+
 ##################################################################################################################
 allList = []
 Style = ["AUTO-BHOP   ",
@@ -536,22 +536,47 @@ def MainPage():
     Label1 = Label(content, text="Welcome User")
     Label1.grid(row=0, column=1)
     allList.append(Label1)
-    Label2 = Label(content, text="Previous Time:")
-    Label2.grid(row=1, column=1)
-    allList.append(Label2)
-    PrevTime = DoubleVar()
-    PrevTime.set(0.0)
-    Label3 = Label(content, textvariable=PrevTime)
-    Label3.grid(row=2, column=1)
-    allList.append(Label3)
     Label4 = Label(content, text="Previous Map:")
-    Label4.grid(row=3, column=1)
+    Label4.grid(row=1, column=1)
     allList.append(Label4)
     PrevMap = StringVar()
     PrevMap.set("")
     Label5 = Label(content, textvariable=PrevMap)
-    Label5.grid(row=4, column = 1)
+    Label5.grid(row=2, column = 1)
     allList.append(Label5)
+    Label2 = Label(content, text="Previous Time:")
+    Label2.grid(row=3, column=1)
+    allList.append(Label2)
+    PrevTime = DoubleVar()
+    PrevTime.set(0.0)
+    Label3 = Label(content, textvariable=PrevTime)
+    Label3.grid(row=4, column=1)
+    allList.append(Label3)
+
+    try:
+        position_maplist = len(maplist_list)
+        position_maplist = position_maplist - 1
+
+        MapPrevious = maplist_list[position_maplist]
+        PrevMap.set(MapPrevious)
+
+        PrevTime_List = []
+        mapfile = open('./maps/' + MapPrevious, "r")
+        for line in mapfile:
+            line = line.strip('\n')
+            line = line.split(",")
+            PrevTime_List.append(line)
+
+        TimePosition = len(PrevTime_List)
+        TimePrevious = TimePosition - 1
+
+        PrevTime_final = PrevTime_List[TimePrevious][1]
+        PrevTime.set(PrevTime_final)
+        print(PrevTime_List)
+
+    except:
+        PrevMap.set("")
+
 
     Label6 = Label(Footer, text="_________________________________________")
     Label6.grid(row=0, column=0)
