@@ -4,7 +4,7 @@ import os
 from operator import itemgetter
 ##################################################################################################################
 #All these Lists are used as a way to make it accessable globally, without using GLOBAL command or Classes.
-# This allow Data to be stored between multiple funtions.
+# This allow Data to be stored between multiple funtions
 maplist_list = []
 back_list = []
 WRstyle_list = []
