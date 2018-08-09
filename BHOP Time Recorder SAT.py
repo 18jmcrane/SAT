@@ -3,23 +3,17 @@ import tkinter as tk
 import os
 from operator import itemgetter
 ##################################################################################################################
+#All these Lists are used as a way to make it accessable globally, without using GLOBAL command or Classes.
+# This allow Data to be stored between multiple funtions.
 maplist_list = []
 back_list = []
 WRstyle_list = []
 WRtime_list = []
 WRtickrate_list = []
-
-
-f = open("maplist", "r")
-for line in f:
-    line = line.strip('\n')
-    line = line.split(",")
-    maplist_list.append(line[0])
-
-print(maplist_list)
-
-##################################################################################################################
 allList = []
+##################################################################################################################
+
+#These List are used for preset selections, for dropdown boxes. A way to preseleect what the user can choose from.
 Style = ["AUTO-BHOP   ",
          "Sideways",
          "Half-Sideways",
@@ -29,27 +23,40 @@ Style = ["AUTO-BHOP   ",
          "Easy Scroll","Stamina",
          "Slowmotion","Low-Gravity"]
 
-###
-
+#This is used in Dropboxes to make it look more appealing, when first seen before being updated with other selections.
 TimeSelect_list = ["Select Time"]
-
 MapSearchList = ["Select A Map"]
 MapSearchList1 = ["Select A Map"]
 
 
-###
+#This opens the maplist file and receives all the data inside the file, using ","
+# as a way to distinguish which data is which and append the element into a list(maplist_list)
+f = open("maplist", "r")
+for line in f:
+    line = line.strip('\n')
+    line = line.split(",")
+    maplist_list.append(line[0])
+
 ##################################################################################################################
 
-def hide():
+#This Funtion is used for the multiple page effect, this removes the Layout after each page change,
+# so spacings and Frames can be better adjusted giving the effect that its a different page
 
+#Aswell hides all everything displayed on the page,
+# so that new content can be displayed instead through the use of the "allremove" funtion
+def hide():
     header.grid_remove()
     content.grid_remove()
     Footer.grid_remove()
     allremove()
 ##################################################################################################################
 
+#This Funtion is used to display the Map details through the view funtion, it is the GUI of the page and is called after
+# a listbox page where a map is selected.
 def mapdisplay(AUTOBHOP_list1,Sideways_list1,HalfSideways_list1,Donly_list1,AOnly_list1,WOnly_list1,ScrollNormal_list1,EasyScroll_list1,Stamina_list1,Slowmotion_list1,LowGravity_list1,searchresult):
 
+    #Below shows the configuration of the size of the Window and each of the frames(header,content,Footer,gider,Lower,Bottom)
+    # and determened order through the rowconfigure, size through the "pad" command.
     root.geometry('270x420')
     root.columnconfigure(0, weight=1)
     root.rowconfigure(0, pad=3)
@@ -65,22 +72,28 @@ def mapdisplay(AUTOBHOP_list1,Sideways_list1,HalfSideways_list1,Donly_list1,AOnl
     Lower.grid(row=4, sticky='news')
     Bottom.grid(row=5, sticky='news')
 
+    #Creates the Title or header at the top of the page. With a grey background and a font of "Verdana 17 bold".
+    #This has uses a variable to find the map name selected then display it.
     title6 = Label(header, text=searchresult, fg="White", bg="grey", font="Verdana 17 bold", )
     title6.grid(row=0, column=1, padx=(78, 0))
+    #Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
     allList.append(title6)
 
     laabel1 = Label(content, text="Personal Best Time", font="Arial 15 bold")
     laabel1.grid(row=0, column=1, padx=(10, 0), pady=(5, 0))
+    # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
     allList.append(laabel1)
 
     laabel8 = Label(content, text="________________________________", font="Arial 15 bold")
     laabel8.grid(row=1, column=1, padx=(0, 10), pady=(0, 0))
+    # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
     allList.append(laabel8)
 
     Styles1 = StringVar()
     Styles1.set(Style[0])  # default value
     DropdownStyle1 = OptionMenu(Footer, Styles1, *Style)
     DropdownStyle1.grid(row=1, column=0, pady=(0, 0))
+    # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
     allList.append(DropdownStyle1)
 
     WRlabel1 = StringVar()
@@ -93,54 +106,67 @@ def mapdisplay(AUTOBHOP_list1,Sideways_list1,HalfSideways_list1,Donly_list1,AOnl
 
     laabel5 = Label(Footer, textvariable=WRlabel1, font="Arial 15 bold")
     laabel5.grid(row=2, column=1, padx=(5, 0), pady=(10, 0))
+    # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
     allList.append(laabel5)
 
     laabel6 = Label(Footer, textvariable=WRlabel2, font="Arial 15 bold")
     laabel6.grid(row=3, column=1, padx=(5, 0), pady=(10, 0))
+    # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
     allList.append(laabel6)
 
     laabel7 = Label(Footer, textvariable=WRlabel3, font="Arial 15 bold")
     laabel7.grid(row=4, column=1, padx=(5, 0), pady=(10, 0))
+    # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
     allList.append(laabel7)
 
     MapList_button = tk.Button(Footer, text='Display', command=lambda: PersonalBest(Styles1, AUTOBHOP_list1, Sideways_list1, HalfSideways_list1, Donly_list1, AOnly_list1, WOnly_list1,ScrollNormal_list1, EasyScroll_list1, Stamina_list1, Slowmotion_list1, LowGravity_list1, WRlabel1, WRlabel2, WRlabel3))
     MapList_button.grid(row=1, column=1, padx=(7, 0),pady=(0, 0))
+    # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
     allList.append(MapList_button)
 
     laabel2 = Label(Footer, text="Style:", font="Arial 15 bold")
     laabel2.grid(row=2, column=0, padx=(6, 0), pady=(10, 0))
+    # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
     allList.append(laabel2)
 
     laabel3 = Label(Footer, text="Time:", font="Arial 15 bold")
     laabel3.grid(row=3, column=0, padx=(6, 0), pady=(10, 0))
+    # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
     allList.append(laabel3)
 
     laabel4 = Label(Footer, text="Tick Rate:", font="Arial 15 bold")
     laabel4.grid(row=4, column=0, padx=(0, 20), pady=(10, 0))
+    # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
     allList.append(laabel4)
 
     laabel9 = Label(gider, text="________________________________", font="Arial 15 bold")
     laabel9.grid(row=0, column=0, padx=(0, 10), pady=(0, 0))
+    # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
     allList.append(laabel9)
 
     laabel10 = Label(Lower, text="Style:", font="Arial 15 bold")
     laabel10.grid(row=1, column=0, padx=(30, 0))
+    # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
     allList.append(laabel10)
 
     laabel11 = Label(Lower, text="Time:", font="Arial 15 bold")
     laabel11.grid(row=1, column=1, padx=(40, 0))
+    # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
     allList.append(laabel11)
 
     laabel12 = Label(Lower, text="Tick:", font="Arial 15 bold")
     laabel12.grid(row=1, column=2, padx=(20, 0))
+    # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
     allList.append(laabel12)
 
     back_button1 = tk.Button(Bottom, text="Back", command=view, width=6)
     back_button1.grid(row=3, column=0, padx=(0, 140), pady=(0, 0))
+    # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
     allList.append(back_button1)
 
     home3_button = tk.Button(Bottom, text="Home", command=home, width=6)
     home3_button.grid(row=3, column=0, padx=(140,0), pady=(0, 0))
+    # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
     allList.append(home3_button)
 
     WRupdate(WRstyle_list, WRtime_list, WRtickrate_list, WRlabel1, WRlabel2, WRlabel3)
@@ -151,10 +177,12 @@ def timelist(listvariable):
 
     listbox2 = tk.Listbox(Bottom, width=25, height=6)
     listbox2.grid(row=2, column=0, padx=(10, 10))
+    # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
     allList.append(listbox2)
     # create a vertical scrollbar to the right of the listbox
     yscroll2 = tk.Scrollbar(Bottom, command=listbox2.yview, orient=tk.VERTICAL)
     yscroll2.grid(row=2, column=1, sticky='ns')
+    # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
     allList.append(yscroll2)
     listbox2.configure(yscrollcommand=yscroll2.set)
     # now load the listbox with data
@@ -445,16 +473,20 @@ def addpage():
 ##############################################
     title1 = Label(header, text="Add Time", fg="White", bg="grey", font="Verdana 17 bold", )
     title1.grid(row=0, column=1, padx=(76,0))
+    # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
     allList.append(title1)
     Label7 = Label(content, text="MAP:", font="Arial 14 bold")
     Label7.grid(row=0, column=0,pady=(10,0), padx=20)
+    # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
     allList.append(Label7)
 
     entry1 = Entry(content, textvariable=MapAddSearch, width=16)
     entry1.grid(row=0, column=1,pady=(10,0))
+    # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
     allList.append(entry1)
     MapList_button = tk.Button(content, text='Map List', command=maplist)
     MapList_button.grid(row=1, column=1,padx=(76,0))
+    # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
     allList.append(MapList_button)
 
     ###################
@@ -463,45 +495,56 @@ def addpage():
 
     Label8 = Label(content, text="STYLE:", font="Arial 14 bold")
     Label8.grid(row=2, column=0,pady=(10, 0))
+    # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
     allList.append(Label8)
     Styles = StringVar()
     Styles.set(Style[0])  # default value
     DropdownStyle = OptionMenu(content, Styles, *Style)
     DropdownStyle.grid(row=2, column=1,pady=(10, 0))
+    # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
     allList.append(DropdownStyle)
 
     TimeAdd = StringVar()
     Label9 = Label(content, text="TIME:", font="Arial 14 bold")
     Label9.grid(row=5, column=0,pady=(10, 0))
+    # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
     allList.append(Label9)
     entry2 = Entry(content, textvariable=TimeAdd, width=16)
     entry2.grid(row=5, column=1,pady=(10,0))
+    # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
     allList.append(entry2)
 
     Label10 = Label(content, text="TICK", font="Arial 14 bold")
     Label10.grid(row=7, column=0,pady=(10, 0))
+    # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
     allList.append(Label10)
     Label11 = Label(content, text="RATE:", font="Arial 14 bold")
     Label11.grid(row=8, column=0)
+    # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
     allList.append(Label11)
 
     statusSelect = StringVar()
     Tick128 = Radiobutton(content, text="128 Tick Rate", variable=statusSelect, value="128")
     Tick128.grid(row=7, column=1,padx=(0,10))
+    # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
     allList.append(Tick128)
     Tick100 = Radiobutton(content, text="100 Tick Rate", variable=statusSelect, value="100")
     Tick100.grid(row=8, column=1,padx=(0,10))
+    # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
     allList.append(Tick100)
     Tick64 = Radiobutton(content, text=" 64 Tick Rate", variable=statusSelect, value="64")
     Tick64.grid(row=9, column=1, padx=(0,14))
+    # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
     allList.append(Tick64)
 
     MapConfirm_button4 = tk.Button(Footer, text= "Add Time", width=10, command=lambda: AddFile(MapAddSearch, Styles, TimeAdd, statusSelect))
     MapConfirm_button4.grid(row=10, column=1, pady=(0,10), padx=(5,0))
+    # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
     allList.append(MapConfirm_button4)
 
     Home_button1 = tk.Button(Footer, text= "Home", command=home, width=10)
     Home_button1.grid(row=10, column=0, pady=(0,10), padx=(0,5))
+    # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
     allList.append(Home_button1)
 
     back_list.append("AddPage")
@@ -526,31 +569,39 @@ def MainPage():
 
     title = Label(header, text="BHOP Time Recorder", fg="White", bg="grey", font="Verdana 17 bold", )
     title.grid(row=0, column=0, padx=(25,30))
+    # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
     allList.append(title)
     packer = Label(content, text="                   ")
     packer.grid(row=0, column=0)
+    # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
     allList.append(packer)
     packer1 = Label(content, text="                   ")
     packer1.grid(row=0, column=2)
+    # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
     allList.append(packer1)
     Label1 = Label(content, text="Welcome User")
     Label1.grid(row=0, column=1)
+    # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
     allList.append(Label1)
     Label4 = Label(content, text="Previous Map:")
     Label4.grid(row=1, column=1)
+    # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
     allList.append(Label4)
     PrevMap = StringVar()
     PrevMap.set("")
     Label5 = Label(content, textvariable=PrevMap)
     Label5.grid(row=2, column = 1)
+    # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
     allList.append(Label5)
     Label2 = Label(content, text="Previous Time:")
     Label2.grid(row=3, column=1)
+    # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
     allList.append(Label2)
     PrevTime = DoubleVar()
     PrevTime.set(0.0)
     Label3 = Label(content, textvariable=PrevTime)
     Label3.grid(row=4, column=1)
+    # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
     allList.append(Label3)
 
     try:
@@ -580,26 +631,32 @@ def MainPage():
 
     Label6 = Label(Footer, text="_________________________________________")
     Label6.grid(row=0, column=0)
+    # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
     allList.append(Label6)
 
     add_button = tk.Button(Footer, text='Add Time', width=15, command=addpage)
     add_button.grid(row=1, column=0)
+    # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
     allList.append(add_button)
 
     view_button = tk.Button(Footer, text='View', width=15, command=view)
     view_button.grid(row=2, column=0)
+    # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
     allList.append(view_button)
 
     delete_button = tk.Button(Footer, text='Delete', width=15, command=delete)
     delete_button.grid(row=3, column=0)
+    # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
     allList.append(delete_button)
 
     settings_button = tk.Button(Footer, text='Settings', width=15, command=settings)
     settings_button.grid(row=4, column=0)
+    # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
     allList.append(settings_button)
 
     quit_button = tk.Button(Footer, text='Quit', width=15, command=root.destroy)
     quit_button.grid(row=5, column=0)
+    # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
     allList.append(quit_button)
 ##################################################################################################################
 
@@ -620,14 +677,17 @@ def view():
 
     title2 = Label(header, text="View", fg="White", bg="grey", font="Verdana 17 bold", )
     title2.grid(row=0, column=0, padx=(100, 0))
+    # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
     allList.append(title2)
 
     Label12 = Label(content, text="Search for Map", font="Arial 15 bold")
     Label12.grid(row=0, column=0,pady=(10,0), padx=(34, 0))
+    # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
     allList.append(Label12)
 
     entry3 = Entry(content, textvariable=SearchMap, width=20)
     entry3.grid(row=1, column=0, padx=(28, 0))
+    # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
     allList.append(entry3)
 
     listbox1 = tk.Listbox(Footer, width=20, height=10)
@@ -642,15 +702,19 @@ def view():
         # insert each new item to the end of the listbox
         listbox1.insert('end', item)
 
+    # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
     allList.append(listbox1)
+    # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
     allList.append(yscroll1)
 
     Home_button2 = tk.Button(gider, text="Home", command=home, width=5)
     Home_button2.grid(row=0, column=0, padx=(32,0))
+    # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
     allList.append(Home_button2)
 
     view_button1 = tk.Button(gider, text= "View", command=lambda: view_func(SearchMap),width=5)
     view_button1.grid(row=0, column=1,padx=(30,0))
+    # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
     allList.append(view_button1)
 
 
@@ -687,27 +751,33 @@ def settings():
 
     title3 = Label(header, text="Settings", fg="White", bg="grey", font="Verdana 17 bold", )
     title3.grid(row=0, column=0, padx=(86, 0))
+    # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
     allList.append(title3)
 
     Label14 = Label(content, text="Clear Wipe", font="Arial 18 bold", bg="#FFF8DC")
     Label14.grid(row=0, column=0,pady=(10,0), padx=(80, 0))
+    # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
     allList.append(Label14)
 
     Label15 = Label(Footer, text="Are you sure?", font="Arial 14 bold")
     Label15.grid(row=1, column=0, pady=(10, 0), padx=(71, 0))
+    # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
     allList.append(Label15)
 
     ClearWipeQuerry = StringVar()
     wipeyes = Radiobutton(Footer, text="Yes", variable=ClearWipeQuerry, value="yes")
     wipeyes.grid(row=2, column=0,padx=(65,0))
+    # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
     allList.append(wipeyes)
 
     confirmwipe_button = tk.Button(Footer, text="WIPE", command= lambda: ClearWipe(ClearWipeQuerry), width=5)
     confirmwipe_button.grid(row=4, column=0, padx=(65,0))
+    # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
     allList.append(confirmwipe_button)
 
     Home_button3 = tk.Button(Footer, text="Home", command=home, width=5)
     Home_button3.grid(row=5, column=0,pady=(10,0),padx=(0, 120))
+    # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
     allList.append(Home_button3)
 
 ##################################################################################################################
@@ -910,39 +980,48 @@ def delete():
 
     title4 = Label(header, text="Delete", fg="White", bg="grey", font="Verdana 17 bold", )
     title4.grid(row=0, column=0, padx=(92, 0))
+    # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
     allList.append(title4)
 
     Label16 = Label(content, text="Search Map", font="Arial 15 bold")
     Label16.grid(row=0, column=0, pady=(10, 0), padx=(40, 0))
+    # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
     allList.append(Label16)
 
     entry4 = Entry(content, textvariable=MapDeleteSearch, width=18)
     entry4.grid(row=1, column=0, padx=(37,0))
+    # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
     allList.append(entry4)
 
     MapList_button2 = tk.Button(content, text='Map List', command=maplist)
     MapList_button2.grid(row=2, column=0, padx=(20, 80))
+    # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
     allList.append(MapList_button2)
     MapConfirm_button6 = tk.Button(content, text="Delete Map", command= lambda: DeleteMap(MapDeleteSearch))
     MapConfirm_button6.grid(row=2, column=0, padx=(116, 0))
+    # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
     allList.append(MapConfirm_button6)
 
     Label18 = Label(content, text="Style Select", font="Arial 15 bold")
     Label18.grid(row=3, column=0, pady=(10, 0), padx=(40, 0))
+    # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
     allList.append(Label18)
 
     StyleSelect1 = StringVar()
     StyleSelect1.set(Style[0])  # default value
     DropdownStyleSelect3 = OptionMenu(content, StyleSelect1, *Style)
     DropdownStyleSelect3.grid(row=4, column=0, padx=(35, 0))
+    # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
     allList.append(DropdownStyleSelect3)
 
     MapConfirm_button7 = tk.Button(content, text="Confirm", command=lambda: deleteupdate(MapDeleteSearch, StyleSelect1))
     MapConfirm_button7.grid(row=5, column=0, padx=(30, 0))
+    # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
     allList.append(MapConfirm_button7)
 
     Label19 = Label(content, text="Time Select", font="Arial 15 bold")
     Label19.grid(row=6, column=0, pady=(10, 0), padx=(40, 0))
+    # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
     allList.append(Label19)
 
     MapStyle = "AUTO-BHOP   "
@@ -958,14 +1037,17 @@ def TimeUpdate(TimeSelect_list, MapStyle, mapquery, TimeList_list):
     TimeSelect.set(TimeSelect_list[0])  # default value
     DropdownTimeSelect = OptionMenu(content, TimeSelect, *TimeSelect_list)
     DropdownTimeSelect.grid(row=7, column=0, padx=(35, 0))
+    # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
     allList.append(DropdownTimeSelect)
 
     delete2_button = tk.Button(content, text="Delete", command= lambda: DeleteLine(TimeSelect, MapStyle, mapquery, TimeList_list))
     delete2_button.grid(row=10, column=0, padx=(30, 0))
+    # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
     allList.append(delete2_button)
 
     Home_button4 = tk.Button(content, text='Home', command=home)
     Home_button4.grid(row=11, column=0, padx=(0, 140), pady=(0, 10))
+    # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
     allList.append(Home_button4)
 
     back_list.append("Delete")
@@ -989,10 +1071,12 @@ def maplist():
 
     title5 = Label(header, text="Map List", fg="White", bg="grey", font="Verdana 17 bold", )
     title5.grid(row=0, column=0, padx=(86, 0))
+    # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
     allList.append(title5)
 
     Label20 = Label(content, text="Maps", font="Arial 15 bold")
     Label20.grid(row=0, column=0, padx=(110, 0))
+    # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
     allList.append(Label20)
 
 
@@ -1008,15 +1092,19 @@ def maplist():
     # insert each new item to the end of the listbox
         listbox.insert('end', item)
 
+    # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
     allList.append(listbox)
+    # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
     allList.append(yscroll)
 
     back_button = tk.Button(gider, text="Back", command=backbutton, width=6)
     back_button.grid(row=0, column=0, padx=(24, 0), pady=(10,0))
+    # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
     allList.append(back_button)
 
     home2_button = tk.Button(gider, text="Home", command=home, width=6)
     home2_button.grid(row=0, column=1, padx=(25,0), pady=(10,0))
+    # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
     allList.append(home2_button)
 
 ##################################################################################################################
