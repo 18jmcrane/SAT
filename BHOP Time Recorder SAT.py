@@ -37,6 +37,22 @@ for line in f:
     line = line.split(",")
     maplist_list.append(line[0])
 
+root = tk.Tk()
+root.title("BHOP Time Recorder")
+header = tk.Frame(root, bg='grey')
+content = tk.Frame(root, bg='white')
+Footer = tk.Frame(root, bg='white')
+gider = tk.Frame(root, bg="white")
+Lower = tk.Frame(root, bg="white")
+Bottom = tk.Frame(root, bg="white")
+
+
+##################################################################################################################
+
+##################################################################################################################
+#
+#                                                    FUNTIONS
+#
 ##################################################################################################################
 
 #This Funtion is used for the multiple page effect, this removes the Layout after each page change,
@@ -49,6 +65,471 @@ def hide():
     content.grid_remove()
     Footer.grid_remove()
     allremove()
+##################################################################################################################
+def WRupdate(WRstyle_list, WRtime_list, WRtickrate_list, WRlabel1, WRlabel2, WRlabel3):
+
+    w = len(WRstyle_list)
+    w = w-1
+
+    q = len(WRtime_list)
+    q = q - 1
+
+    e = len(WRtickrate_list)
+    e = e - 1
+
+    WRstyle = WRstyle_list[w]
+    WRtime = WRtime_list[q]
+    WRtickrate = WRtickrate_list[e]
+
+    WRlabel1.set(WRstyle)
+    WRlabel2.set(WRtime)
+    WRlabel3.set(WRtickrate)
+
+
+def PersonalBest(Styles1,AUTOBHOP_list1,Sideways_list1,HalfSideways_list1,Donly_list1,AOnly_list1,WOnly_list1,ScrollNormal_list1,EasyScroll_list1,Stamina_list1,Slowmotion_list1,LowGravity_list1, WRlabel1, WRlabel2, WRlabel3):
+
+    Style1 = Styles1.get()
+
+    if Style1 == "AUTO-BHOP   ":
+        WRstyle = AUTOBHOP_list1[0][0]
+        WRtime =  AUTOBHOP_list1[0][1]
+        WRtickrate = AUTOBHOP_list1[0][2]
+        listvariable = AUTOBHOP_list1
+
+    elif Style1 == "Sideways":
+        WRstyle = Sideways_list1[0][0]
+        WRtime =  Sideways_list1[0][1]
+        WRtickrate = Sideways_list1[0][2]
+        listvariable = Sideways_list1
+
+    elif Style1 == "Half-Sideway":
+        WRstyle = HalfSideways_list1[0][0]
+        WRtime = HalfSideways_list1[0][1]
+        WRtickrate = HalfSideways_list1[0][2]
+        listvariable = HalfSideways_list1
+
+    elif Style1 == "D-Only":
+        WRstyle = Donly_list1[0][0]
+        WRtime = Donly_list1[0][1]
+        WRtickrate = Donly_list1[0][2]
+        listvariable = Donly_list1
+
+
+    elif Style1 == "A-Only":
+        WRstyle = AOnly_list1[0][0]
+        WRtime = AOnly_list1[0][1]
+        WRtickrate = AOnly_list1[0][2]
+        listvariable = AOnly_list1
+
+    elif Style1 == "W-Only":
+        WRstyle = WOnly_list1[0][0]
+        WRtime = WOnly_list1[0][1]
+        WRtickrate = WOnly_list1[0][2]
+        listvariable = WOnly_list1
+
+    elif Style1 == "Scroll/Normal":
+        WRstyle = ScrollNormal_list1[0][0]
+        WRtime = ScrollNormal_list1[0][1]
+        WRtickrate = ScrollNormal_list1[0][2]
+        listvariable = ScrollNormal_list1
+
+    elif Style1 == "Easy Scroll":
+        WRstyle = EasyScroll_list1[0][0]
+        WRtime = EasyScroll_list1[0][1]
+        WRtickrate = EasyScroll_list1[0][2]
+        listvariable = EasyScroll_list1
+
+    elif Style1 == "Stamina":
+        WRstyle = Stamina_list1[0][0]
+        WRtime = Stamina_list1[0][1]
+        WRtickrate = Stamina_list1[0][2]
+        listvariable = Stamina_list1
+
+    elif Style1 == "Slowmotion":
+        WRstyle = Slowmotion_list1[0][0]
+        WRtime = Slowmotion_list1[0][1]
+        WRtickrate = Slowmotion_list1[0][2]
+        listvariable = Slowmotion_list1
+
+    elif Style1 == "Low-Gravity":
+        WRstyle = LowGravity_list1[0][0]
+        WRtime = LowGravity_list1[0][1]
+        WRtickrate = LowGravity_list1[0][2]
+        listvariable = LowGravity_list1
+
+
+    WRstyle_list.append(WRstyle)
+    WRtime_list.append(WRtime)
+    WRtickrate_list.append(WRtickrate)
+
+    WRupdate(WRstyle_list, WRtime_list, WRtickrate_list, WRlabel1, WRlabel2, WRlabel3)
+    timelist(listvariable)
+
+
+
+def view_func(SearchMap):
+    mapquery = SearchMap.get()
+    searchresult = ("test")
+    hide()
+
+    for i in maplist_list:
+        if i == mapquery:
+            searchresult = i
+
+    if searchresult != ("test"):
+        file = open('./maps/'+searchresult, "r")
+        viewmapall_list = []
+
+        for line in file:
+            line = line.strip('\n')
+            line = line.split(",")
+            viewmapall_list.append(line)
+
+        print(viewmapall_list)
+        new_list = sorted(viewmapall_list, key=lambda x: x[1])
+
+        stylelist_list = viewmapall_list
+
+        AUTOBHOP_list = []
+        Sideways_list = []
+        HalfSideways_list = []
+        Donly_list = []
+        AOnly_list = []
+        WOnly_list = []
+        ScrollNormal_list = []
+        EasyScroll_list = []
+        Stamina_list = []
+        Slowmotion_list = []
+        LowGravity_list = []
+
+        for i in stylelist_list:
+
+            if i[0] == "AUTO-BHOP   ":
+                AUTOBHOP_list.append(i)
+
+            if i[0] == "Sideways":
+                Sideways_list.append(i)
+
+            if i[0] == "Half-Sideways":
+                HalfSideways_list.append(i)
+
+            if i[0] == "D-Only":
+                Donly_list.append(i)
+
+            if i[0] == "A-Only":
+                AOnly_list.append(i)
+
+            if i[0] == "W-Only":
+                WOnly_list.append(i)
+
+            if i[0] == "Scroll/Normal":
+                ScrollNormal_list.append(i)
+
+            if i[0] == "Easy Scroll":
+                EasyScroll_list.append(i)
+
+            if i[0] == "Stamina":
+                Stamina_list.append(i)
+
+            if i[0] == "Slowmotion":
+                Slowmotion_list.append(i)
+
+            if i[0] == "Low-Gravity":
+                LowGravity_list.append(i)
+
+        AUTOBHOP_list1 = sorted(AUTOBHOP_list, key=lambda x: x[1])
+        Sideways_list1 = sorted(Sideways_list, key=lambda x: x[1])
+        HalfSideways_list1 = sorted(HalfSideways_list, key=lambda x: x[1])
+        Donly_list1 = sorted(Donly_list, key=lambda x: x[1])
+        AOnly_list1 = sorted(AOnly_list, key=lambda x: x[1])
+        WOnly_list1 = sorted(WOnly_list, key=lambda x: x[1])
+        ScrollNormal_list1 = sorted(ScrollNormal_list, key=lambda x: x[1])
+        EasyScroll_list1 = sorted(EasyScroll_list, key=lambda x: x[1])
+        Stamina_list1 = sorted(Stamina_list, key=lambda x: x[1])
+        Slowmotion_list1 = sorted(Slowmotion_list, key=lambda x: x[1])
+        LowGravity_list1  = sorted(LowGravity_list, key=lambda x: x[1])
+
+
+
+        mapdisplay(AUTOBHOP_list1,Sideways_list1,HalfSideways_list1,Donly_list1,AOnly_list1,WOnly_list1,ScrollNormal_list1,EasyScroll_list1,Stamina_list1,Slowmotion_list1,LowGravity_list1,searchresult)
+
+    else:
+        print("Entered Invalid")
+
+
+
+def select_item(event):
+    w = event.widget
+    index = int(w.curselection()[0])
+    value = w.get(index)
+    SearchMap.set(value)
+
+    x = len(back_list)
+    y = 0
+    if x > 1:
+        y = (x - 1)
+
+    page = back_list[y]
+
+    if page == "Delete":
+        MapDeleteSearch.set(value)
+
+    elif page == "AddPage":
+        MapAddSearch.set(value)
+
+    elif page == "View":
+        SearchMap.set(value)
+
+
+
+def backbutton():
+    x = len(back_list)
+    y = 0
+    if x > 1:
+       y = (x-1)
+
+    page = back_list.pop(y)
+
+    if page == "Delete":
+        hide()
+        delete()
+
+    elif page == "AddPage":
+        hide()
+        addpage()
+
+    elif page == "View":
+        hide()
+        view()
+
+
+
+def AddFile(mapinput, styles, TimeAdd, statusSelect):
+    map = mapinput.get()
+    style = styles.get()
+    time = TimeAdd.get()
+    tickrate = statusSelect.get()
+    k=True
+    print(map)
+
+    for i in maplist_list:
+        if i == map:
+            k = False
+
+    if k == True:
+        file = open("maplist", "a")
+        file.write(map+",\n")
+        file.close()
+
+    fi = open('./maps/'+map, "a")
+    fi.write(style)
+    fi.write(","+time)
+    fi.write(","+tickrate+"\n")
+    fi.close()
+    return
+
+
+def ClearWipe(ClearWipeQuerry):
+    ClearQuerry = ClearWipeQuerry.get()
+    if ClearQuerry == "yes":
+        for i in maplist_list:
+            try:
+                os.remove("maps/"+i)
+            except OSError as e:  ## if failed, report it back to the user ##
+                print("Error: %s - %s." % (e.filename, e.strerror))
+
+        f = open("maplist", "w")
+        f.close()
+
+
+def allremove():
+    for i in allList:
+        i.grid_remove()
+
+def DeleteLine(TimeSelect, MapStyle, mapquery, TimeList_list):
+    MapName = mapquery
+    Timechoice = TimeSelect.get()
+    print(TimeList_list, "desss")
+
+    for i in TimeList_list:
+        if MapStyle == i[0] and Timechoice == i[1]:
+            deletetickrate = i[2]
+            print(deletetickrate)
+
+    f = open('./maps/' + MapName, "r+")
+    d = f.readlines()
+    print(d)
+    f.seek(0)
+    for i in d:
+        if i != MapStyle + "," + Timechoice + "," + deletetickrate + "\n":
+            f.write(i)
+    f.truncate()
+    f.close()
+
+
+
+def deleteupdate(MapDeleteSearch, StyleSelect1):
+    mapquery = MapDeleteSearch.get()
+    MapStyle = StyleSelect1.get()
+    searchresult = ("test")
+
+    for i in maplist_list:
+        if i == mapquery:
+            searchresult = i
+
+    if searchresult != ("test"):
+        file = open('./maps/' + searchresult, "r")
+        viewmapall_list = []
+
+        for line in file:
+            line = line.strip('\n')
+            line = line.split(",")
+            viewmapall_list.append(line)
+
+        stylelist_list = viewmapall_list
+
+        AUTOBHOP_list = []
+        Sideways_list = []
+        HalfSideways_list = []
+        Donly_list = []
+        AOnly_list = []
+        WOnly_list = []
+        ScrollNormal_list = []
+        EasyScroll_list = []
+        Stamina_list = []
+        Slowmotion_list = []
+        LowGravity_list = []
+
+        for i in stylelist_list:
+
+            if i[0] == "AUTO-BHOP   ":
+                AUTOBHOP_list.append(i)
+
+            if i[0] == "Sideways":
+                Sideways_list.append(i)
+
+            if i[0] == "Half-Sideways":
+                HalfSideways_list.append(i)
+
+            if i[0] == "D-Only":
+                Donly_list.append(i)
+
+            if i[0] == "A-Only":
+                AOnly_list.append(i)
+
+            if i[0] == "W-Only":
+                WOnly_list.append(i)
+
+            if i[0] == "Scroll/Normal":
+                ScrollNormal_list.append(i)
+
+            if i[0] == "Easy Scroll":
+                EasyScroll_list.append(i)
+
+            if i[0] == "Stamina":
+                Stamina_list.append(i)
+
+            if i[0] == "Slowmotion":
+                Slowmotion_list.append(i)
+
+            if i[0] == "Low-Gravity":
+                LowGravity_list.append(i)
+
+        if MapStyle == "AUTO-BHOP   ":
+            AUTOBHOP_list1 = sorted(AUTOBHOP_list, key=lambda x: x[1])
+            print(AUTOBHOP_list1)
+            TimeList_list = AUTOBHOP_list1
+
+        if MapStyle == "Sideways":
+            Sideways_list1 = sorted(Sideways_list, key=lambda x: x[1])
+            print(Sideways_list1)
+            TimeList_list = Sideways_list1
+
+        if MapStyle == "Half-Sideways":
+            HalfSideways_list1 = sorted(HalfSideways_list, key=lambda x: x[1])
+            print(HalfSideways_list1)
+            TimeList_list = HalfSideways_list1
+
+        if MapStyle == "D-Only":
+            Donly_list1 = sorted(Donly_list, key=lambda x: x[1])
+            print(Donly_list1)
+            TimeList_list = Donly_list1
+
+        if MapStyle == "A-Only":
+            AOnly_list1 = sorted(AOnly_list, key=lambda x: x[1])
+            print(AOnly_list1)
+            TimeList_list = AOnly_list1
+
+        if MapStyle == "W-Only":
+            WOnly_list1 = sorted(WOnly_list, key=lambda x: x[1])
+            print(WOnly_list1)
+            TimeList_list = WOnly_list1
+
+        if MapStyle == "Scroll/Normal":
+            ScrollNormal_list1 = sorted(ScrollNormal_list, key=lambda x: x[1])
+            print(ScrollNormal_list1)
+            TimeList_list = ScrollNormal_list1
+
+        if MapStyle == "Easy Scroll":
+            EasyScroll_list1 = sorted(EasyScroll_list, key=lambda x: x[1])
+            print(EasyScroll_list1)
+            TimeList_list = EasyScroll_list1
+
+        if MapStyle == "Stamina":
+            Stamina_list1 = sorted(Stamina_list, key=lambda x: x[1])
+            print(Stamina_list1)
+            TimeList_list = Stamina_list1
+
+        if MapStyle == "Slowmotion":
+            Slowmotion_list1 = sorted(Slowmotion_list, key=lambda x: x[1])
+            print(Slowmotion_list1)
+            TimeList_list = Slowmotion_list1
+
+        if MapStyle == "Low-Gravity":
+            LowGravity_list1 = sorted(LowGravity_list, key=lambda x: x[1])
+            print(LowGravity_list1)
+            TimeList_list = LowGravity_list1
+
+        for i in TimeList_list:
+            TimeSelect_list.append(i[1])
+
+        TimeUpdate(TimeSelect_list, MapStyle, mapquery, TimeList_list)
+
+def DeleteMap(MapDeleteSearch):
+    Fileinput = MapDeleteSearch.get()
+    FileDelete = "maps/" + Fileinput
+    ## Try to delete the file ##
+    error = False
+    try:
+        os.remove(FileDelete)
+    except OSError as e:  ## if failed, report it back to the user ##
+        error = True
+        print("Error: %s - %s." % (e.filename, e.strerror))
+
+    f = open("maplist", "r+")
+    d = f.readlines()
+    print(d)
+    f.seek(0)
+    for i in d:
+        if i != Fileinput + "," + "\n":
+            f.write(i)
+    f.truncate()
+    f.close()
+    return error
+
+
+def home():
+    hide()
+    MainWindowLayout()
+    MainPage()
+
+##################################################################################################################
+##################################################################################################################
+
+##################################################################################################################
+#
+#                                                    GUI
+#
 ##################################################################################################################
 
 #This Funtion is used to display the Map details through the view funtion, it is the GUI of the page and is called after
@@ -217,266 +698,6 @@ def timelist(listvariable):
         # insert each new item to the end of the listbox
         listbox2.insert('end', item)
 
-def WRupdate(WRstyle_list, WRtime_list, WRtickrate_list, WRlabel1, WRlabel2, WRlabel3):
-
-    w = len(WRstyle_list)
-    w = w-1
-
-    q = len(WRtime_list)
-    q = q - 1
-
-    e = len(WRtickrate_list)
-    e = e - 1
-
-    WRstyle = WRstyle_list[w]
-    WRtime = WRtime_list[q]
-    WRtickrate = WRtickrate_list[e]
-
-    WRlabel1.set(WRstyle)
-    WRlabel2.set(WRtime)
-    WRlabel3.set(WRtickrate)
-
-
-def PersonalBest(Styles1,AUTOBHOP_list1,Sideways_list1,HalfSideways_list1,Donly_list1,AOnly_list1,WOnly_list1,ScrollNormal_list1,EasyScroll_list1,Stamina_list1,Slowmotion_list1,LowGravity_list1, WRlabel1, WRlabel2, WRlabel3):
-
-    Style1 = Styles1.get()
-
-    if Style1 == "AUTO-BHOP   ":
-        WRstyle = AUTOBHOP_list1[0][0]
-        WRtime =  AUTOBHOP_list1[0][1]
-        WRtickrate = AUTOBHOP_list1[0][2]
-        listvariable = AUTOBHOP_list1
-
-    elif Style1 == "Sideways":
-        WRstyle = Sideways_list1[0][0]
-        WRtime =  Sideways_list1[0][1]
-        WRtickrate = Sideways_list1[0][2]
-        listvariable = Sideways_list1
-
-    elif Style1 == "Half-Sideway":
-        WRstyle = HalfSideways_list1[0][0]
-        WRtime = HalfSideways_list1[0][1]
-        WRtickrate = HalfSideways_list1[0][2]
-        listvariable = HalfSideways_list1
-
-    elif Style1 == "D-Only":
-        WRstyle = Donly_list1[0][0]
-        WRtime = Donly_list1[0][1]
-        WRtickrate = Donly_list1[0][2]
-        listvariable = Donly_list1
-
-
-    elif Style1 == "A-Only":
-        WRstyle = AOnly_list1[0][0]
-        WRtime = AOnly_list1[0][1]
-        WRtickrate = AOnly_list1[0][2]
-        listvariable = AOnly_list1
-
-    elif Style1 == "W-Only":
-        WRstyle = WOnly_list1[0][0]
-        WRtime = WOnly_list1[0][1]
-        WRtickrate = WOnly_list1[0][2]
-        listvariable = WOnly_list1
-
-    elif Style1 == "Scroll/Normal":
-        WRstyle = ScrollNormal_list1[0][0]
-        WRtime = ScrollNormal_list1[0][1]
-        WRtickrate = ScrollNormal_list1[0][2]
-        listvariable = ScrollNormal_list1
-
-    elif Style1 == "Easy Scroll":
-        WRstyle = EasyScroll_list1[0][0]
-        WRtime = EasyScroll_list1[0][1]
-        WRtickrate = EasyScroll_list1[0][2]
-        listvariable = EasyScroll_list1
-
-    elif Style1 == "Stamina":
-        WRstyle = Stamina_list1[0][0]
-        WRtime = Stamina_list1[0][1]
-        WRtickrate = Stamina_list1[0][2]
-        listvariable = Stamina_list1
-
-    elif Style1 == "Slowmotion":
-        WRstyle = Slowmotion_list1[0][0]
-        WRtime = Slowmotion_list1[0][1]
-        WRtickrate = Slowmotion_list1[0][2]
-        listvariable = Slowmotion_list1
-
-    elif Style1 == "Low-Gravity":
-        WRstyle = LowGravity_list1[0][0]
-        WRtime = LowGravity_list1[0][1]
-        WRtickrate = LowGravity_list1[0][2]
-        listvariable = LowGravity_list1
-
-
-    WRstyle_list.append(WRstyle)
-    WRtime_list.append(WRtime)
-    WRtickrate_list.append(WRtickrate)
-
-    WRupdate(WRstyle_list, WRtime_list, WRtickrate_list, WRlabel1, WRlabel2, WRlabel3)
-    timelist(listvariable)
-
-
-
-
-def view_func(SearchMap):
-    mapquery = SearchMap.get()
-    searchresult = ("test")
-    hide()
-
-    for i in maplist_list:
-        if i == mapquery:
-            searchresult = i
-
-    if searchresult != ("test"):
-        file = open('./maps/'+searchresult, "r")
-        viewmapall_list = []
-
-        for line in file:
-            line = line.strip('\n')
-            line = line.split(",")
-            viewmapall_list.append(line)
-
-        print(viewmapall_list)
-        new_list = sorted(viewmapall_list, key=lambda x: x[1])
-
-        stylelist_list = viewmapall_list
-
-        AUTOBHOP_list = []
-        Sideways_list = []
-        HalfSideways_list = []
-        Donly_list = []
-        AOnly_list = []
-        WOnly_list = []
-        ScrollNormal_list = []
-        EasyScroll_list = []
-        Stamina_list = []
-        Slowmotion_list = []
-        LowGravity_list = []
-
-        for i in stylelist_list:
-
-            if i[0] == "AUTO-BHOP   ":
-                AUTOBHOP_list.append(i)
-
-            if i[0] == "Sideways":
-                Sideways_list.append(i)
-
-            if i[0] == "Half-Sideways":
-                HalfSideways_list.append(i)
-
-            if i[0] == "D-Only":
-                Donly_list.append(i)
-
-            if i[0] == "A-Only":
-                AOnly_list.append(i)
-
-            if i[0] == "W-Only":
-                WOnly_list.append(i)
-
-            if i[0] == "Scroll/Normal":
-                ScrollNormal_list.append(i)
-
-            if i[0] == "Easy Scroll":
-                EasyScroll_list.append(i)
-
-            if i[0] == "Stamina":
-                Stamina_list.append(i)
-
-            if i[0] == "Slowmotion":
-                Slowmotion_list.append(i)
-
-            if i[0] == "Low-Gravity":
-                LowGravity_list.append(i)
-
-        AUTOBHOP_list1 = sorted(AUTOBHOP_list, key=lambda x: x[1])
-        Sideways_list1 = sorted(Sideways_list, key=lambda x: x[1])
-        HalfSideways_list1 = sorted(HalfSideways_list, key=lambda x: x[1])
-        Donly_list1 = sorted(Donly_list, key=lambda x: x[1])
-        AOnly_list1 = sorted(AOnly_list, key=lambda x: x[1])
-        WOnly_list1 = sorted(WOnly_list, key=lambda x: x[1])
-        ScrollNormal_list1 = sorted(ScrollNormal_list, key=lambda x: x[1])
-        EasyScroll_list1 = sorted(EasyScroll_list, key=lambda x: x[1])
-        Stamina_list1 = sorted(Stamina_list, key=lambda x: x[1])
-        Slowmotion_list1 = sorted(Slowmotion_list, key=lambda x: x[1])
-        LowGravity_list1  = sorted(LowGravity_list, key=lambda x: x[1])
-
-
-
-        mapdisplay(AUTOBHOP_list1,Sideways_list1,HalfSideways_list1,Donly_list1,AOnly_list1,WOnly_list1,ScrollNormal_list1,EasyScroll_list1,Stamina_list1,Slowmotion_list1,LowGravity_list1,searchresult)
-
-
-    else:
-        print("Entered Invalid")
-
-
-
-def select_item(event):
-    w = event.widget
-    index = int(w.curselection()[0])
-    value = w.get(index)
-    SearchMap.set(value)
-
-    x = len(back_list)
-    y = 0
-    if x > 1:
-        y = (x - 1)
-
-    page = back_list[y]
-
-    if page == "Delete":
-        MapDeleteSearch.set(value)
-
-    elif page == "AddPage":
-        MapAddSearch.set(value)
-
-    elif page == "View":
-        SearchMap.set(value)
-
-def backbutton():
-    x = len(back_list)
-    y = 0
-    if x > 1:
-       y = (x-1)
-
-    page = back_list.pop(y)
-
-    if page == "Delete":
-        hide()
-        delete()
-
-    elif page == "AddPage":
-        hide()
-        addpage()
-
-    elif page == "View":
-        hide()
-        view()
-
-def AddFile(mapinput, styles, TimeAdd, statusSelect):
-    map = mapinput.get()
-    style = styles.get()
-    time = TimeAdd.get()
-    tickrate = statusSelect.get()
-    k=True
-    print(map)
-
-    for i in maplist_list:
-        if i == map:
-            k = False
-
-    if k == True:
-        file = open("maplist", "a")
-        file.write(map+",\n")
-        file.close()
-
-    fi = open('./maps/'+map, "a")
-    fi.write(style)
-    fi.write(","+time)
-    fi.write(","+tickrate+"\n")
-    fi.close()
-    return
-
 ##################################################################################################################
 
 def addpage():
@@ -603,18 +824,6 @@ def addpage():
 
 
 ##################################################################################################################
-root = tk.Tk()
-root.title("BHOP Time Recorder")
-header = tk.Frame(root, bg='grey')
-content = tk.Frame(root, bg='white')
-Footer = tk.Frame(root, bg='white')
-gider = tk.Frame(root, bg="white")
-Lower = tk.Frame(root, bg="white")
-Bottom = tk.Frame(root, bg="white")
-
-
-##################################################################################################################
-
 
 def MainPage():
 
@@ -815,19 +1024,6 @@ def view():
 ##################################################################################################################
 
 
-def ClearWipe(ClearWipeQuerry):
-    ClearQuerry = ClearWipeQuerry.get()
-    if ClearQuerry == "yes":
-        for i in maplist_list:
-            try:
-                os.remove("maps/"+i)
-            except OSError as e:  ## if failed, report it back to the user ##
-                print("Error: %s - %s." % (e.filename, e.strerror))
-
-        f = open("maplist", "w")
-        f.close()
-
-
 def settings():
     root.geometry('250x187')
     hide()
@@ -888,184 +1084,7 @@ def settings():
 ##################################################################################################################
 
 
-def allremove():
-    for i in allList:
-        i.grid_remove()
-
-
 ##################################################################################################################
-
-def DeleteLine(TimeSelect, MapStyle, mapquery, TimeList_list):
-    MapName = mapquery
-    Timechoice = TimeSelect.get()
-    print(TimeList_list, "desss")
-
-    for i in TimeList_list:
-        if MapStyle == i[0] and Timechoice == i[1]:
-            deletetickrate = i[2]
-            print(deletetickrate)
-
-    f = open('./maps/' + MapName, "r+")
-    d = f.readlines()
-    print(d)
-    f.seek(0)
-    for i in d:
-        if i != MapStyle + "," + Timechoice + "," + deletetickrate + "\n":
-            f.write(i)
-    f.truncate()
-    f.close()
-
-
-
-def deleteupdate(MapDeleteSearch, StyleSelect1):
-    mapquery = MapDeleteSearch.get()
-    MapStyle = StyleSelect1.get()
-    searchresult = ("test")
-
-    for i in maplist_list:
-        if i == mapquery:
-            searchresult = i
-
-    if searchresult != ("test"):
-        file = open('./maps/' + searchresult, "r")
-        viewmapall_list = []
-
-        for line in file:
-            line = line.strip('\n')
-            line = line.split(",")
-            viewmapall_list.append(line)
-
-        stylelist_list = viewmapall_list
-
-        AUTOBHOP_list = []
-        Sideways_list = []
-        HalfSideways_list = []
-        Donly_list = []
-        AOnly_list = []
-        WOnly_list = []
-        ScrollNormal_list = []
-        EasyScroll_list = []
-        Stamina_list = []
-        Slowmotion_list = []
-        LowGravity_list = []
-
-        for i in stylelist_list:
-
-            if i[0] == "AUTO-BHOP   ":
-                AUTOBHOP_list.append(i)
-
-            if i[0] == "Sideways":
-                Sideways_list.append(i)
-
-            if i[0] == "Half-Sideways":
-                HalfSideways_list.append(i)
-
-            if i[0] == "D-Only":
-                Donly_list.append(i)
-
-            if i[0] == "A-Only":
-                AOnly_list.append(i)
-
-            if i[0] == "W-Only":
-                WOnly_list.append(i)
-
-            if i[0] == "Scroll/Normal":
-                ScrollNormal_list.append(i)
-
-            if i[0] == "Easy Scroll":
-                EasyScroll_list.append(i)
-
-            if i[0] == "Stamina":
-                Stamina_list.append(i)
-
-            if i[0] == "Slowmotion":
-                Slowmotion_list.append(i)
-
-            if i[0] == "Low-Gravity":
-                LowGravity_list.append(i)
-
-        if MapStyle == "AUTO-BHOP   ":
-            AUTOBHOP_list1 = sorted(AUTOBHOP_list, key=lambda x: x[1])
-            print(AUTOBHOP_list1)
-            TimeList_list = AUTOBHOP_list1
-
-        if MapStyle == "Sideways":
-            Sideways_list1 = sorted(Sideways_list, key=lambda x: x[1])
-            print(Sideways_list1)
-            TimeList_list = Sideways_list1
-
-        if MapStyle == "Half-Sideways":
-            HalfSideways_list1 = sorted(HalfSideways_list, key=lambda x: x[1])
-            print(HalfSideways_list1)
-            TimeList_list = HalfSideways_list1
-
-        if MapStyle == "D-Only":
-            Donly_list1 = sorted(Donly_list, key=lambda x: x[1])
-            print(Donly_list1)
-            TimeList_list = Donly_list1
-
-        if MapStyle == "A-Only":
-            AOnly_list1 = sorted(AOnly_list, key=lambda x: x[1])
-            print(AOnly_list1)
-            TimeList_list = AOnly_list1
-
-        if MapStyle == "W-Only":
-            WOnly_list1 = sorted(WOnly_list, key=lambda x: x[1])
-            print(WOnly_list1)
-            TimeList_list = WOnly_list1
-
-        if MapStyle == "Scroll/Normal":
-            ScrollNormal_list1 = sorted(ScrollNormal_list, key=lambda x: x[1])
-            print(ScrollNormal_list1)
-            TimeList_list = ScrollNormal_list1
-
-        if MapStyle == "Easy Scroll":
-            EasyScroll_list1 = sorted(EasyScroll_list, key=lambda x: x[1])
-            print(EasyScroll_list1)
-            TimeList_list = EasyScroll_list1
-
-        if MapStyle == "Stamina":
-            Stamina_list1 = sorted(Stamina_list, key=lambda x: x[1])
-            print(Stamina_list1)
-            TimeList_list = Stamina_list1
-
-        if MapStyle == "Slowmotion":
-            Slowmotion_list1 = sorted(Slowmotion_list, key=lambda x: x[1])
-            print(Slowmotion_list1)
-            TimeList_list = Slowmotion_list1
-
-        if MapStyle == "Low-Gravity":
-            LowGravity_list1 = sorted(LowGravity_list, key=lambda x: x[1])
-            print(LowGravity_list1)
-            TimeList_list = LowGravity_list1
-
-        for i in TimeList_list:
-            TimeSelect_list.append(i[1])
-
-        TimeUpdate(TimeSelect_list, MapStyle, mapquery, TimeList_list)
-
-def DeleteMap(MapDeleteSearch):
-    Fileinput = MapDeleteSearch.get()
-    FileDelete = "maps/" + Fileinput
-    ## Try to delete the file ##
-    error = False
-    try:
-        os.remove(FileDelete)
-    except OSError as e:  ## if failed, report it back to the user ##
-        error = True
-        print("Error: %s - %s." % (e.filename, e.strerror))
-
-    f = open("maplist", "r+")
-    d = f.readlines()
-    print(d)
-    f.seek(0)
-    for i in d:
-        if i != Fileinput + "," + "\n":
-            f.write(i)
-    f.truncate()
-    f.close()
-    return error
-
 
 def delete():
     root.geometry('250x330')
@@ -1248,15 +1267,6 @@ def maplist():
     allList.append(home2_button)
 
 ##################################################################################################################
-
-
-def home():
-    hide()
-    MainWindowLayout()
-    MainPage()
-
-##################################################################################################################
-
 
 def MainWindowLayout():
     root.geometry('250x320')
