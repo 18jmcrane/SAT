@@ -56,7 +56,8 @@ def hide():
 def mapdisplay(AUTOBHOP_list1,Sideways_list1,HalfSideways_list1,Donly_list1,AOnly_list1,WOnly_list1,ScrollNormal_list1,EasyScroll_list1,Stamina_list1,Slowmotion_list1,LowGravity_list1,searchresult):
 
     #Below shows the configuration of the size of the Window and each of the frames(header,content,Footer,gider,Lower,Bottom)
-    # and determened order through the rowconfigure, size through the "pad" command.
+    # and determined order through the rowconfigure, size through the "pad" command.
+    #This is the "Window configuration block"
     root.geometry('270x420')
     root.columnconfigure(0, weight=1)
     root.rowconfigure(0, pad=3)
@@ -1043,18 +1044,15 @@ def deleteupdate(MapDeleteSearch, StyleSelect1):
 
         TimeUpdate(TimeSelect_list, MapStyle, mapquery, TimeList_list)
 
-
-
-
-
-
 def DeleteMap(MapDeleteSearch):
     Fileinput = MapDeleteSearch.get()
     FileDelete = "maps/" + Fileinput
     ## Try to delete the file ##
+    error = False
     try:
         os.remove(FileDelete)
     except OSError as e:  ## if failed, report it back to the user ##
+        error = True
         print("Error: %s - %s." % (e.filename, e.strerror))
 
     f = open("maplist", "r+")
@@ -1066,6 +1064,7 @@ def DeleteMap(MapDeleteSearch):
             f.write(i)
     f.truncate()
     f.close()
+    return error
 
 
 def delete():
