@@ -532,7 +532,8 @@ def home():
 #
 ##################################################################################################################
 
-#This Funtion is used to display the Map details through the view funtion, it is the GUI of the page and is called after
+#This Funtion is used to display the Map details through the view funtion,
+# it is the GUI of the page and is called after
 # a listbox page where a map is selected.
 def mapdisplay(AUTOBHOP_list1,Sideways_list1,HalfSideways_list1,Donly_list1,AOnly_list1,WOnly_list1,ScrollNormal_list1,EasyScroll_list1,Stamina_list1,Slowmotion_list1,LowGravity_list1,searchresult):
 
@@ -559,106 +560,153 @@ def mapdisplay(AUTOBHOP_list1,Sideways_list1,HalfSideways_list1,Donly_list1,AOnl
     title6 = Label(header, text=searchresult, fg="White", bg="grey", font="Verdana 17 bold", )
     #Actually displays the label in a designated position through the use of grid
     title6.grid(row=0, column=1, padx=(78, 0))
-    #Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
+    #Used to add the grided term to a list, to then be used to remove it when another page is selected,
+    # through the use of "grid_remove"
     allList.append(title6)
 
     #Creates the "Person Best Time" subheading, displayed when mapdisplay() is activated
     laabel1 = Label(content, text="Personal Best Time", font="Arial 15 bold")
     # Actually displays the label in a designated position through the use of grid
     laabel1.grid(row=0, column=1, padx=(10, 0), pady=(5, 0))
-    # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
+    # Used to add the grided term to a list, to then be used to remove it when another page is selected,
+    # through the use of "grid_remove"
     allList.append(laabel1)
 
+    # Assigning a variable a Label tkinter Operation, to be displayed.
     laabel8 = Label(content, text="________________________________", font="Arial 15 bold")
     # Actually displays the label in a designated position through the use of grid
     laabel8.grid(row=1, column=1, padx=(0, 10), pady=(0, 0))
-    # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
+    # Used to add the grided term to a list, to then be used to remove it when another page is selected,
+    # through the use of "grid_remove"
     allList.append(laabel8)
 
+    #Sets the variable to a StringVar to specify what type of element it is.
+    ####### This is Refered to as "Assigning Variable Class"#################
     Styles1 = StringVar()
+    #Sets the Style to the first position of the Style list, so it has a default displayed data .
     Styles1.set(Style[0])  # default value
+    #Sets the variable to the Tkinter Operation of Optionmenu(Dropdownbox)
     DropdownStyle1 = OptionMenu(Footer, Styles1, *Style)
     # displays the dropdown box in a designated position through the use of grid
     DropdownStyle1.grid(row=1, column=0, pady=(0, 0))
-    # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
+    # Used to add the grided term to a list, to then be used to remove it when another page is selected,
+    # through the use of "grid_remove"
     allList.append(DropdownStyle1)
 
+    #Assigning Variable Class (as indicated on Line 583)
     WRlabel1 = StringVar()
+    # Assigning Variable Class
     WRlabel2 = StringVar()
+    # Assigning Variable Class
     WRlabel3 = StringVar()
 
+    #This is a call to a funtion, that uses the elements from the funtions arguments,
+    # that takes the list and sorts the data, into different Style list and sorts the Style list
+    # to create variables that include the Personal Best Times of each style.
+    # Which are displayed on the following page.
+    PersonalBest(Styles1, AUTOBHOP_list1, Sideways_list1, HalfSideways_list1, Donly_list1, AOnly_list1,
+                 WOnly_list1,ScrollNormal_list1, EasyScroll_list1, Stamina_list1, Slowmotion_list1,
+                 LowGravity_list1, WRlabel1, WRlabel2, WRlabel3)
 
-    PersonalBest(Styles1, AUTOBHOP_list1, Sideways_list1, HalfSideways_list1, Donly_list1, AOnly_list1, WOnly_list1,ScrollNormal_list1, EasyScroll_list1, Stamina_list1, Slowmotion_list1, LowGravity_list1, WRlabel1, WRlabel2, WRlabel3)
-
-
+    # Assigning a variable a Label tkinter Operation, to be displayed.
+    #This WRLabel1 includes the Personal Best Style, and updates when it is set.
     laabel5 = Label(Footer, textvariable=WRlabel1, font="Arial 15 bold")
     # Actually displays the label in a designated position through the use of grid
     laabel5.grid(row=2, column=1, padx=(5, 0), pady=(10, 0))
-    # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
+    # Used to add the grided term to a list, to then be used to remove it when another page is selected,
+    # through the use of "grid_remove"
     allList.append(laabel5)
 
+    # Assigning a variable a Label tkinter Operation, to be displayed.
+    # This WRLabel2 includes the Personal Best Time
     laabel6 = Label(Footer, textvariable=WRlabel2, font="Arial 15 bold")
     # Actually displays the label in a designated position through the use of grid
     laabel6.grid(row=3, column=1, padx=(5, 0), pady=(10, 0))
-    # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
+    # Used to add the grided term to a list, to then be used to remove it when another page is selected,
+    # through the use of "grid_remove"
     allList.append(laabel6)
 
+    # Assigning a variable a Label tkinter Operation, to be displayed.
+    # This WRLabel3 includes the Personal Best TickRate
     laabel7 = Label(Footer, textvariable=WRlabel3, font="Arial 15 bold")
     # Actually displays the label in a designated position through the use of grid
     laabel7.grid(row=4, column=1, padx=(5, 0), pady=(10, 0))
-    # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
+    # Used to add the grided term to a list, to then be used to remove it when another page is selected,
+    # through the use of "grid_remove"
     allList.append(laabel7)
 
-    MapList_button = tk.Button(Footer, text='Display', command=lambda: PersonalBest(Styles1, AUTOBHOP_list1,
+    # Assigning a variable a Button tkinter Operation, to be displayed.
+    #This button updates the Personal Best Time updated, through recalling the PersonalBest funtion,
+    # that takes the data from the dropdown box to display the different Style Personal Best.
+    Display_button = tk.Button(Footer, text='Display', command=lambda: PersonalBest(Styles1, AUTOBHOP_list1,
         Sideways_list1, HalfSideways_list1, Donly_list1, AOnly_list1, WOnly_list1,ScrollNormal_list1, EasyScroll_list1,
         Stamina_list1, Slowmotion_list1, LowGravity_list1, WRlabel1, WRlabel2, WRlabel3))
     # Actually displays the label in a designated position through the use of grid
-    MapList_button.grid(row=1, column=1, padx=(7, 0),pady=(0, 0))
-    # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
-    allList.append(MapList_button)
+    Display_button.grid(row=1, column=1, padx=(7, 0),pady=(0, 0))
+    # Used to add the grided term to a list, to then be used to remove it when another page is selected,
+    # through the use of "grid_remove"
+    allList.append(Display_button)
 
+    # Assigning a variable a Label tkinter Operation
+    # Displaying Text of "Style:"
     laabel2 = Label(Footer, text="Style:", font="Arial 15 bold")
     # Actually displays the label in a designated position through the use of grid
     laabel2.grid(row=2, column=0, padx=(6, 0), pady=(10, 0))
-    # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
+    # Used to add the grided term to a list, to then be used to remove it when another page is selected,
+    # through the use of "grid_remove"
     allList.append(laabel2)
 
+    # Assigning a variable a Label tkinter Operation
+    # Displaying Text of "Time:"
     laabel3 = Label(Footer, text="Time:", font="Arial 15 bold")
     # Actually displays the label in a designated position through the use of grid
     laabel3.grid(row=3, column=0, padx=(6, 0), pady=(10, 0))
-    # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
+    # Used to add the grided term to a list, to then be used to remove it when another page is selected,
+    # through the use of "grid_remove"
     allList.append(laabel3)
 
+    # Assigning a variable a Label tkinter Operation
+    # Displaying Text of "Tick Rate:"
     laabel4 = Label(Footer, text="Tick Rate:", font="Arial 15 bold")
     # Actually displays the label in a designated position through the use of grid
     laabel4.grid(row=4, column=0, padx=(0, 20), pady=(10, 0))
     # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
     allList.append(laabel4)
 
+    # Assigning a variable a Label tkinter Operation
     laabel9 = Label(gider, text="________________________________", font="Arial 15 bold")
     # Actually displays the label in a designated position through the use of grid
     laabel9.grid(row=0, column=0, padx=(0, 10), pady=(0, 0))
     # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
     allList.append(laabel9)
 
+    # Assigning a variable a Label tkinter Operation
+    # Displaying Text of "Style:"
     laabel10 = Label(Lower, text="Style:", font="Arial 15 bold")
     # Actually displays the label in a designated position through the use of grid
     laabel10.grid(row=1, column=0, padx=(30, 0))
     # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
     allList.append(laabel10)
 
+    # Assigning a variable a Label tkinter Operation
+    # Displaying Text of "Time:"
     laabel11 = Label(Lower, text="Time:", font="Arial 15 bold")
     # Actually displays the label in a designated position through the use of grid
     laabel11.grid(row=1, column=1, padx=(40, 0))
     # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
     allList.append(laabel11)
 
+    # Assigning a variable a Label tkinter Operation
+    # Displaying Text of "Tick Rate:"
     laabel12 = Label(Lower, text="Tick:", font="Arial 15 bold")
     # Actually displays the label in a designated position through the use of grid
     laabel12.grid(row=1, column=2, padx=(20, 0))
     # Used to add the grided term to a list, to then be used to remove it when another page is selected, through the use of "grid_remove"
     allList.append(laabel12)
 
+    # Assigning a variable a Button tkinter Operation, to be displayed.
+    # This button when pressed takes the user to the view() page
+    # which is the Listbox Selection page for different maps.
     back_button1 = tk.Button(Bottom, text="Back", command=view, width=6)
     # Actually displays the label in a designated position through the use of grid
     back_button1.grid(row=3, column=0, padx=(0, 140), pady=(0, 0))
@@ -666,6 +714,9 @@ def mapdisplay(AUTOBHOP_list1,Sideways_list1,HalfSideways_list1,Donly_list1,AOnl
     #  through the use of "grid_remove"
     allList.append(back_button1)
 
+    # Assigning a variable a Button tkinter Operation, to be displayed.
+    # This button when pressed takes the user to the home() page
+    # which is the homescreen with all the Selections of funtions(Add time, View, Delete, Settings and Quit)
     home3_button = tk.Button(Bottom, text="Home", command=home, width=6)
     # Actually displays the label in a designated position through the use of grid
     home3_button.grid(row=3, column=0, padx=(140,0), pady=(0, 0))
@@ -673,12 +724,18 @@ def mapdisplay(AUTOBHOP_list1,Sideways_list1,HalfSideways_list1,Donly_list1,AOnl
     #  through the use of "grid_remove"
     allList.append(home3_button)
 
+    #calls funtion that takes the data and sets the WRlabel variables,
+    # so a different variable is displayed.
     WRupdate(WRstyle_list, WRtime_list, WRtickrate_list, WRlabel1, WRlabel2, WRlabel3)
 
 
+    #This is still on the same displayed page as mapdisplay,
+    # but is seperated so it can be called from to update the data
+    #It displays the data within the List with all map data into a ListBox.
 def timelist(listvariable):
-    print(listvariable)
 
+    # Assigning a variable a Listbox tkinter Operation, to be displayed.
+    #Having a Width of 25 and a height of 6.
     listbox2 = tk.Listbox(Bottom, width=25, height=6)
     # displays the Listbox in a designated position through the use of grid
     listbox2.grid(row=2, column=0, padx=(10, 10))
@@ -692,17 +749,25 @@ def timelist(listvariable):
     # Used to add the grided term to a list, to then be used to remove it when another page is selected,
     # through the use of "grid_remove"
     allList.append(yscroll2)
+    #This is used to attach the scrollbar to the Listbox, so they work together
     listbox2.configure(yscrollcommand=yscroll2.set)
     # now load the listbox with data
+    #from the listvariable file including the data of the selected Map and Style.
     for item in listvariable:
         # insert each new item to the end of the listbox
         listbox2.insert('end', item)
 
 ##################################################################################################################
 
+#This Page is used to display a new GUI page, by first hiding all previous page then displaying new tkinter
+# operations, This funtion takes all inputed data into the page and saves the data inside a file, that has been
+# creates, aswell adding the map name to a list. This data includes Map Name, Time, Style and Tick rate.
 def addpage():
-    root.geometry('250x300')
+    # This hides all elements on a
     hide()
+
+    #WINDOW CONFIGURATION BLOCK
+    root.geometry('250x300')
     root.columnconfigure(0, weight=1)
     root.rowconfigure(0, pad=3)
     root.rowconfigure(1, pad=10)
@@ -712,12 +777,17 @@ def addpage():
     Footer.grid(row=2, sticky='news')
 
 ##############################################
+    # Assigning a variable a Label tkinter Operation
+    # Displaying Text of "Add TIme"
     title1 = Label(header, text="Add Time", fg="White", bg="grey", font="Verdana 17 bold", )
     # Actually displays the label in a designated position through the use of grid
     title1.grid(row=0, column=1, padx=(76,0))
     # Used to add the grided term to a list, to then be used to remove it when another page is selected,
     # through the use of "grid_remove"
     allList.append(title1)
+
+    # Assigning a variable a Label tkinter Operation
+    # Displaying Text of "MAP:"
     Label7 = Label(content, text="MAP:", font="Arial 14 bold")
     # Actually displays the label in a designated position through the use of grid
     Label7.grid(row=0, column=0,pady=(10,0), padx=20)
@@ -725,12 +795,18 @@ def addpage():
     # through the use of "grid_remove"
     allList.append(Label7)
 
+    # Assigning a variable a Entry tkinter Operation
+    # This is used to input data, in this case, The data inputed is used to choose a map entered.
     entry1 = Entry(content, textvariable=MapAddSearch, width=16)
     # Actually displays the label in a designated position through the use of grid
     entry1.grid(row=0, column=1,pady=(10,0))
     # Used to add the grided term to a list, to then be used to remove it when another page is selected,
     # through the use of "grid_remove"
     allList.append(entry1)
+
+    # Assigning a variable a Button tkinter Operation, to be displayed.
+    # This button when pressed takes the user to the maplist page
+    # which is the Listbox Selection page for different maps, so the user can see if the map is already existing.
     MapList_button = tk.Button(content, text='Map List', command=maplist)
     # Actually displays the label in a designated position through the use of grid
     MapList_button.grid(row=1, column=1,padx=(76,0))
@@ -741,15 +817,20 @@ def addpage():
     ###################
     ##################
 
-
+    # Assigning a variable a Label tkinter Operation
+    # Displaying Text of "STYLE:"
     Label8 = Label(content, text="STYLE:", font="Arial 14 bold")
     # Actually displays the label in a designated position through the use of grid
     Label8.grid(row=2, column=0,pady=(10, 0))
     # Used to add the grided term to a list, to then be used to remove it when another page is selected,
     # through the use of "grid_remove"
     allList.append(Label8)
+
+    # Assigning Variable Class
     Styles = StringVar()
+    # Sets the Style to the first position of the Style list, so it has a default displayed data .
     Styles.set(Style[0])  # default value
+    # Sets the variable to the Tkinter Operation of Optionmenu, aswell what List, and saved element.
     DropdownStyle = OptionMenu(content, Styles, *Style)
     # Actually displays the label in a designated position through the use of grid
     DropdownStyle.grid(row=2, column=1,pady=(10, 0))
@@ -757,13 +838,19 @@ def addpage():
     # through the use of "grid_remove"
     allList.append(DropdownStyle)
 
+    # Assigning Variable Class
     TimeAdd = StringVar()
+    # Assigning a variable a Label tkinter Operation
+    # Displaying Text of "TIME:"
     Label9 = Label(content, text="TIME:", font="Arial 14 bold")
     # Actually displays the label in a designated position through the use of grid
     Label9.grid(row=5, column=0,pady=(10, 0))
     # Used to add the grided term to a list, to then be used to remove it when another page is selected,
     # through the use of "grid_remove"
     allList.append(Label9)
+
+    # Assigning a variable a Entry tkinter Operation
+    # This is used to input data, in this case, The data inputed is the time the user had set.
     entry2 = Entry(content, textvariable=TimeAdd, width=16)
     # Actually displays the label in a designated position through the use of grid
     entry2.grid(row=5, column=1,pady=(10,0))
@@ -771,12 +858,17 @@ def addpage():
     # through the use of "grid_remove"
     allList.append(entry2)
 
+    # Assigning a variable a Label tkinter Operation
+    # Displaying Text of "TICK"
     Label10 = Label(content, text="TICK", font="Arial 14 bold")
     # Actually displays the label in a designated position through the use of grid
     Label10.grid(row=7, column=0,pady=(10, 0))
     # Used to add the grided term to a list, to then be used to remove it when another page is selected,
     # through the use of "grid_remove"
     allList.append(Label10)
+
+    # Assigning a variable a Label tkinter Operation
+    # Displaying Text of "RATE:"
     Label11 = Label(content, text="RATE:", font="Arial 14 bold")
     # Actually displays the label in a designated position through the use of grid
     Label11.grid(row=8, column=0)
@@ -784,19 +876,29 @@ def addpage():
     # through the use of "grid_remove"
     allList.append(Label11)
 
+    # Assigning Variable Class
     statusSelect = StringVar()
+
+    # Assigning a variable a Radiobutton tkinter Operation
+    # Displaying Text of "128 Tick Rate", when clicked assigning the value of "128"
     Tick128 = Radiobutton(content, text="128 Tick Rate", variable=statusSelect, value="128")
     # Actually displays the label in a designated position through the use of grid
     Tick128.grid(row=7, column=1,padx=(0,10))
     # Used to add the grided term to a list, to then be used to remove it when another page is selected,
     # through the use of "grid_remove"
     allList.append(Tick128)
+
+    # Assigning a variable a Radiobutton tkinter Operation
+    # Displaying Text of "100 Tick Rate", when clicked assigning the value of "100"
     Tick100 = Radiobutton(content, text="100 Tick Rate", variable=statusSelect, value="100")
     # Actually displays the label in a designated position through the use of grid
     Tick100.grid(row=8, column=1,padx=(0,10))
     # Used to add the grided term to a list, to then be used to remove it when another page is selected,
     # through the use of "grid_remove"
     allList.append(Tick100)
+
+    # Assigning a variable a Radiobutton tkinter Operation
+    # Displaying Text of "64 Tick Rate", when clicked assigning the value of "64"
     Tick64 = Radiobutton(content, text=" 64 Tick Rate", variable=statusSelect, value="64")
     # Actually displays the label in a designated position through the use of grid
     Tick64.grid(row=9, column=1, padx=(0,14))
@@ -804,6 +906,9 @@ def addpage():
     # through the use of "grid_remove"
     allList.append(Tick64)
 
+    # Assigning a variable a Button tkinter Operation, to be displayed.
+    # This button takes the data inputed and adds the information into the
+    # maplist and creates another file for the individual map
     MapConfirm_button4 = tk.Button(Footer, text= "Add Time", width=10, command=lambda: AddFile(MapAddSearch, Styles,
                                                                                                TimeAdd, statusSelect))
     # Actually displays the label in a designated position through the use of grid
@@ -812,6 +917,9 @@ def addpage():
     # through the use of "grid_remove"
     allList.append(MapConfirm_button4)
 
+    # Assigning a variable a Button tkinter Operation, to be displayed.
+    # This button when pressed takes the user to the home() page
+    # which is the homescreen with all the Selections of funtions(Add time, View, Delete, Settings and Quit)
     Home_button1 = tk.Button(Footer, text= "Home", command=home, width=10)
     # Actually displays the label in a designated position through the use of grid
     Home_button1.grid(row=10, column=0, pady=(0,10), padx=(0,5))
@@ -819,60 +927,91 @@ def addpage():
     # through the use of "grid_remove"
     allList.append(Home_button1)
 
+    #Backlist is used for the back button, to detect what map was previously pressed.
     back_list.append("AddPage")
 
 
 
 ##################################################################################################################
-
+#This funtion displays the main page which includes os the first page the user see's,
+#It has five buttons for the different funtions which include the Add Time , View, Delete, Settings and quit button
+#Aswell displays general information about previous map played for Accessable.
 def MainPage():
-
+    # Creates the Title or header at the top of the page. With a grey background and a font of "Verdana 17 bold".
+    # This has uses a variable to find the map name selected then display it.
     title = Label(header, text="BHOP Time Recorder", fg="White", bg="grey", font="Verdana 17 bold", )
     # Actually displays the label in a designated position through the use of grid
     title.grid(row=0, column=0, padx=(25,30))
     # Used to add the grided term to a list, to then be used to remove it when another page is selected,
     # through the use of "grid_remove"
     allList.append(title)
+
+    # Assigning a variable a Label tkinter Operation
+    # This is used as a packer so text is in the right position.
     packer = Label(content, text="                   ")
     # Actually displays the label in a designated position through the use of grid
     packer.grid(row=0, column=0)
     # Used to add the grided term to a list, to then be used to remove it when another page is selected,
     # through the use of "grid_remove"
     allList.append(packer)
+
+    # Assigning a variable a Label tkinter Operation
+    # This is used as a packer so text is in the right position.
     packer1 = Label(content, text="                   ")
     # Actually displays the label in a designated position through the use of grid
     packer1.grid(row=0, column=2)
     # Used to add the grided term to a list, to then be used to remove it when another page is selected,
     # through the use of "grid_remove"
     allList.append(packer1)
+
+    # Assigning a variable a Label tkinter Operation
+    # Displaying Text of "Welcome User"
     Label1 = Label(content, text="Welcome User")
     # Actually displays the label in a designated position through the use of grid
     Label1.grid(row=0, column=1)
     # Used to add the grided term to a list, to then be used to remove it when another page is selected,
     # through the use of "grid_remove"
     allList.append(Label1)
+
+    # Assigning a variable a Label tkinter Operation
+    # Displaying Text of "Previous Map:"
     Label4 = Label(content, text="Previous Map:")
     # Actually displays the label in a designated position through the use of grid
     Label4.grid(row=1, column=1)
     # Used to add the grided term to a list, to then be used to remove it when another page is selected,
     # through the use of "grid_remove"
     allList.append(Label4)
+
+    # Assigning Variable Class
     PrevMap = StringVar()
+    # Sets the Map Displayed to the "" as default.
     PrevMap.set("")
+
+    # Assigning a variable a Label tkinter Operation
+    # Displaying Text of Previous Map added
     Label5 = Label(content, textvariable=PrevMap)
     # Actually displays the label in a designated position through the use of grid
     Label5.grid(row=2, column = 1)
     # Used to add the grided term to a list, to then be used to remove it when another page is selected,
     # through the use of "grid_remove"
     allList.append(Label5)
+
+    # Assigning a variable a Label tkinter Operation
+    # Displaying Text of "Previous Map:"
     Label2 = Label(content, text="Previous Time:")
     # Actually displays the label in a designated position through the use of grid
     Label2.grid(row=3, column=1)
     # Used to add the grided term to a list, to then be used to remove it when another page is selected,
     # through the use of "grid_remove"
     allList.append(Label2)
+
+    # Assigning Variable Class
     PrevTime = DoubleVar()
+    # Sets the Map Displayed to the "0.0" as default.
     PrevTime.set(0.0)
+
+    # Assigning a variable a Label tkinter Operation
+    # Displaying Text of Previous Time added
     Label3 = Label(content, textvariable=PrevTime)
     # Actually displays the label in a designated position through the use of grid
     Label3.grid(row=4, column=1)
@@ -880,31 +1019,49 @@ def MainPage():
     # through the use of "grid_remove"
     allList.append(Label3)
 
+    #Using a try block to prevent error if there is no map
     try:
+        #determines how long the list is and sets position_maplist to the length
         position_maplist = len(maplist_list)
+        #Takes the length of list and reduces it by one to match the Index(As Index's start at 0)
         position_maplist = position_maplist - 1
 
+        #Sets "MapPrevious" as the final position on maplist_list
+        # to return the last map that the user has added an entry to
         MapPrevious = maplist_list[position_maplist]
+        # Sets the Map Displayed to the "MapPrevious" variable as default.
         PrevMap.set(MapPrevious)
 
+        #Creates a new list to store data
         PrevTime_List = []
+        #Opens the "'./maps/' + MapPrevious" file, to read the data inside.
         mapfile = open('./maps/' + MapPrevious, "r")
+        #Views every line of the file
         for line in mapfile:
+            #Takes away spacings, so elements can be put in list.
             line = line.strip('\n')
+            #Seperates the elements with a ","
             line = line.split(",")
+            #Add's all the elements read from file into a list
             PrevTime_List.append(line)
 
+        # determines how long the list is and sets PrevTime_List to the length
         TimePosition = len(PrevTime_List)
+        # Takes the length of list and reduces it by one to match the Index(As Index's start at 0)
         TimePrevious = TimePosition - 1
 
+        #sets the variable with the element of list.
+        # At a position of [TimePrevious][1] inside the list
         PrevTime_final = PrevTime_List[TimePrevious][1]
+        # Sets the Time Displayed to the "PrevTime_final" variable as default.
         PrevTime.set(PrevTime_final)
         print(PrevTime_List)
-
+    #If it faces an error it will set PrevMap to "" default.
     except:
         PrevMap.set("")
 
-
+    # Assigning a variable a Label tkinter Operation
+    # This is used as a Seperater between the two Frames, so the layout looks as designed.
     Label6 = Label(Footer, text="_________________________________________")
     # Actually displays the label in a designated position through the use of grid
     Label6.grid(row=0, column=0)
@@ -912,6 +1069,10 @@ def MainPage():
     # through the use of "grid_remove"
     allList.append(Label6)
 
+    # Assigning a variable a Button tkinter Operation, to be displayed.
+    # This button when pressed takes the user to the addpage() Page, aswell hides the MainPage().
+    # The Page is used for adding data into an existing file or creating a new file.
+    # Aswell Appending maps being created into a maplist
     add_button = tk.Button(Footer, text='Add Time', width=15, command=addpage)
     # Actually displays the label in a designated position through the use of grid
     add_button.grid(row=1, column=0)
@@ -919,6 +1080,11 @@ def MainPage():
     # through the use of "grid_remove"
     allList.append(add_button)
 
+    # Assigning a variable a Button tkinter Operation, to be displayed.
+    # This button when pressed takes the user to the view() Page, aswell hides the MainPage().
+    # The Page is used for viewing maps that have been saved, first displaying a ListBox page where the user selects
+    # which map they would like to view.
+    # Aswell Appending maps being created into a maplist
     view_button = tk.Button(Footer, text='View', width=15, command=view)
     # Actually displays the label in a designated position through the use of grid
     view_button.grid(row=2, column=0)
@@ -926,6 +1092,9 @@ def MainPage():
     # through the use of "grid_remove"
     allList.append(view_button)
 
+    # Assigning a variable a Button tkinter Operation, to be displayed.
+    # This button when pressed takes the user to the Delete() Page, aswell hides the MainPage().
+    # The Page is used for Deleting selective time data from existing files or Delete whole Maps Files.
     delete_button = tk.Button(Footer, text='Delete', width=15, command=delete)
     # Actually displays the label in a designated position through the use of grid
     delete_button.grid(row=3, column=0)
@@ -933,6 +1102,9 @@ def MainPage():
     # through the use of "grid_remove"
     allList.append(delete_button)
 
+    # Assigning a variable a Button tkinter Operation, to be displayed.
+    # This button when pressed takes the user to the settings() Page, aswell hides the MainPage().
+    # The Page is used for Clear Wiping all data, therefore deleting all data.
     settings_button = tk.Button(Footer, text='Settings', width=15, command=settings)
     # Actually displays the label in a designated position through the use of grid
     settings_button.grid(row=4, column=0)
@@ -940,6 +1112,8 @@ def MainPage():
     # through the use of "grid_remove"
     allList.append(settings_button)
 
+    # Assigning a variable a Button tkinter Operation, to be displayed.
+    # The Page is used for closing the window
     quit_button = tk.Button(Footer, text='Quit', width=15, command=root.destroy)
     # Actually displays the label in a designated position through the use of grid
     quit_button.grid(row=5, column=0)
@@ -948,10 +1122,13 @@ def MainPage():
     allList.append(quit_button)
 ##################################################################################################################
 
-
+#This Funtion is used for the searching of Map entered, this funtion hides the previosu elements on the page
+# and displays a listbox where the user can select which map they want to view the map data.
 def view():
-    root.geometry('250x305')
+    # This hides all elements on the page
     hide()
+    #WINDOW CONFIGURATION BLOCK
+    root.geometry('250x305')
     root.rowconfigure(0, pad=2)
     root.rowconfigure(1, pad=3)
     root.rowconfigure(2, pad=3)
@@ -963,6 +1140,8 @@ def view():
 
 ##############################################
 
+    # Creates the Title or header at the top of the page. With a grey background and a font of "Verdana 17 bold".
+    # This has uses a variable to find the map name selected then display it.
     title2 = Label(header, text="View", fg="White", bg="grey", font="Verdana 17 bold", )
     # Actually displays the label in a designated position through the use of grid
     title2.grid(row=0, column=0, padx=(100, 0))
@@ -970,6 +1149,8 @@ def view():
     # through the use of "grid_remove"
     allList.append(title2)
 
+    # Assigning a variable a Label tkinter Operation
+    # Displaying Text of "Search for Map"
     Label12 = Label(content, text="Search for Map", font="Arial 15 bold")
     # Actually displays the label in a designated position through the use of grid
     Label12.grid(row=0, column=0,pady=(10,0), padx=(34, 0))
@@ -977,6 +1158,8 @@ def view():
     # through the use of "grid_remove"
     allList.append(Label12)
 
+    # Assigning a variable a Entry tkinter Operation
+    # Taking the Data entered and setting the variable of SearchMap as what the user has entered
     entry3 = Entry(content, textvariable=SearchMap, width=20)
     # Actually displays the label in a designated position through the use of grid
     entry3.grid(row=1, column=0, padx=(28, 0))
@@ -984,6 +1167,10 @@ def view():
     # through the use of "grid_remove"
     allList.append(entry3)
 
+    # Assigning a variable a Listbox tkinter Operation
+    # Taking Data from a list displaying it on a page, so it can be interactable with the user.
+    # Assigning a variable a Listbox tkinter Operation, to be displayed.
+    # Having a Width of 20 and a height of 10.
     listbox1 = tk.Listbox(Footer, width=20, height=10)
     # Actually displays the label in a designated position through the use of grid
     listbox1.grid(row=3, column=0, padx=(28, 0))
@@ -1005,6 +1192,9 @@ def view():
     # through the use of "grid_remove"
     allList.append(yscroll1)
 
+    # Assigning a variable a Button tkinter Operation, to be displayed.
+    # This button when pressed takes the user to the home() page
+    # which is the homescreen with all the Selections of funtions(Add time, View, Delete, Settings and Quit)
     Home_button2 = tk.Button(gider, text="Home", command=home, width=5)
     # Actually displays the label in a designated position through the use of grid
     Home_button2.grid(row=0, column=0, padx=(32,0))
@@ -1012,6 +1202,10 @@ def view():
     # through the use of "grid_remove"
     allList.append(Home_button2)
 
+    # Assigning a variable a Button tkinter Operation, to be displayed.
+    # This button when pressed takes the user to the mapdisplay() page
+    # This and runs a function to take the selected data from the Listbox
+    # and displaying the Map Data that had been chosen
     view_button1 = tk.Button(gider, text= "View", command=lambda: view_func(SearchMap),width=5)
     # Actually displays the label in a designated position through the use of grid
     view_button1.grid(row=0, column=1,padx=(30,0))
@@ -1019,10 +1213,11 @@ def view():
     # through the use of "grid_remove"
     allList.append(view_button1)
 
-
+    # Backlist is used for the back button, to detect what map was previously pressed.
     back_list.append("View")
 ##################################################################################################################
 
+#
 
 def settings():
     root.geometry('250x187')
