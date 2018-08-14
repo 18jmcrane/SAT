@@ -763,7 +763,7 @@ def timelist(listvariable):
 # operations, This funtion takes all inputed data into the page and saves the data inside a file, that has been
 # creates, aswell adding the map name to a list. This data includes Map Name, Time, Style and Tick rate.
 def addpage():
-    # This hides all elements on a
+    # This hides all elements on a page
     hide()
 
     #WINDOW CONFIGURATION BLOCK
@@ -1178,7 +1178,9 @@ def view():
     yscroll1 = tk.Scrollbar(Footer, command=listbox1.yview, orient=tk.VERTICAL)
     # Actually displays the label in a designated position through the use of grid
     yscroll1.grid(row=3, column=1, sticky='ns')
+    #Used to Join the scroll bar together to the listbox
     listbox1.configure(yscrollcommand=yscroll1.set)
+    #Used to Select items when they have been clicked on
     listbox1.bind('<<ListboxSelect>>', select_item)
     # now load the listbox with data
     for item in maplist_list:
@@ -1217,11 +1219,15 @@ def view():
     back_list.append("View")
 ##################################################################################################################
 
-#
+#This funtion hides the first previous page and has a use in Clear Wiping all data files. This delete's map files
+# and clears the "maplist" file.
 
 def settings():
-    root.geometry('250x187')
+    # This hides all elements on the page
     hide()
+
+    # WINDOW CONFIGURATION BLOCK
+    root.geometry('250x187')
     root.columnconfigure(0, weight=1)
     root.rowconfigure(0, pad=1)
     root.rowconfigure(1, pad=2)
@@ -1233,6 +1239,8 @@ def settings():
 
 ##############################################
 
+    # Creates the Title or header at the top of the page. With a grey background and a font of "Verdana 17 bold".
+    # This tittle has the text of "Settings"
     title3 = Label(header, text="Settings", fg="White", bg="grey", font="Verdana 17 bold", )
     # Actually displays the label in a designated position through the use of grid
     title3.grid(row=0, column=0, padx=(86, 0))
@@ -1240,6 +1248,8 @@ def settings():
     # through the use of "grid_remove"
     allList.append(title3)
 
+    # Assigning a variable a Label tkinter Operation
+    # Displaying Text of "Clear Wipe:"
     Label14 = Label(content, text="Clear Wipe", font="Arial 18 bold", bg="#FFF8DC")
     # Actually displays the label in a designated position through the use of grid
     Label14.grid(row=0, column=0,pady=(10,0), padx=(80, 0))
@@ -1247,6 +1257,8 @@ def settings():
     # through the use of "grid_remove"
     allList.append(Label14)
 
+    # Assigning a variable a Label tkinter Operation
+    # Displaying Text of "Are you sure?"
     Label15 = Label(Footer, text="Are you sure?", font="Arial 14 bold")
     # Actually displays the label in a designated position through the use of grid
     Label15.grid(row=1, column=0, pady=(10, 0), padx=(71, 0))
@@ -1254,7 +1266,12 @@ def settings():
     # through the use of "grid_remove"
     allList.append(Label15)
 
+    #sets variable class
     ClearWipeQuerry = StringVar()
+
+    #This buttons is used to varify whether the user wants to Wipe.
+    # Assigning a variable a Radiobutton tkinter Operation
+    # Displaying Text of "Yes", when clicked assigning the value of "yes" to the "ClassWipeQuery" variable
     wipeyes = Radiobutton(Footer, text="Yes", variable=ClearWipeQuerry, value="yes")
     # Actually displays the label in a designated position through the use of grid
     wipeyes.grid(row=2, column=0,padx=(65,0))
@@ -1262,6 +1279,8 @@ def settings():
     # through the use of "grid_remove"
     allList.append(wipeyes)
 
+    # Assigning a variable a Button tkinter Operation
+    # This will initiate the ClearWipe Funtion, that deletes every Map File and clears the "maplist" file
     confirmwipe_button = tk.Button(Footer, text="WIPE", command= lambda: ClearWipe(ClearWipeQuerry), width=5)
     # Actually displays the label in a designated position through the use of grid
     confirmwipe_button.grid(row=4, column=0, padx=(65,0))
@@ -1269,6 +1288,8 @@ def settings():
     # through the use of "grid_remove"
     allList.append(confirmwipe_button)
 
+    # Assigning a variable a Button tkinter Operation, to be displayed.
+    # This button when pressed takes the user to the MainPage().
     Home_button3 = tk.Button(Footer, text="Home", command=home, width=5)
     # Actually displays the label in a designated position through the use of grid
     Home_button3.grid(row=5, column=0,pady=(10,0),padx=(0, 120))
@@ -1281,9 +1302,15 @@ def settings():
 
 ##################################################################################################################
 
+#This Page is used to display a new GUI page, by first hiding all previous page elements
+# then displaying the new tkinter operations
+# This funtion is used to delete Map's and certain times based on what buttons are pressed or data inputed.
 def delete():
-    root.geometry('250x330')
+    # This hides all elements on the page
     hide()
+
+    # WINDOW CONFIGURATION BLOCK
+    root.geometry('250x330')
     root.columnconfigure(0, weight=1)
     root.rowconfigure(0, pad=1)
     root.rowconfigure(1, pad=2)
@@ -1294,7 +1321,8 @@ def delete():
 
 ##############################################
 
-
+    # Creates the Title or header at the top of the page. With a grey background and a font of "Verdana 17 bold".
+    # This tittle has the text of "Delete"
     title4 = Label(header, text="Delete", fg="White", bg="grey", font="Verdana 17 bold", )
     # Actually displays the label in a designated position through the use of grid
     title4.grid(row=0, column=0, padx=(92, 0))
@@ -1302,6 +1330,8 @@ def delete():
     # through the use of "grid_remove"
     allList.append(title4)
 
+    # Assigning a variable a Label tkinter Operation
+    # Displaying Text of "Search Map:"
     Label16 = Label(content, text="Search Map", font="Arial 15 bold")
     # Actually displays the label in a designated position through the use of grid
     Label16.grid(row=0, column=0, pady=(10, 0), padx=(40, 0))
@@ -1309,6 +1339,8 @@ def delete():
     # through the use of "grid_remove"
     allList.append(Label16)
 
+    # Assigning a variable a Entry tkinter Operation
+    # Taking the Data entered and setting the variable of MapDeleteSearch as what the user has entered
     entry4 = Entry(content, textvariable=MapDeleteSearch, width=18)
     # Actually displays the label in a designated position through the use of grid
     entry4.grid(row=1, column=0, padx=(37,0))
@@ -1316,12 +1348,19 @@ def delete():
     # through the use of "grid_remove"
     allList.append(entry4)
 
+    # Assigning a variable a Button tkinter Operation, to be displayed.
+    # This button when pressed takes the user to the maplist page
+    # which is the Listbox Selection page for different maps, so the user can select a map.
     MapList_button2 = tk.Button(content, text='Map List', command=maplist)
     # displays the Button in a designated position through the use of grid
     MapList_button2.grid(row=2, column=0, padx=(20, 80))
     # Used to add the grided term to a list, to then be used to remove it when another page is selected,
     # through the use of "grid_remove"
     allList.append(MapList_button2)
+
+    # Assigning a variable a Button tkinter Operation, to be displayed.
+    # This button when pressed follows the DeleteMap function, which takes the data received
+    # and deletes the Map from entry box
     MapConfirm_button6 = tk.Button(content, text="Delete Map", command= lambda: DeleteMap(MapDeleteSearch))
     # displays the Button in a designated position through the use of grid
     MapConfirm_button6.grid(row=2, column=0, padx=(116, 0))
@@ -1329,6 +1368,8 @@ def delete():
     # through the use of "grid_remove"
     allList.append(MapConfirm_button6)
 
+    # Assigning a variable a Label tkinter Operation
+    # Displaying Text of "Style Select"
     Label18 = Label(content, text="Style Select", font="Arial 15 bold")
     # Actually displays the label in a designated position through the use of grid
     Label18.grid(row=3, column=0, pady=(10, 0), padx=(40, 0))
@@ -1336,8 +1377,10 @@ def delete():
     # through the use of "grid_remove"
     allList.append(Label18)
 
+    #sets variable class
     StyleSelect1 = StringVar()
-    StyleSelect1.set(Style[0])  # default value
+    # sets default value which is the first position of Style List being AUTOBHOP
+    StyleSelect1.set(Style[0])
     DropdownStyleSelect3 = OptionMenu(content, StyleSelect1, *Style)
     # displays the dropdown box in a designated position through the use of grid
     DropdownStyleSelect3.grid(row=4, column=0, padx=(35, 0))
@@ -1345,6 +1388,9 @@ def delete():
     # through the use of "grid_remove"
     allList.append(DropdownStyleSelect3)
 
+    # Assigning a variable a Button tkinter Operation, to be displayed.
+    # This button when pressed follows the DeleteUpdate function, which takes the data received
+    # and Clears Map data from the selected data.
     MapConfirm_button7 = tk.Button(content, text="Confirm", command=lambda: deleteupdate(MapDeleteSearch, StyleSelect1))
     # displays the Button in a designated position through the use of grid
     MapConfirm_button7.grid(row=5, column=0, padx=(30, 0))
@@ -1352,6 +1398,8 @@ def delete():
     # through the use of "grid_remove"
     allList.append(MapConfirm_button7)
 
+    # Assigning a variable a Label tkinter Operation
+    # Displaying Text of "Time Select"
     Label19 = Label(content, text="Time Select", font="Arial 15 bold")
     # Actually displays the label in a designated position through the use of grid
     Label19.grid(row=6, column=0, pady=(10, 0), padx=(40, 0))
@@ -1359,17 +1407,23 @@ def delete():
     # through the use of "grid_remove"
     allList.append(Label19)
 
+    #Settings Default Data, so no error occurs.
     MapStyle = "AUTO-BHOP   "
     mapquery = ""
     TimeList_list = []
 
+    #Calls to Update function, that takes the data and updates it. \
+    # Showing new data when displayed
     TimeUpdate(TimeSelect_list, MapStyle, mapquery, TimeList_list)
 
-
+    #Called on to update, OptionMenu tkinter operation in the Delete Page, so certain times can be selected
 def TimeUpdate(TimeSelect_list, MapStyle, mapquery, TimeList_list):
 
+    #sets variable class
     TimeSelect = StringVar()
-    TimeSelect.set(TimeSelect_list[0])  # default value
+    #Sets Default Data
+    TimeSelect.set(TimeSelect_list[0])
+    # Sets the variable to the Tkinter Operation of Optionmenu(Dropdownbox)
     DropdownTimeSelect = OptionMenu(content, TimeSelect, *TimeSelect_list)
     # displays the Dropdown box in a designated position through the use of grid
     DropdownTimeSelect.grid(row=7, column=0, padx=(35, 0))
@@ -1377,6 +1431,9 @@ def TimeUpdate(TimeSelect_list, MapStyle, mapquery, TimeList_list):
     # through the use of "grid_remove"
     allList.append(DropdownTimeSelect)
 
+    # Assigning a variable a Button tkinter Operation, to be displayed.
+    # This button when pressed follows the DeleteLine function, which takes the data received
+    # and Searching Map File for Data requested to delete. and clear that line so data is deleted.
     delete2_button = tk.Button(content, text="Delete", command= lambda: DeleteLine(TimeSelect, MapStyle,
                                                                                    mapquery, TimeList_list))
     # displays the Button in a designated position through the use of grid
@@ -1385,6 +1442,8 @@ def TimeUpdate(TimeSelect_list, MapStyle, mapquery, TimeList_list):
     # through the use of "grid_remove"
     allList.append(delete2_button)
 
+    # Assigning a variable a Button tkinter Operation, to be displayed.
+    # This button when pressed takes the user to the MainPage().
     Home_button4 = tk.Button(content, text='Home', command=home)
     # displays the Button in a designated position through the use of grid
     Home_button4.grid(row=11, column=0, padx=(0, 140), pady=(0, 10))
@@ -1392,13 +1451,18 @@ def TimeUpdate(TimeSelect_list, MapStyle, mapquery, TimeList_list):
     # through the use of "grid_remove"
     allList.append(Home_button4)
 
+    # Backlist is used for the back button, to detect what map was previously pressed.
+    #This adds it to that list to know which map had been previously visited being Delete Map.
     back_list.append("Delete")
 ##################################################################################################################
 
 
 def maplist():
-    root.geometry('250x300')
+    # This hides all elements on the page
     hide()
+
+    # WINDOW CONFIGURATION BLOCK
+    root.geometry('250x300')
     root.columnconfigure(0, weight=1)
     root.rowconfigure(0, pad=1)
     root.rowconfigure(1, pad=2)
@@ -1411,6 +1475,8 @@ def maplist():
 
 ##############################################
 
+    # Creates the Title or header at the top of the page. With a grey background and a font of "Verdana 17 bold".
+    # This tittle has the text of "Map List"
     title5 = Label(header, text="Map List", fg="White", bg="grey", font="Verdana 17 bold", )
     # Actually displays the label in a designated position through the use of grid
     title5.grid(row=0, column=0, padx=(86, 0))
@@ -1418,6 +1484,8 @@ def maplist():
     # through the use of "grid_remove"
     allList.append(title5)
 
+    # Assigning a variable a Label tkinter Operation
+    # Displaying Text of "Maps"
     Label20 = Label(content, text="Maps", font="Arial 15 bold")
     # Actually displays the label in a designated position through the use of grid
     Label20.grid(row=0, column=0, padx=(110, 0))
@@ -1425,7 +1493,10 @@ def maplist():
     # through the use of "grid_remove"
     allList.append(Label20)
 
-
+    # Assigning a variable a Listbox tkinter Operation
+    # Taking MapData from a list to display it on a page, so it can be interactable with the user.
+    # Assigning a variable a Listbox tkinter Operation, to be displayed.
+    # Having a Width of 20 and a height of 12.
     listbox = tk.Listbox(Footer, width=20, height=12)
     # displays the listbox in a designated position through the use of grid
     listbox.grid(row=0, column=0, padx=(28,0))
@@ -1433,7 +1504,9 @@ def maplist():
     yscroll = tk.Scrollbar(Footer,command=listbox.yview, orient=tk.VERTICAL)
     # displays the scrollbar in a designated position through the use of grid
     yscroll.grid(row=0, column=1, sticky='ns')
+    # Used to Join the scroll bar together to the listbox
     listbox.configure(yscrollcommand=yscroll.set)
+    # Used to Select items when they have been clicked on
     listbox.bind('<<ListboxSelect>>', select_item)
     # now load the listbox with data
     for item in maplist_list:
@@ -1447,6 +1520,7 @@ def maplist():
     # through the use of "grid_remove"
     allList.append(yscroll)
 
+    #Takes the previous map, and heads to that page.
     back_button = tk.Button(gider, text="Back", command=backbutton, width=6)
     # displays the Button in a designated position through the use of grid
     back_button.grid(row=0, column=0, padx=(24, 0), pady=(10,0))
@@ -1454,6 +1528,8 @@ def maplist():
     # through the use of "grid_remove"
     allList.append(back_button)
 
+    # Assigning a variable a Button tkinter Operation, to be displayed.
+    # This button when pressed takes the user to the MainPage().
     home2_button = tk.Button(gider, text="Home", command=home, width=6)
     # displays the label in a designated position through the use of grid
     home2_button.grid(row=0, column=1, padx=(25,0), pady=(10,0))
@@ -1464,22 +1540,27 @@ def maplist():
 ##################################################################################################################
 
 def MainWindowLayout():
+    #Window configuration block for MainPage()
     root.geometry('250x320')
     root.columnconfigure(0, weight=1) # 100%
-
     root.rowconfigure(0, pad=3) # 10%
     root.rowconfigure(1, pad=13) # 30%
     root.rowconfigure(2, pad=13) # 60%
-
     header.grid(row=0, sticky='news')
     content.grid(row=1, sticky='news')
     Footer.grid(row=2, sticky='news')
 ###################################################################################################################
 
+#Sets Variable Class for MapDeleteSearch
 MapDeleteSearch = StringVar(root, value="")
+#Sets Variable Class for SearchMap
 SearchMap = StringVar(root, value="")
+#Sets Variable Class for MapAddSearch
 MapAddSearch = StringVar(root, value="")
+#Calls the Window Configuration
 MainWindowLayout()
+#Calls the MainPage to display the Menu at the beginning
 MainPage()
+#This makes it so, that the window page is static and cannot be changed
 root.resizable(width=False, height=False)
 root.mainloop()
