@@ -66,102 +66,132 @@ def hide():
     Footer.grid_remove()
     allremove()
 ##################################################################################################################
+
+#This Function updates the Personal Best Times, though taking the list provided, finding the last position on that list
+# and setting the values to that position.
 def WRupdate(WRstyle_list, WRtime_list, WRtickrate_list, WRlabel1, WRlabel2, WRlabel3):
 
+    #Counts how many elements are in the list
     w = len(WRstyle_list)
+    # takes away 1 from the value to meet the Index Value
     w = w-1
 
+    # Counts how many elements are in the list
     q = len(WRtime_list)
+    # takes away 1 from the value to meet the Index Value
     q = q - 1
 
+    # Counts how many elements are in the list
     e = len(WRtickrate_list)
+    # takes away 1 from the value to meet the Index Value
     e = e - 1
 
+    #Sets the value to the last postion(w) of the WRstyle_list
     WRstyle = WRstyle_list[w]
+    # Sets the value to the last postion(q) of the WRtime_list
     WRtime = WRtime_list[q]
+    # Sets the value to the last postion(e) of the WRtickrate_list
     WRtickrate = WRtickrate_list[e]
 
+    #sets the WRlabel to the WRstyle variable
     WRlabel1.set(WRstyle)
+    # sets the WRlabel2 to the WRtime variable
     WRlabel2.set(WRtime)
+    # sets the WRlabel3 to the WRtickrate variable
     WRlabel3.set(WRtickrate)
 
 
+#This Function is used to find the Personal Best Time, for each different Style.
+#It grabs the Style to determine what list is needed, and then grabs the first index of that that sorted list,
+#to get the best time in that selected style.
 def PersonalBest(Styles1,AUTOBHOP_list1,Sideways_list1,HalfSideways_list1,Donly_list1,AOnly_list1,WOnly_list1,ScrollNormal_list1,EasyScroll_list1,Stamina_list1,Slowmotion_list1,LowGravity_list1, WRlabel1, WRlabel2, WRlabel3):
 
+    #This gets the Style, that the user had selected
     Style1 = Styles1.get()
 
+    #This is used to determine which data is displayed, based on which Style is given.
     if Style1 == "AUTO-BHOP   ":
         WRstyle = AUTOBHOP_list1[0][0]
         WRtime =  AUTOBHOP_list1[0][1]
         WRtickrate = AUTOBHOP_list1[0][2]
         listvariable = AUTOBHOP_list1
 
+    # This is used to determine which data is displayed, based on which Style is given.
     elif Style1 == "Sideways":
         WRstyle = Sideways_list1[0][0]
         WRtime =  Sideways_list1[0][1]
         WRtickrate = Sideways_list1[0][2]
         listvariable = Sideways_list1
 
+    # This is used to determine which data is displayed, based on which Style is given.
     elif Style1 == "Half-Sideway":
         WRstyle = HalfSideways_list1[0][0]
         WRtime = HalfSideways_list1[0][1]
         WRtickrate = HalfSideways_list1[0][2]
         listvariable = HalfSideways_list1
 
+    # This is used to determine which data is displayed, based on which Style is given.
     elif Style1 == "D-Only":
         WRstyle = Donly_list1[0][0]
         WRtime = Donly_list1[0][1]
         WRtickrate = Donly_list1[0][2]
         listvariable = Donly_list1
 
-
+    # This is used to determine which data is displayed, based on which Style is given.
     elif Style1 == "A-Only":
         WRstyle = AOnly_list1[0][0]
         WRtime = AOnly_list1[0][1]
         WRtickrate = AOnly_list1[0][2]
         listvariable = AOnly_list1
 
+    # This is used to determine which data is displayed, based on which Style is given.
     elif Style1 == "W-Only":
         WRstyle = WOnly_list1[0][0]
         WRtime = WOnly_list1[0][1]
         WRtickrate = WOnly_list1[0][2]
         listvariable = WOnly_list1
 
+    # This is used to determine which data is displayed, based on which Style is given.
     elif Style1 == "Scroll/Normal":
         WRstyle = ScrollNormal_list1[0][0]
         WRtime = ScrollNormal_list1[0][1]
         WRtickrate = ScrollNormal_list1[0][2]
         listvariable = ScrollNormal_list1
 
+    # This is used to determine which data is displayed, based on which Style is given.
     elif Style1 == "Easy Scroll":
         WRstyle = EasyScroll_list1[0][0]
         WRtime = EasyScroll_list1[0][1]
         WRtickrate = EasyScroll_list1[0][2]
         listvariable = EasyScroll_list1
 
+    # This is used to determine which data is displayed, based on which Style is given.
     elif Style1 == "Stamina":
         WRstyle = Stamina_list1[0][0]
         WRtime = Stamina_list1[0][1]
         WRtickrate = Stamina_list1[0][2]
         listvariable = Stamina_list1
 
+    # This is used to determine which data is displayed, based on which Style is given.
     elif Style1 == "Slowmotion":
         WRstyle = Slowmotion_list1[0][0]
         WRtime = Slowmotion_list1[0][1]
         WRtickrate = Slowmotion_list1[0][2]
         listvariable = Slowmotion_list1
 
+    # This is used to determine which data is displayed, based on which Style is given.
     elif Style1 == "Low-Gravity":
         WRstyle = LowGravity_list1[0][0]
         WRtime = LowGravity_list1[0][1]
         WRtickrate = LowGravity_list1[0][2]
         listvariable = LowGravity_list1
 
-
+    #Adds the data that has been set to a list, to be used to be called upon to display.
     WRstyle_list.append(WRstyle)
     WRtime_list.append(WRtime)
     WRtickrate_list.append(WRtickrate)
 
+    #This Function updates the Personal Best Times
     WRupdate(WRstyle_list, WRtime_list, WRtickrate_list, WRlabel1, WRlabel2, WRlabel3)
     timelist(listvariable)
 
