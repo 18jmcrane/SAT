@@ -407,63 +407,89 @@ def AddFile(mapinput, styles, TimeAdd, statusSelect):
 def ClearWipe(ClearWipeQuerry):
     #This variable is used as varification to make sure the user actually want to wipe all data.
     ClearQuerry = ClearWipeQuerry.get()
+    #Checks to see if user has confirmed they want to Clear Wipe.
     if ClearQuerry == "yes":
+        #Takes every element from maplist and removes it
         for i in maplist_list:
             try:
+                #deletes the file
                 os.remove("maps/"+i)
+                #If map is not displayed, shows a error message
             except OSError as e:  ## if failed, report it back to the user ##
                 print("Error: %s - %s." % (e.filename, e.strerror))
-
+        #Writes to the maplist, to clear the whole maplist.
         f = open("maplist", "w")
         f.close()
 
-
+#Takes all data in the allList and removes the griding therfore hiding the elements.
 def allremove():
     for i in allList:
+        #removes the gridding of the element.
         i.grid_remove()
 
+#This function deletes certain lines of code from the MapFiles and clears the "maplist", from the given data provided.
 def DeleteLine(TimeSelect, MapStyle, mapquery, TimeList_list):
+    #Resets Value so can be modified
     MapName = mapquery
+    #Gets the value from the input
     Timechoice = TimeSelect.get()
-    print(TimeList_list, "desss")
 
+    #Views all elements inside the TimeList to retreive the tickrate of the time.
     for i in TimeList_list:
         if MapStyle == i[0] and Timechoice == i[1]:
             deletetickrate = i[2]
-            print(deletetickrate)
 
+    #Opens up the mapfile
     f = open('./maps/' + MapName, "r+")
+    #reads all lines
     d = f.readlines()
-    print(d)
+    # seek index 0
     f.seek(0)
+    #For every element in d it will search for the line matching the MapStyle,Timechoice and Deletetickrate.
     for i in d:
         if i != MapStyle + "," + Timechoice + "," + deletetickrate + "\n":
+            #writes over the line deleting the line.
             f.write(i)
+    #Compressed file, shortening it
     f.truncate()
+    #closes the file so it can no longer be altered
     f.close()
 
-
-
+#This function is used to update the GUI with data, so the user can select which data they want to delete.
 def deleteupdate(MapDeleteSearch, StyleSelect1):
+    # Gets the value from the input
     mapquery = MapDeleteSearch.get()
+    # Gets the value from the input
     MapStyle = StyleSelect1.get()
+    # sets a the Searchresult with data so no error is given.
     searchresult = ("test")
 
+    # views every element inside the maplist and checks if an entry matches, as if not an error with be produced.
     for i in maplist_list:
         if i == mapquery:
             searchresult = i
 
+    # If Search result gets set in the previous stage, it will open that Map datafile because it is on the maplist.
     if searchresult != ("test"):
+        # opens the file, for reading the data.
         file = open('./maps/' + searchresult, "r")
+        # creating a new list to store and sort data
         viewmapall_list = []
 
+        # This goes through every line within the file and splits data into multiple elements.
+        # Views every line of the file
         for line in file:
+            # Takes away spacings, so elements can be put in list.
             line = line.strip('\n')
+            # Seperates the elements with a ","
             line = line.split(",")
+            # Add's all the elements read from file into a list
             viewmapall_list.append(line)
 
+        # sets a new variable so data is not changed though its use in list modification
         stylelist_list = viewmapall_list
 
+        # Creating new list for each Style, to append all data into different lists.
         AUTOBHOP_list = []
         Sideways_list = []
         HalfSideways_list = []
@@ -476,8 +502,12 @@ def deleteupdate(MapDeleteSearch, StyleSelect1):
         Slowmotion_list = []
         LowGravity_list = []
 
+        # Views all elements inside the list
         for i in stylelist_list:
 
+            # This Block of code is used to determine which style category each, time goes into.
+            # it does this through viewing the Style of each Line of data
+            # and appending that data into the designated list.
             if i[0] == "AUTO-BHOP   ":
                 AUTOBHOP_list.append(i)
 
@@ -511,64 +541,58 @@ def deleteupdate(MapDeleteSearch, StyleSelect1):
             if i[0] == "Low-Gravity":
                 LowGravity_list.append(i)
 
+        #This Block of code, sorts data depending on which MapStyle is selected,
+        # aswell it sets the Time_List to the Style List therefore allowing the list to be shown in the GUI.
         if MapStyle == "AUTO-BHOP   ":
             AUTOBHOP_list1 = sorted(AUTOBHOP_list, key=lambda x: x[1])
-            print(AUTOBHOP_list1)
             TimeList_list = AUTOBHOP_list1
 
         if MapStyle == "Sideways":
             Sideways_list1 = sorted(Sideways_list, key=lambda x: x[1])
-            print(Sideways_list1)
             TimeList_list = Sideways_list1
 
         if MapStyle == "Half-Sideways":
             HalfSideways_list1 = sorted(HalfSideways_list, key=lambda x: x[1])
-            print(HalfSideways_list1)
             TimeList_list = HalfSideways_list1
 
         if MapStyle == "D-Only":
             Donly_list1 = sorted(Donly_list, key=lambda x: x[1])
-            print(Donly_list1)
             TimeList_list = Donly_list1
 
         if MapStyle == "A-Only":
             AOnly_list1 = sorted(AOnly_list, key=lambda x: x[1])
-            print(AOnly_list1)
             TimeList_list = AOnly_list1
 
         if MapStyle == "W-Only":
             WOnly_list1 = sorted(WOnly_list, key=lambda x: x[1])
-            print(WOnly_list1)
             TimeList_list = WOnly_list1
 
         if MapStyle == "Scroll/Normal":
             ScrollNormal_list1 = sorted(ScrollNormal_list, key=lambda x: x[1])
-            print(ScrollNormal_list1)
             TimeList_list = ScrollNormal_list1
 
         if MapStyle == "Easy Scroll":
             EasyScroll_list1 = sorted(EasyScroll_list, key=lambda x: x[1])
-            print(EasyScroll_list1)
             TimeList_list = EasyScroll_list1
 
         if MapStyle == "Stamina":
             Stamina_list1 = sorted(Stamina_list, key=lambda x: x[1])
-            print(Stamina_list1)
             TimeList_list = Stamina_list1
 
         if MapStyle == "Slowmotion":
             Slowmotion_list1 = sorted(Slowmotion_list, key=lambda x: x[1])
-            print(Slowmotion_list1)
             TimeList_list = Slowmotion_list1
 
         if MapStyle == "Low-Gravity":
             LowGravity_list1 = sorted(LowGravity_list, key=lambda x: x[1])
-            print(LowGravity_list1)
             TimeList_list = LowGravity_list1
 
+        #Takes every element inside the assigned list, and adds it to the Dropdownbox selection list,
+        # so the user choose which time they want to delete.
         for i in TimeList_list:
             TimeSelect_list.append(i[1])
 
+        #This updates the delete DropdownBox and displays the Times, of which the user can choose to delete.
         TimeUpdate(TimeSelect_list, MapStyle, mapquery, TimeList_list)
 
 def DeleteMap(MapDeleteSearch):
