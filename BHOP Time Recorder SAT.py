@@ -402,8 +402,10 @@ def AddFile(mapinput, styles, TimeAdd, statusSelect):
     fi.close()
     return
 
-
+#This function is used to delete all data within the program, and have a fresh start.
+#It deletes all mapfiles and clears the wipelist.
 def ClearWipe(ClearWipeQuerry):
+    #This variable is used as varification to make sure the user actually want to wipe all data.
     ClearQuerry = ClearWipeQuerry.get()
     if ClearQuerry == "yes":
         for i in maplist_list:
