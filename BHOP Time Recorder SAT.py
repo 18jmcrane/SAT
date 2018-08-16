@@ -106,7 +106,7 @@ def WRupdate(WRstyle_list, WRtime_list, WRtickrate_list, WRlabel1, WRlabel2, WRl
 #to get the best time in that selected style.
 def PersonalBest(Styles1,AUTOBHOP_list1,Sideways_list1,HalfSideways_list1,Donly_list1,AOnly_list1,WOnly_list1,ScrollNormal_list1,EasyScroll_list1,Stamina_list1,Slowmotion_list1,LowGravity_list1, WRlabel1, WRlabel2, WRlabel3):
 
-    #This gets the Style, that the user had selected
+    #This retreives the Style, that the user had selected
     Style1 = Styles1.get()
 
     #This is used to determine which data is displayed, based on which Style is given.
@@ -191,35 +191,47 @@ def PersonalBest(Styles1,AUTOBHOP_list1,Sideways_list1,HalfSideways_list1,Donly_
     WRtime_list.append(WRtime)
     WRtickrate_list.append(WRtickrate)
 
-    #This Function updates the Personal Best Times
+    #This Function updates the Personal Best Times with the data used from within this function
     WRupdate(WRstyle_list, WRtime_list, WRtickrate_list, WRlabel1, WRlabel2, WRlabel3)
     timelist(listvariable)
 
 
-
+#This Function, extracts the data from the files and sorts the data into different list, based on Styles.
+#It retrieves data from the Search function, of which map file to take data from.
 def view_func(SearchMap):
+    # This gets the Map, that the user had selected in SearchBox.
     mapquery = SearchMap.get()
+    #sets a the Searchresult with data so no error is given.
     searchresult = ("test")
+    # This hides all elements on a page
     hide()
 
+    #views every element inside the maplist and checks if an entry matches, as if not an error with be produced.
     for i in maplist_list:
         if i == mapquery:
             searchresult = i
 
+    #If Search result gets set in the previous stage it will, Open that Map datafile because it is on the maplist.
     if searchresult != ("test"):
+        #opens the file, for reading the data.
         file = open('./maps/'+searchresult, "r")
+        #creating a new list to store and sort data
         viewmapall_list = []
 
+        #This goes through every line within the file and splits data into multiple elements.
+        # Views every line of the file
         for line in file:
+            # Takes away spacings, so elements can be put in list.
             line = line.strip('\n')
+            # Seperates the elements with a ","
             line = line.split(",")
+            # Add's all the elements read from file into a list
             viewmapall_list.append(line)
 
-        print(viewmapall_list)
-        new_list = sorted(viewmapall_list, key=lambda x: x[1])
-
+        #sets a new variable so data is not changed though its use in list modification
         stylelist_list = viewmapall_list
 
+        #Creating new list for each Style, to append all data into different lists.
         AUTOBHOP_list = []
         Sideways_list = []
         HalfSideways_list = []
@@ -232,8 +244,11 @@ def view_func(SearchMap):
         Slowmotion_list = []
         LowGravity_list = []
 
+        #Views all elements inside the list
         for i in stylelist_list:
-
+            #This Block of code is used to determine which style category each, time goes into.
+            #it does this through viewing the Style of each Line of data
+            # and appending that data into the designated list.
             if i[0] == "AUTO-BHOP   ":
                 AUTOBHOP_list.append(i)
 
@@ -267,6 +282,8 @@ def view_func(SearchMap):
             if i[0] == "Low-Gravity":
                 LowGravity_list.append(i)
 
+        #This block of code sorts all Style lists, based on the time which rest in the 1st index of each list.
+        #And sorts the data from lowest number to highest numbers as they are intergers.
         AUTOBHOP_list1 = sorted(AUTOBHOP_list, key=lambda x: x[1])
         Sideways_list1 = sorted(Sideways_list, key=lambda x: x[1])
         HalfSideways_list1 = sorted(HalfSideways_list, key=lambda x: x[1])
@@ -279,62 +296,83 @@ def view_func(SearchMap):
         Slowmotion_list1 = sorted(Slowmotion_list, key=lambda x: x[1])
         LowGravity_list1  = sorted(LowGravity_list, key=lambda x: x[1])
 
-
-
+        #This calls the function that displays data from this functions, to be shown in a layout. (Calling the GUI)
         mapdisplay(AUTOBHOP_list1,Sideways_list1,HalfSideways_list1,Donly_list1,AOnly_list1,WOnly_list1,ScrollNormal_list1,EasyScroll_list1,Stamina_list1,Slowmotion_list1,LowGravity_list1,searchresult)
 
+    #Else statement used to determine if an error is produced, shouldn't happen
     else:
         print("Entered Invalid")
 
 
-
+#This function is used to save data, when it is clicked within a listbox.
 def select_item(event):
+    #creates a update, to register when the box is clicked
     w = event.widget
+    #This sets the index for the selection item.
     index = int(w.curselection()[0])
+    #This sets the a variable when data is pressed, using the index of the selection and event widget.
     value = w.get(index)
+    #Sets the data to be displayed within entry box.
     SearchMap.set(value)
 
+    #This retreives the final element within a list, in this case used to go to the previous page as a "Back Button"
     x = len(back_list)
     y = 0
     if x > 1:
         y = (x - 1)
 
+    #Sets which page was previously on.
     page = back_list[y]
 
+    #Sets the different entry box based on which map was previously on.
     if page == "Delete":
+        #sets value of entry.
         MapDeleteSearch.set(value)
 
     elif page == "AddPage":
+        #sets value of entry
         MapAddSearch.set(value)
 
     elif page == "View":
+        #sets value of entry
         SearchMap.set(value)
 
-
-
+#This takes the user to the previous page, as a result of a button press.
+# It hides and displays pages based on which map had previously been visited.
 def backbutton():
+    #This is used to find the last index of the list.
     x = len(back_list)
     y = 0
     if x > 1:
        y = (x-1)
 
+    #takes the last entry on the list and sets it to a variable
     page = back_list.pop(y)
 
+    #Finds last position of the map, hides the page and displays the previous page.
     if page == "Delete":
+        #hides all elements on a page
         hide()
+        #Displays the Delete page
         delete()
 
     elif page == "AddPage":
+        # hides all elements on a page
         hide()
+        #Displays the Add Time page
         addpage()
 
     elif page == "View":
+        #hides all elements on a page
         hide()
+        #Diplays the View Page
         view()
 
 
-
+#Used to take data inputed on the "AddTime" page and input into a newly created file
+# aswell adding the map into maplist
 def AddFile(mapinput, styles, TimeAdd, statusSelect):
+    #retreiving all data from the Add Time Page. (Map name, Style, Time and Tick Rate)
     map = mapinput.get()
     style = styles.get()
     time = TimeAdd.get()
