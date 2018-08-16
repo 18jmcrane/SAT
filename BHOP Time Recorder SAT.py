@@ -377,18 +377,24 @@ def AddFile(mapinput, styles, TimeAdd, statusSelect):
     style = styles.get()
     time = TimeAdd.get()
     tickrate = statusSelect.get()
+    #sets a default value, to determine if error has occured.
     k=True
-    print(map)
 
+    #Looks at every element in a list to determine if thet're is duplicate of a map.
     for i in maplist_list:
         if i == map:
             k = False
 
+    #If there is not a duplication of maps, it will add the map into maplist.
     if k == True:
+        #appends the map to the list
         file = open("maplist", "a")
+        #writes map into the list(at the end)
         file.write(map+",\n")
         file.close()
 
+    #Creates a file, if there is no existing file already. Writes in data of Style,Time and Tickrate.
+    # seperating data with ",".
     fi = open('./maps/'+map, "a")
     fi.write(style)
     fi.write(","+time)
