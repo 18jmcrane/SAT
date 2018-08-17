@@ -15,7 +15,7 @@ allList = []
 
 #These List are used for preset selections, for dropdown boxes. A way to preseleect what the user can choose from.
 Style = ["AUTO-BHOP   ",
-         "Sideways",
+         "Sideways     ",
          "Half-Sideways",
          "D-Only","A-Only",
          "W-Only",
@@ -117,7 +117,7 @@ def PersonalBest(Styles1,AUTOBHOP_list1,Sideways_list1,HalfSideways_list1,Donly_
         listvariable = AUTOBHOP_list1
 
     # This is used to determine which data is displayed, based on which Style is given.
-    elif Style1 == "Sideways":
+    elif Style1 == "Sideways     ":
         WRstyle = Sideways_list1[0][0]
         WRtime =  Sideways_list1[0][1]
         WRtickrate = Sideways_list1[0][2]
@@ -252,7 +252,7 @@ def view_func(SearchMap):
             if i[0] == "AUTO-BHOP   ":
                 AUTOBHOP_list.append(i)
 
-            if i[0] == "Sideways":
+            if i[0] == "Sideways     ":
                 Sideways_list.append(i)
 
             if i[0] == "Half-Sideways":
@@ -402,6 +402,23 @@ def AddFile(mapinput, styles, TimeAdd, statusSelect):
     fi.close()
     return
 
+#This function allows for Searching Capabilities in the View Page.
+def Updatelist(SearchMap, listbox1):
+    #presets a default value for the Index counter
+    counter = 0
+    #Retrieves the data from the entry box
+    entryValue = str(SearchMap.get())
+    #Deletes all entries within the listbox
+    listbox1.delete(0, END)
+    for i in maplist_list:
+        #settings variable i to a element of the Maplist
+        i = str(maplist_list[counter])
+        counter += 1
+        #If there are letters inside the i variable
+        if entryValue in i:
+            #Inserts the values back into the listbox.
+            listbox1.insert(END, i)
+
 #This function is used to delete all data within the program, and have a fresh start.
 #It deletes all mapfiles and clears the wipelist.
 def ClearWipe(ClearWipeQuerry):
@@ -511,7 +528,7 @@ def deleteupdate(MapDeleteSearch, StyleSelect1):
             if i[0] == "AUTO-BHOP   ":
                 AUTOBHOP_list.append(i)
 
-            if i[0] == "Sideways":
+            if i[0] == "Sideways     ":
                 Sideways_list.append(i)
 
             if i[0] == "Half-Sideways":
@@ -547,7 +564,7 @@ def deleteupdate(MapDeleteSearch, StyleSelect1):
             AUTOBHOP_list1 = sorted(AUTOBHOP_list, key=lambda x: x[1])
             TimeList_list = AUTOBHOP_list1
 
-        if MapStyle == "Sideways":
+        if MapStyle == "Sideways     ":
             Sideways_list1 = sorted(Sideways_list, key=lambda x: x[1])
             TimeList_list = Sideways_list1
 
@@ -1243,7 +1260,7 @@ def view():
     # This hides all elements on the page
     hide()
     #WINDOW CONFIGURATION BLOCK
-    root.geometry('250x305')
+    root.geometry('250x325')
     root.rowconfigure(0, pad=2)
     root.rowconfigure(1, pad=3)
     root.rowconfigure(2, pad=3)
@@ -1301,6 +1318,14 @@ def view():
     for item in maplist_list:
         # insert each new item to the end of the listbox
         listbox1.insert('end', item)
+
+    Search_button = tk.Button(content, text="Search", command=lambda: Updatelist(SearchMap, listbox1), width=5)
+    # Actually displays the label in a designated position through the use of grid
+    Search_button.grid(row=2, column=0, padx=(32, 0))
+    # Used to add the grided term to a list, to then be used to remove it when another page is selected,
+    # through the use of "grid_remove"
+    allList.append(Search_button)
+
 
     # Used to add the grided term to a list, to then be used to remove it when another page is selected,
     # through the use of "grid_remove"
