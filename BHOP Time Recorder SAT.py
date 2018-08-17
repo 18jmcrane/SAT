@@ -45,10 +45,81 @@ Footer = tk.Frame(root, bg='white')
 gider = tk.Frame(root, bg="white")
 Lower = tk.Frame(root, bg="white")
 Bottom = tk.Frame(root, bg="white")
-
-
+##################################################################################################################
+#
+#                                      Complex Algorithm Function(MergeSort)
+#
 ##################################################################################################################
 
+#
+#
+#                               Funtion Called on line 636
+#
+#Merge sort function, recursively sorts 2 lists
+def Mergesort(listToSort):
+    # Initiate the list to return
+    sortedlist = []
+
+    # Check to see if the list is only a single item, if so return the single item list
+    if len(listToSort) < 2:
+        #returning Value as it lacks elements
+        return listToSort
+
+    # Setting up initial variable for splitting lists
+    #this will find the index of the list
+    middle = int(len(listToSort)/2)
+
+    #This will create a list, that roughly the first half of elements will be added to.
+    returnedList1 = Mergesort(listToSort[:middle])
+    # This will create a list, that roughly the Second half of elements will be added to.
+    returnedList2 = Mergesort(listToSort[middle:])
+
+    #This loop will run based on the total length of both lists, As it counts how many elements
+    # are remaining in each list till 0 as the elements are being popped out.
+    while (len(returnedList1) > 0) or (len(returnedList2) > 0):
+
+        #If both list don't have elements it will skip this block of code.
+        if len(returnedList1) > 0 and len(returnedList2) > 0:
+
+            #Pops the data, based on which interger is smaller
+            # it will add the data to the sorted list, as it is smaller. (As we are going from smallest to largest)
+            if returnedList1[0] > returnedList2[0]:
+                #Adding returnList2 index of 0 element to list
+                sortedlist.append(returnedList2[0])
+                # Removes the element off the list at Index 0
+                returnedList2.pop(0)
+
+            #If the 0 Index element of the returnList1 is smaller than the 0 Index of returnList2,
+            # it will add the data to the sorted list, as it is smaller. (As we are going from smallest to largest)
+            else:
+                # Adds the element to the sortedlist
+                sortedlist.append(returnedList1[0])
+                #Removes the element off the list at Index 0
+                returnedList1.pop(0)
+
+        #If length of returnedList2 is greater than 0 it will run block of code
+        #This takes every element from returnList2 and adds it to the sorted list, and
+        # removes the elements from the List, so the while loop will end then return the sorted list value.
+
+
+        elif len(returnedList2) > 0:
+            for i in returnedList2:
+                #Adds the element to the sortedlist
+                sortedlist.append(i)
+                # Removes the element off the list at Index 0
+                returnedList2.pop(0)
+
+        # This takes every element from returnList1 and adds it to the sorted list, and
+        # removes the elements from the List, so the while loop will end then return the sorted list value.
+
+        else:
+            for i in returnedList1:
+                # Adds the element to the sortedlist
+                sortedlist.append(i)
+                # Removes the element off the list at Index 0
+                returnedList1.pop(0)
+
+    return sortedlist
 ##################################################################################################################
 #
 #                                                    FUNTIONS
@@ -561,7 +632,8 @@ def deleteupdate(MapDeleteSearch, StyleSelect1):
         #This Block of code, sorts data depending on which MapStyle is selected,
         # aswell it sets the Time_List to the Style List therefore allowing the list to be shown in the GUI.
         if MapStyle == "AUTO-BHOP   ":
-            AUTOBHOP_list1 = sorted(AUTOBHOP_list, key=lambda x: x[1])
+            print(AUTOBHOP_list)
+            AUTOBHOP_list1 = Mergesort(AUTOBHOP_list)
             TimeList_list = AUTOBHOP_list1
 
         if MapStyle == "Sideways     ":
