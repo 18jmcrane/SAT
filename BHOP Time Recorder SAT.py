@@ -595,32 +595,47 @@ def deleteupdate(MapDeleteSearch, StyleSelect1):
         #This updates the delete DropdownBox and displays the Times, of which the user can choose to delete.
         TimeUpdate(TimeSelect_list, MapStyle, mapquery, TimeList_list)
 
+#This function is used to delete the MapFile selected by the user.
 def DeleteMap(MapDeleteSearch):
+    #Retrieves the map name the user wants to delete
     Fileinput = MapDeleteSearch.get()
+    #sets it in the correct format, so the file is in the right directory
     FileDelete = "maps/" + Fileinput
-    ## Try to delete the file ##
+    #Sets default variable as no error.
     error = False
     try:
+        #Attempts to delete the Map File
         os.remove(FileDelete)
-    except OSError as e:  ## if failed, report it back to the user ##
+        # if failed, report it back to the user
+    except OSError as e:
+        #sets the error variable, to return to the user.
         error = True
-        print("Error: %s - %s." % (e.filename, e.strerror))
 
+    # Opens up the mapfile
     f = open("maplist", "r+")
+    # reads all lines
     d = f.readlines()
-    print(d)
+    # seek index 0
     f.seek(0)
+    # For every element in d it will search for the line matching the MapName.
     for i in d:
         if i != Fileinput + "," + "\n":
+            # writes over the line deleting the line.
             f.write(i)
+    # Compressed file, shortening it
     f.truncate()
+    # closes the file so it can no longer be altered
     f.close()
+    #Returns the error value, to determine if a error has occured.
     return error
 
-
+    #Takes the user to the Home Page with the options of what the user wants to do.
 def home():
+    #Hides all elements within a page
     hide()
+    #Sets the default layout of the Window
     MainWindowLayout()
+    #Calls to the MainPage() function, displaying the Home page.
     MainPage()
 
 ##################################################################################################################
