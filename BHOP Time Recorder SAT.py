@@ -1,6 +1,7 @@
 from tkinter import *
 import tkinter as tk
 import os
+from time import sleep
 from operator import itemgetter
 ##################################################################################################################
 #All these Lists are used as a way to make it accessable globally, without using GLOBAL command or Classes.
@@ -125,6 +126,20 @@ def Mergesort(listToSort):
 #                                                    FUNTIONS
 #
 ##################################################################################################################
+
+def LoginTest(UsernameEntry, PasswordEntry):
+    UsernameTest = UsernameEntry.get()
+    PasswordTest = PasswordEntry.get()
+
+    if UsernameTest == "admin" and PasswordTest == "password":
+        hide()
+        MainWindowLayout()
+        MainPage()
+    else:
+        Laabel30 = Label(gider, text="Password or Username is Incorrect")
+        Laabel30.grid(row=0, column=0, padx=(10, 0))
+        allList.append(Laabel30)
+
 
 #This Funtion is used for the multiple page effect, this removes the Layout after each page change,
 # so spacings and Frames can be better adjusted giving the effect that its a different page
@@ -449,28 +464,49 @@ def AddFile(mapinput, styles, TimeAdd, statusSelect):
     time = TimeAdd.get()
     tickrate = statusSelect.get()
     #sets a default value, to determine if error has occured.
-    k=True
 
-    #Looks at every element in a list to determine if thet're is duplicate of a map.
-    for i in maplist_list:
-        if i == map:
-            k = False
+    if time == "":
+        Laabel29 = Label(gider, text="You have to enter your Time")
+        Laabel29.grid(row=0,column=0, padx=(25,0))
+        allList.append(Laabel29)
 
-    #If there is not a duplication of maps, it will add the map into maplist.
-    if k == True:
-        #appends the map to the list
-        file = open("maplist", "a")
-        #writes map into the list(at the end)
-        file.write(map+",\n")
-        file.close()
+    else:
+        if tickrate != 64 or tickrate != 100 or tickrate != 128:
+            hide()
+            addpage()
+            Laabel32 = Label(gider, text="Please Select a Tick Rate")
+            Laabel32.grid(row=0, column=0, padx=(35, 0))
+            allList.append(Laabel32)
+        else:
+            k=True
 
-    #Creates a file, if there is no existing file already. Writes in data of Style,Time and Tickrate.
-    # seperating data with ",".
-    fi = open('./maps/'+map, "a")
-    fi.write(style)
-    fi.write(","+time)
-    fi.write(","+tickrate+"\n")
-    fi.close()
+            #Looks at every element in a list to determine if thet're is duplicate of a map.
+            for i in maplist_list:
+                if i == map:
+                    k = False
+
+            #If there is not a duplication of maps, it will add the map into maplist.
+            if k == True:
+                #appends the map to the list
+                file = open("maplist", "a")
+                #writes map into the list(at the end)
+                file.write(map+",\n")
+                file.close()
+
+            #Creates a file, if there is no existing file already. Writes in data of Style,Time and Tickrate.
+            # seperating data with ",".
+            try:
+                fi = open('./maps/'+map, "a")
+                fi.write(style)
+                fi.write("," + time)
+                fi.write("," + tickrate + "\n")
+                fi.close()
+            except IsADirectoryError:
+                hide()
+                addpage()
+                Laabel31 = Label(gider, text="Please Enter a Map")
+                Laabel31.grid(row=0, column=0, padx=(60, 0))
+                allList.append(Laabel31)
     return
 
 #This function allows for Searching Capabilities in the View Page.
@@ -736,6 +772,51 @@ def home():
 #
 ##################################################################################################################
 
+
+def LoginScreen():
+    root.geometry('270x180')
+    root.columnconfigure(0, weight=1)
+    root.rowconfigure(0, pad=3)
+    root.rowconfigure(1, pad=10)
+    root.rowconfigure(2, pad=3)
+    root.rowconfigure(3, pad=3)
+
+    header.grid(row=0, sticky='news')
+    content.grid(row=1, sticky='news')
+    Footer.grid(row=2, sticky='news')
+    gider.grid(row=3, sticky='news')
+
+    title7 = Label(header, text="Login", fg="White", bg="grey", font="Verdana 17 bold", )
+    title7.grid(row=0,column=0, padx=(100,0))
+    allList.append(title7)
+
+    Label25 = Label(content, text="Username")
+    Label25.grid(row=0,column=0,pady=(10,10), padx=(10,0))
+    allList.append(Label25)
+
+    UsernameEntry = StringVar()
+    entry6 = Entry(content, textvariable=UsernameEntry, width=16)
+    # Actually displays the label in a designated position through the use of grid
+    entry6.grid(row=0, column=1, pady=(10, 0))
+    allList.append(entry6)
+
+    Label26 = Label(content, text="Password")
+    Label26.grid(row=1, column=0,pady=(10,0), padx=(10,0))
+    allList.append(Label26)
+
+    PasswordEntry = StringVar()
+    entry7 = Entry(content, textvariable=PasswordEntry, width=16)
+    # Actually displays the label in a designated position through the use of grid
+    entry7.grid(row=1, column=1, pady=(10, 0))
+    allList.append(entry7)
+
+    Login_button = tk.Button(Footer, text="Login", command=lambda: LoginTest(UsernameEntry, PasswordEntry), width=6)
+    # Actually displays the label in a designated position through the use of grid
+    Login_button.grid(row=0, column=0, padx=(154, 0), pady=(0, 0))
+    allList.append(Login_button)
+
+
+
 #This Funtion is used to display the Map details through the view funtion,
 # it is the GUI of the page and is called after
 # a listbox page where a map is selected.
@@ -971,7 +1052,7 @@ def addpage():
     hide()
 
     #WINDOW CONFIGURATION BLOCK
-    root.geometry('250x300')
+    root.geometry('250x325')
     root.columnconfigure(0, weight=1)
     root.rowconfigure(0, pad=3)
     root.rowconfigure(1, pad=10)
@@ -1769,10 +1850,11 @@ MapDeleteSearch = StringVar(root, value="")
 SearchMap = StringVar(root, value="")
 #Sets Variable Class for MapAddSearch
 MapAddSearch = StringVar(root, value="")
+LoginScreen()
 #Calls the Window Configuration
-MainWindowLayout()
+    #MainWindowLayout()
 #Calls the MainPage to display the Menu at the beginning
-MainPage()
+    #MainPage()
 #This makes it so, that the window page is static and cannot be changed
 root.resizable(width=False, height=False)
 root.mainloop()
