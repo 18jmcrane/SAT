@@ -472,37 +472,34 @@ def AddFile(mapinput, styles, TimeAdd, statusSelect):
     #sets a default value, to determine if error has occured.
 
     if time == "":
+        hide()
+        addpage()
         Laabel29 = Label(gider, text="You have to enter your Time")
         Laabel29.grid(row=0,column=0, padx=(25,0))
         allList.append(Laabel29)
 
     else:
-        if tickrate != 64 or tickrate != 100 or tickrate != 128:
-            hide()
-            addpage()
-            Laabel32 = Label(gider, text="Please Select a Tick Rate")
-            Laabel32.grid(row=0, column=0, padx=(35, 0))
-            allList.append(Laabel32)
-        else:
-            k=True
+        print(tickrate)
+        if tickrate == "64" or tickrate == "100" or tickrate == "128":
+            k = True
 
-            #Looks at every element in a list to determine if thet're is duplicate of a map.
+            # Looks at every element in a list to determine if thet're is duplicate of a map.
             for i in maplist_list:
                 if i == map:
                     k = False
 
-            #If there is not a duplication of maps, it will add the map into maplist.
+            # If there is not a duplication of maps, it will add the map into maplist.
             if k == True:
-                #appends the map to the list
+                # appends the map to the list
                 file = open("maplist", "a")
-                #writes map into the list(at the end)
-                file.write(map+",\n")
+                # writes map into the list(at the end)
+                file.write(map + ",\n")
                 file.close()
 
-            #Creates a file, if there is no existing file already. Writes in data of Style,Time and Tickrate.
+            # Creates a file, if there is no existing file already. Writes in data of Style,Time and Tickrate.
             # seperating data with ",".
             try:
-                fi = open('./maps/'+map, "a")
+                fi = open('./maps/' + map, "a")
                 fi.write(style)
                 fi.write("," + time)
                 fi.write("," + tickrate + "\n")
@@ -513,6 +510,14 @@ def AddFile(mapinput, styles, TimeAdd, statusSelect):
                 Laabel31 = Label(gider, text="Please Enter a Map")
                 Laabel31.grid(row=0, column=0, padx=(60, 0))
                 allList.append(Laabel31)
+        else:
+            hide()
+            print("error")
+            addpage()
+            Laabel32 = Label(gider, text="Please Select a Tick Rate")
+            Laabel32.grid(row=0, column=0, padx=(35, 0))
+            allList.append(Laabel32)
+
     return
 
 #This function allows for Searching Capabilities in the View Page.
