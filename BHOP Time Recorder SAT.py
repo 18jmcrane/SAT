@@ -467,15 +467,18 @@ def AddFile(mapinput, styles, TimeAdd, statusSelect):
     #retreiving all data from the Add Time Page. (Map name, Style, Time and Tick Rate)
     map = mapinput.get()
     style = styles.get()
-    time = TimeAdd.get()
+    try:
+        time = str(TimeAdd.get())
+    except:
+        time = ""
     tickrate = statusSelect.get()
     #sets a default value, to determine if error has occured.
 
     if time == "":
         hide()
         addpage()
-        Laabel29 = Label(gider, text="You have to enter your Time")
-        Laabel29.grid(row=0,column=0, padx=(25,0))
+        Laabel29 = Label(gider, text="Invalid Time Input")
+        Laabel29.grid(row=0,column=0, padx=(60,0))
         allList.append(Laabel29)
 
     else:
@@ -1135,7 +1138,7 @@ def addpage():
     allList.append(DropdownStyle)
 
     # Assigning Variable Class
-    TimeAdd = StringVar()
+    TimeAdd = DoubleVar()
     # Assigning a variable a Label tkinter Operation
     # Displaying Text of "TIME:"
     Label9 = Label(content, text="TIME:", font="Arial 14 bold")
