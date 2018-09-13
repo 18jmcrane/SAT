@@ -63,6 +63,8 @@ Bottom = tk.Frame(root, bg="white")
 #                               Funtion Called on line 636
 #
 #Merge sort function, recursively sorts 2 lists
+
+
 def Mergesort(listToSort):
     # Initiate the list to return
     sortedlist = []
@@ -393,7 +395,11 @@ def view_func(SearchMap):
 
     #Else statement used to determine if an error is produced, shouldn't happen
     else:
-        print("Entered Invalid")
+        hide()
+        view()
+        Laabel33 = Label(Lower, text="Invalid Map Input")
+        Laabel33.grid(row=0, column=0, padx=(60, 0))
+        allList.append(Laabel33)
 
 
 #This function is used to save data, when it is clicked within a listbox.
@@ -572,26 +578,37 @@ def DeleteLine(TimeSelect, MapStyle, mapquery, TimeList_list):
     #Gets the value from the input
     Timechoice = TimeSelect.get()
 
+    if Timechoice == "Select Time":
+        hide()
+        delete()
+
+
+
     #Views all elements inside the TimeList to retreive the tickrate of the time.
     for i in TimeList_list:
         if MapStyle == i[0] and Timechoice == i[1]:
             deletetickrate = i[2]
 
     #Opens up the mapfile
-    f = open('./maps/' + MapName, "r+")
-    #reads all lines
-    d = f.readlines()
-    # seek index 0
-    f.seek(0)
-    #For every element in d it will search for the line matching the MapStyle,Timechoice and Deletetickrate.
-    for i in d:
-        if i != MapStyle + "," + Timechoice + "," + deletetickrate + "\n":
-            #writes over the line deleting the line.
-            f.write(i)
-    #Compressed file, shortening it
-    f.truncate()
-    #closes the file so it can no longer be altered
-    f.close()
+    try:
+        f = open('./maps/' + MapName, "r+")
+
+        #reads all lines
+        d = f.readlines()
+        # seek index 0
+        f.seek(0)
+        #For every element in d it will search for the line matching the MapStyle,Timechoice and Deletetickrate.
+        for i in d:
+            if i != MapStyle + "," + Timechoice + "," + deletetickrate + "\n":
+                #writes over the line deleting the line.
+                f.write(i)
+        #Compressed file, shortening it
+        f.truncate()
+        #closes the file so it can no longer be altered
+        f.close()
+
+    except IsADirectoryError:
+        DeleteError.set("    You need to Select a Time")
 
 #This function is used to update the GUI with data, so the user can select which data they want to delete.
 def deleteupdate(MapDeleteSearch, StyleSelect1):
@@ -1427,16 +1444,17 @@ def view():
     # This hides all elements on the page
     hide()
     #WINDOW CONFIGURATION BLOCK
-    root.geometry('250x325')
+    root.geometry('250x350')
     root.rowconfigure(0, pad=2)
     root.rowconfigure(1, pad=3)
     root.rowconfigure(2, pad=3)
     root.rowconfigure(3, pad=3)
+    root.rowconfigure(4, pad=3)
     header.grid(row=0, sticky='news')
     content.grid(row=1, sticky='news')
     Footer.grid(row=2, sticky='news')
     gider.grid(row=3, sticky='news')
-
+    Lower.grid(row=4, sticky='news')
 ##############################################
 
     # Creates the Title or header at the top of the page. With a grey background and a font of "Verdana 17 bold".
@@ -1617,14 +1635,16 @@ def delete():
     hide()
 
     # WINDOW CONFIGURATION BLOCK
-    root.geometry('250x330')
+    root.geometry('250x360')
     root.columnconfigure(0, weight=1)
     root.rowconfigure(0, pad=1)
     root.rowconfigure(1, pad=2)
     root.rowconfigure(2, pad=1)
+    root.rowconfigure(3, pad=1)
     header.grid(row=0, sticky='news')
     content.grid(row=1, sticky='news')
     Footer.grid(row=2, sticky='news')
+    gider.grid(row=3, sticky='news')
 
 ##############################################
 
@@ -1758,6 +1778,10 @@ def TimeUpdate(TimeSelect_list, MapStyle, mapquery, TimeList_list):
     # through the use of "grid_remove"
     allList.append(Home_button4)
 
+    Laabel36 = Label(Footer, textvariable=DeleteError)
+    Laabel36.grid(row=0, column=0, padx=(20, 0))
+    allList.append(Laabel36)
+
     # Backlist is used for the back button, to detect what map was previously pressed.
     #This adds it to that list to know which map had been previously visited being Delete Map.
     back_list.append("Delete")
@@ -1774,11 +1798,9 @@ def maplist():
     root.rowconfigure(0, pad=1)
     root.rowconfigure(1, pad=2)
     root.rowconfigure(2, pad=1)
-    root.rowconfigure(3, pad=1)
     header.grid(row=0, sticky='news')
     content.grid(row=1, sticky='news')
     Footer.grid(row=2, sticky='news')
-    gider.grid(row=3, sticky='news')
 
 ##############################################
 
@@ -1865,6 +1887,7 @@ SearchMap = StringVar(root, value="")
 #Sets Variable Class for MapAddSearch
 MapAddSearch = StringVar(root, value="")
 LoginScreen()
+DeleteError = StringVar(root, value ="Select a Map and press Confirm.")
 #Calls the Window Configuration
     #MainWindowLayout()
 #Calls the MainPage to display the Menu at the beginning
