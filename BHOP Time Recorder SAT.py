@@ -203,91 +203,100 @@ def PersonalBest(Styles1,AUTOBHOP_list1,Sideways_list1,HalfSideways_list1,Donly_
     #This retreives the Style, that the user had selected
     Style1 = Styles1.get()
 
-    #This is used to determine which data is displayed, based on which Style is given.
-    if Style1 == "AUTO-BHOP   ":
-        WRstyle = AUTOBHOP_list1[0][0]
-        WRtime =  AUTOBHOP_list1[0][1]
-        WRtickrate = AUTOBHOP_list1[0][2]
-        listvariable = AUTOBHOP_list1
+    try:
 
-    # This is used to determine which data is displayed, based on which Style is given.
-    elif Style1 == "Sideways     ":
-        WRstyle = Sideways_list1[0][0]
-        WRtime =  Sideways_list1[0][1]
-        WRtickrate = Sideways_list1[0][2]
-        listvariable = Sideways_list1
+        #This is used to determine which data is displayed, based on which Style is given.
+        if Style1 == "AUTO-BHOP   ":
+            WRstyle = AUTOBHOP_list1[0][0]
+            WRtime =  AUTOBHOP_list1[0][1]
+            WRtickrate = AUTOBHOP_list1[0][2]
+            listvariable = AUTOBHOP_list1
 
-    # This is used to determine which data is displayed, based on which Style is given.
-    elif Style1 == "Half-Sideway":
-        WRstyle = HalfSideways_list1[0][0]
-        WRtime = HalfSideways_list1[0][1]
-        WRtickrate = HalfSideways_list1[0][2]
-        listvariable = HalfSideways_list1
+        # This is used to determine which data is displayed, based on which Style is given.
+        elif Style1 == "Sideways     ":
+            WRstyle = Sideways_list1[0][0]
+            WRtime =  Sideways_list1[0][1]
+            WRtickrate = Sideways_list1[0][2]
+            listvariable = Sideways_list1
 
-    # This is used to determine which data is displayed, based on which Style is given.
-    elif Style1 == "D-Only":
-        WRstyle = Donly_list1[0][0]
-        WRtime = Donly_list1[0][1]
-        WRtickrate = Donly_list1[0][2]
-        listvariable = Donly_list1
+        # This is used to determine which data is displayed, based on which Style is given.
+        elif Style1 == "Half-Sideways":
+            WRstyle = HalfSideways_list1[0][0]
+            WRtime = HalfSideways_list1[0][1]
+            WRtickrate = HalfSideways_list1[0][2]
+            listvariable = HalfSideways_list1
 
-    # This is used to determine which data is displayed, based on which Style is given.
-    elif Style1 == "A-Only":
-        WRstyle = AOnly_list1[0][0]
-        WRtime = AOnly_list1[0][1]
-        WRtickrate = AOnly_list1[0][2]
-        listvariable = AOnly_list1
+        # This is used to determine which data is displayed, based on which Style is given.
+        elif Style1 == "D-Only":
+            WRstyle = Donly_list1[0][0]
+            WRtime = Donly_list1[0][1]
+            WRtickrate = Donly_list1[0][2]
+            listvariable = Donly_list1
 
-    # This is used to determine which data is displayed, based on which Style is given.
-    elif Style1 == "W-Only":
-        WRstyle = WOnly_list1[0][0]
-        WRtime = WOnly_list1[0][1]
-        WRtickrate = WOnly_list1[0][2]
-        listvariable = WOnly_list1
+        # This is used to determine which data is displayed, based on which Style is given.
+        elif Style1 == "A-Only":
+            WRstyle = AOnly_list1[0][0]
+            WRtime = AOnly_list1[0][1]
+            WRtickrate = AOnly_list1[0][2]
+            listvariable = AOnly_list1
 
-    # This is used to determine which data is displayed, based on which Style is given.
-    elif Style1 == "Scroll/Normal":
-        WRstyle = ScrollNormal_list1[0][0]
-        WRtime = ScrollNormal_list1[0][1]
-        WRtickrate = ScrollNormal_list1[0][2]
-        listvariable = ScrollNormal_list1
+        # This is used to determine which data is displayed, based on which Style is given.
+        elif Style1 == "W-Only":
+            WRstyle = WOnly_list1[0][0]
+            WRtime = WOnly_list1[0][1]
+            WRtickrate = WOnly_list1[0][2]
+            listvariable = WOnly_list1
 
-    # This is used to determine which data is displayed, based on which Style is given.
-    elif Style1 == "Easy Scroll":
-        WRstyle = EasyScroll_list1[0][0]
-        WRtime = EasyScroll_list1[0][1]
-        WRtickrate = EasyScroll_list1[0][2]
-        listvariable = EasyScroll_list1
+        # This is used to determine which data is displayed, based on which Style is given.
+        elif Style1 == "Scroll/Normal":
+            WRstyle = ScrollNormal_list1[0][0]
+            WRtime = ScrollNormal_list1[0][1]
+            WRtickrate = ScrollNormal_list1[0][2]
+            listvariable = ScrollNormal_list1
 
-    # This is used to determine which data is displayed, based on which Style is given.
-    elif Style1 == "Stamina":
-        WRstyle = Stamina_list1[0][0]
-        WRtime = Stamina_list1[0][1]
-        WRtickrate = Stamina_list1[0][2]
-        listvariable = Stamina_list1
+        # This is used to determine which data is displayed, based on which Style is given.
+        elif Style1 == "Easy Scroll":
+            WRstyle = EasyScroll_list1[0][0]
+            WRtime = EasyScroll_list1[0][1]
+            WRtickrate = EasyScroll_list1[0][2]
+            listvariable = EasyScroll_list1
 
-    # This is used to determine which data is displayed, based on which Style is given.
-    elif Style1 == "Slowmotion":
-        WRstyle = Slowmotion_list1[0][0]
-        WRtime = Slowmotion_list1[0][1]
-        WRtickrate = Slowmotion_list1[0][2]
-        listvariable = Slowmotion_list1
+        # This is used to determine which data is displayed, based on which Style is given.
+        elif Style1 == "Stamina":
+            WRstyle = Stamina_list1[0][0]
+            WRtime = Stamina_list1[0][1]
+            WRtickrate = Stamina_list1[0][2]
+            listvariable = Stamina_list1
 
-    # This is used to determine which data is displayed, based on which Style is given.
-    elif Style1 == "Low-Gravity":
-        WRstyle = LowGravity_list1[0][0]
-        WRtime = LowGravity_list1[0][1]
-        WRtickrate = LowGravity_list1[0][2]
-        listvariable = LowGravity_list1
+        # This is used to determine which data is displayed, based on which Style is given.
+        elif Style1 == "Slowmotion":
+            WRstyle = Slowmotion_list1[0][0]
+            WRtime = Slowmotion_list1[0][1]
+            WRtickrate = Slowmotion_list1[0][2]
+            listvariable = Slowmotion_list1
 
-    #Adds the data that has been set to a list, to be used to be called upon to display.
-    WRstyle_list.append(WRstyle)
-    WRtime_list.append(WRtime)
-    WRtickrate_list.append(WRtickrate)
+        # This is used to determine which data is displayed, based on which Style is given.
+        elif Style1 == "Low-Gravity":
+            WRstyle = LowGravity_list1[0][0]
+            WRtime = LowGravity_list1[0][1]
+            WRtickrate = LowGravity_list1[0][2]
+            listvariable = LowGravity_list1
 
-    #This Function updates the Personal Best Times with the data used from within this function
-    WRupdate(WRstyle_list, WRtime_list, WRtickrate_list, WRlabel1, WRlabel2, WRlabel3)
-    timelist(listvariable)
+
+        #Adds the data that has been set to a list, to be used to be called upon to display.
+        WRstyle_list.append(WRstyle)
+        WRtime_list.append(WRtime)
+        WRtickrate_list.append(WRtickrate)
+
+        #This Function updates the Personal Best Times with the data used from within this function
+        WRupdate(WRstyle_list, WRtime_list, WRtickrate_list, WRlabel1, WRlabel2, WRlabel3)
+        timelist(listvariable)
+
+    except IndexError:
+
+        Laabel37 = Label(Bottom, text="No Time saved in Selected Style")
+        Laabel37.grid(row=11, column=0, padx=(0, 0))
+        allList.append(Laabel37)
 
 
 #This Function, extracts the data from the files and sorts the data into different list, based on Styles.
@@ -856,7 +865,7 @@ def mapdisplay(AUTOBHOP_list1,Sideways_list1,HalfSideways_list1,Donly_list1,AOnl
     #Below shows the configuration of the size of the Window and each of the frames(header,content,Footer,gider,Lower,Bottom)
     # and determined order through the rowconfigure, size through the "pad" command.
     #This is the "Window configuration block"
-    root.geometry('270x420')
+    root.geometry('270x430')
     root.columnconfigure(0, weight=1)
     root.rowconfigure(0, pad=3)
     root.rowconfigure(1, pad=10)
